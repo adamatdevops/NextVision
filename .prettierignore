@@ -3,7 +3,15 @@ api/datastore/test_data
 
 ## [START] Keep in sync with .gitignore
 # Dependencies
-node_modules
+# Build artifacts
+.next/
+.turbo/
+_next/
+__tmp__/
+dist/
+node_modules/
+target/
+compiled/
 
 # Production
 build/
@@ -52,3 +60,12 @@ test/assets/
 docs/api
 docs/browsers-api
 versioned_*/
+
+.editorconfig
+
+test/**/out/**
+test/development/basic/hmr/components/parse-error.js
+
+build/
+lib/
+bin/
