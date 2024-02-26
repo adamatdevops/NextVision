@@ -1,8 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// Importing Components
+// import { Home } from './components/Home/Home';
+// import { ColorSchemeToggle } from './components/ColorSchemeToggle/ColorSchemeToggle';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

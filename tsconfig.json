@@ -2,11 +2,11 @@
 	"compilerOptions": {
 		/* Basic Options */
 		"incremental": true,                   /* Enable incremental compilation */
-		"target": "ES5" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
+		"target": "ES6" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"allowJs": true,
 		// "checkJs": true /* Report errors in .js files. */,
-		// "declaration": true,                   /* Generates corresponding '.d.ts' file. */
+		"declaration": true,                   /* Generates corresponding '.d.ts' file. */
 		// "declarationMap": true,                /* Generates a sourcemap for each
 		// corresponding '.d.ts' file. */
 		"sourceMap": true /* Generates corresponding '.map' file. */,
@@ -21,7 +21,6 @@
 		"removeComments": true /* Do not emit comments to output. */,
 		// "importHelpers": true,                 /* Import emit helpers from 'tslib'. */
 		// "downlevelIteration": true,            /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
-		"isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
 		"skipLibCheck": true,
 		"allowSyntheticDefaultImports": true,
 		"module": "esnext" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
@@ -29,7 +28,7 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "preserve" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
+		"jsx": "react" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
 
 		/* Strict Type-Checking Options */
 		"strict": true /* Enable all strict type-checking options. */,
@@ -77,6 +76,13 @@
 		/* Advanced Options */
 		"forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
 	},
-	"include": ["src", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+	"include": [
+    "src/**/*.{ts,js}x",
+    "./src/**/*",
+    "next-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
 }

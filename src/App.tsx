@@ -1,49 +1,36 @@
 import React from 'react';
-import { AppShell, Navbar, Header, MediaQuery, Burger, ActionIcon, Group, Skeleton } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-// TODO: Check whats the best icons for the dashboard
+// import { useState } from 'react';
+import { Button, Paper, Text } from '@mantine/core';
+// import { MantineProvider, Text, AppShell, Navbar, Header, MediaQuery, Burger, ActionIcon, Group, Skeleton, Button } from '@mantine/core';
+// import { useDisclosure } from '@mantine/hooks';
 // import { MantineLogo } from '@mantinex/mantine-logo';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
-import { SunIcon } from '@modulz/radix-icons';
-import { MantineProvider, Text } from '@mantine/core';
-import { createStyles, useMantineTheme } from '@mantine/core';
-import { useState } from 'react';
+// Icons
+// import { SunIcon } from '@modulz/radix-icons';
+// Theme
+//import { createStyles, useMantineTheme } from '@mantine/core';
+// Utils
+//import { MemoryRouter, NavLink, Route, Routes } from 'react-router-dom';
 
-import { MemoryRouter, NavLink, Route, Routes } from 'react-router-dom';
+// Components
+//import home from './home'
+//import SOME_ACTION from './utilities';
 
-import { invoke } from '@tauri-apps/api/tauri';
 
-import Home from './Home'
-import Settings from './Settings';
+function App() {
 
-export function App() {
-	const [opened, { toggle }] = useDisclosure();
-
-  return (
-    <AppShell
-      header={{ height: 60 }}
-      navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !opened } }}
-      padding="md"
-    >
-      <AppShell.Header>
-        <Group h="100%" px="md">
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          <MantineLogo size={30} />
-        </Group>
-      </AppShell.Header>
-      <AppShell.Navbar p="md">
-        Navbar
-        {Array(15)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} h={28} mt="sm" animate={false} />
-          ))}
-      </AppShell.Navbar>
-      <AppShell.Main>Main</AppShell.Main>
-    </AppShell>
-	);
+	return (
+		<div className="App">
+			<Paper>
+				<Text>THIS IS A SIMPLE TEXT TAG</Text>
+				<Text>THIS IS A ANOTHER SIMPLE TEXT TAG</Text>
+			</Paper>
+			<Button>Hello</Button>
+			<Button>Hello</Button>
+		</div>
+  );
 }
 
-// export default App;
+export default App;
