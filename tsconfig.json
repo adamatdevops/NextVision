@@ -2,10 +2,10 @@
 	"compilerOptions": {
 		/* Basic Options */
 		"incremental": true,                   /* Enable incremental compilation */
-		"target": "ES6" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
+		"target": "es2022", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"allowJs": true,
-		// "checkJs": true /* Report errors in .js files. */,
+		"checkJs": true /* Report errors in .js files. */,
 		"declaration": true,                   /* Generates corresponding '.d.ts' file. */
 		// "declarationMap": true,                /* Generates a sourcemap for each
 		// corresponding '.d.ts' file. */
@@ -32,8 +32,8 @@
 
 		/* Strict Type-Checking Options */
 		"strict": true /* Enable all strict type-checking options. */,
-		// "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
-		// "strictNullChecks": true,              /* Enable strict null checks. */
+		"noImplicitAny": false,                 /* Raise error on expressions and declarations with an implied 'any' type. */
+		"strictNullChecks": false,              /* Enable strict null checks. */
 		// "strictFunctionTypes": true,           /* Enable strict checking of function types. */
 		// "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
 		// "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
@@ -83,6 +83,14 @@
   ],
   "exclude": [
     "node_modules",
-    "build"
+    "build",
+    "coverage/",
+    "test*.*",
+    "jest.config.js",
+     "bin/",
+    "dist*/",
+    "docs/",
+    "scripts/",
+    "tests/"
   ]
 }
