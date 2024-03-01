@@ -3,20 +3,24 @@
 
 // Configs
 import airbnbConfig from "airbnb";
-import airbnbBaseConfig from "airbnb-base";
 import airbnbTypscriptPrettierConfig from "eslint-config-airbnb-typescript-prettier";
-import eslintConfig from "eslint/js";
+import eslintConfig from "@eslint/js";
 import eslintConfigAirbnbConfig from "eslint-config-airbnb";
 import eslintConfigAirbnbBaseConfig from "eslint-config-airbnb-base";
-import eslintConfigPrettierConfig from "eslint-config-prettier";
 import eslintConfigAirbnbTypescriptConfig from "eslint-config-airbnb-typescript";
 import eslintConfigAirbnbTypescriptPrettierConfig from "eslint-config-airbnb-typescript-prettier";
+import eslintConfigPrettierConfig from "eslint-config-prettier";
+"eslint-config-airbnb-typescript-prettier";
 import jestConfig from "jest";
 import reactAppConfig from "react-app";
-import reactAppJestConfig from "react-app/jest";
-// TODO: Check if both parsers needs to be used for different rules
+/* typescript-eslint vs @typescript-eslint/parser
+* Parser: '@typescript-eslint/parser' tells ESLint to use the @typescript-eslint/parser package you installed to parse your source files.
+* This is required, or else ESLint will throw errors as it tries to parse TypeScript code as if it were regular JavaScript.
+* Plugins: ['@typescript-eslint'] tells ESLint to load the @typescript-eslint/eslint-plugin package as a plugin.
+This allows you to use typescript-eslint's rules within your codebase. */
+
 import tseslint from "typescript-eslint"; /* jsxnote: modern ts-eslint parser */
-import parserTs from "@typescript-eslint/parser"; /* jsxnote: standard ts-eslint parser */
+import * as parserTypeScript from "@typescript-eslint/parser"; /* jsxnote: standard ts-eslint parser */
 
 // Plugins
 import eslintPluginEslintComments from "eslint-plugin-eslint-comments";
@@ -26,6 +30,7 @@ import eslintPluginJSXA11y from "eslint-plugin-jsx-a11y";
 import eslintPluginPromise from "eslint-plugin-promise";
 import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginReactRefresh  from "eslint-plugin-react-refresh";
 import eslintPluginRegex from "eslint-plugin-regex";
 import eslintPluginPrettier from "eslint-plugin-prettier";
 import eslintPluginUnusedImports from "eslint-plugin-unused-imports";
@@ -33,7 +38,6 @@ import stylistic from "@stylistic/eslint-plugin";
 import stylisticJs from "@stylistic/eslint-plugin-js";
 import stylisticTs from "@stylistic/eslint-plugin-ts";
 import stylisticJsx from "@stylistic/eslint-plugin-jsx";
-import stylisticTsx from "@stylistic/eslint-plugin-tsx";
 import TypescriptEslintEslintPlugin from "@typescript-eslint/eslint-plugin";
 // Resolvers
 // FIXME: needs to migrated from eslint legacy
@@ -46,17 +50,15 @@ import TypescriptEslintEslintPlugin from "@typescript-eslint/eslint-plugin";
 export default tseslint.config(
 	/* Config */
 	airbnbConfig.configs.recommended,
-	airbnbBaseConfig.configs.recommended,
 	airbnbTypscriptPrettierConfig.configs.recommended,
 	eslintConfig.configs.recommended,
 	eslintConfigAirbnbConfig.configs.recommended,
 	eslintConfigAirbnbBaseConfig.configs.recommended,
-	eslintConfigPrettierConfig.configs.recommended,
 	eslintConfigAirbnbTypescriptConfig.configs.recommended,
 	eslintConfigAirbnbTypescriptPrettierConfig.configs.recommended,
+	eslintConfigPrettierConfig.configs.recommended,
 	jestConfig.configs.recommended,
 	reactAppConfig.configs.recommended,
-	reactAppJestConfig.configs.recommended,
 
 	...tseslint.configs.recommendedTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
@@ -90,14 +92,10 @@ export default tseslint.config(
 		languageOptions: {
 			// Allows for the parsing of modern ECMAScript features
 			ecmaVersion: 2022,
-			// tseslint.parser
-			parser: tseslint.parser,
+			parser: parserTypeScript, // tseslint.parser,
 			parserOptions: {
-				// TODO: Define root dir for tsconfig.json
-				// NOTE: import.meta.dirname is only present for ESM files in Node.js
-				// >=20.11.0 / >= 21.2.0.
-				// tsconfigRootDir
-				// tsconfigRootDir: import.meta.dirname,
+				// NOTE: import.meta.dirname is only present for ESM files in Node.js >=20.11.0 / >= 21.2.0.
+				tsconfigRootDir: import.meta.dirname,
 				ecmaFeatures:  {
 					jsx: true,
 				},
@@ -123,14 +121,6 @@ export default tseslint.config(
 			"eslint-plugin-react-hooks": eslintPluginReactHooks.plugin,
 			"eslint-plugin-regex": eslintPluginRegex.plugin,
 			"eslint-plugin-unused-imports": eslintPluginUnusedImports.plugin,
-			"@stylistic": stylistic.plugin,
-			"@stylistic/eslint-plugin-js": stylisticJs.plugin,
-			"@stylistic/eslint-plugin-ts": stylisticTs.plugin,
-			"@stylistic/eslint-plugin-jsx": stylisticJsx.plugin,
-			"@stylistic/eslint-plugin-tsx": stylisticTsx.plugin,
-			"@typescript-eslint/eslint-plugin": TypescriptEslintEslintPlugin.plugin,
-			"@typescript-eslint": tseslint.plugin,
-			"@typescript-eslint/parser": parserTs.plugin,
 		},
 
 		rules: {
@@ -200,7 +190,7 @@ export default tseslint.config(
   		"no-constructor-return": ["error"],
   		"no-continue": ["error"],
   		"no-control-regex": ["error"],
-  		"no-debugger": ["error"],
+  		"no-debugger": ["off"],
   		"no-delete-var": ["error"],
   		"no-div-regex": ["error"],
   		"no-dupe-args": ["error"],
@@ -312,7 +302,6 @@ export default tseslint.config(
   		"no-unused-expressions": ["error"],
   		"no-unused-labels": ["error"],
   		"no-unused-private-class-members": ["error"],
-  		// "no-unused-vars": ["error", {args: "none"}],
   		"no-use-before-define": ["error"],
   		"no-useless-backreference": ["error"],
   		"no-useless-call": ["warn"],
@@ -343,8 +332,6 @@ export default tseslint.config(
       "prefer-rest-params": ["error"],
       "prefer-spread": ["error"],
       "prefer-template": ["error"],
-			// TODO: Define prettier rules
-			// prettier/prettier: "error",
 			"quotes": ["error", "single", { avoidEscape: true, allowTemplateLiterals: true }],
 			"space-before-blocks": ["error"],
       "radix": ["error"],
@@ -395,11 +382,27 @@ export default tseslint.config(
   			}
   		],
 			"import/no-unresolved": ["error"],
-
-			/* Stylistic */
+		},
+	},
+	/* Stylistic */
+	{
+		plugins: {
+			"@stylistic": stylistic,
+			"@stylistic/eslint-plugin-js": stylisticJs,
+			"@stylistic/eslint-plugin-ts": stylisticTs,
+			"@stylistic/eslint-plugin-jsx": stylisticJsx,
+			"@typescript-eslint/eslint-plugin": TypescriptEslintEslintPlugin,
+			"@typescript-eslint": tseslint.plugin,
+		},
+		rules: {
 			"@stylistic/semi": "error",
-
-			/* typescript-eslint/eslint-plugin */
+		},
+	},
+	// TODO: Organize Plugins & Rules
+	/* typescript-eslint/eslint-plugin */
+	{
+		plugins: {},
+		rules: {
 			// recommendedTypeCheck
 			"@typescript-eslint/await-thenable": "error",
     	"@typescript-eslint/ban-ts-comment": "error",
@@ -435,7 +438,7 @@ export default tseslint.config(
     	"no-unused-vars": "off",
     	"@typescript-eslint/no-unused-vars": "error",
     	"@typescript-eslint/no-var-requires": "error",
-    	"@typescript-eslint/prefer-as-const": "error",
+    	"@typescript-eslint/prefer-as-const": "warn",
     	"require-await": "off",
     	"@typescript-eslint/require-await": "error",
     	"@typescript-eslint/restrict-plus-operands": "error",
@@ -467,6 +470,21 @@ export default tseslint.config(
     	"@typescript-eslint/prefer-string-starts-ends-with": "error",
 		},
 	},
+	// eslint-plugin-prettier
+	{
+		plugins: {},
+		rules: {
+			...eslintConfigPrettierConfig.rules,
+			// FIXME: Fix This
+			...eslintPluginPrettier.configs.recommended.rules,
+			"prettier/prettier": [
+        	"error",
+        	{
+        		endOfLine: "auto"
+        	}
+      ],
+		},
+	},
 	{
 		// TODO: Still Needs fine tuning
     files: [
@@ -477,7 +495,9 @@ export default tseslint.config(
       "tests/dts/unit/**/*.js",
       "scripts/release/__tests__/**/*.spec.js",
     ],
-    plugins: { jest: eslintPluginJest },
+    plugins: {
+			jest: eslintPluginJest
+		},
     languageOptions: {
       globals: eslintPluginJest.environments.globals.globals,
     },
@@ -503,4 +523,12 @@ export default tseslint.config(
 		files: ['*.js'],
 		...tseslint.configs.disableTypeChecked,
 	},
+	{
+    files: ["**/*.d.ts"],
+    rules: {
+      "eslint-comments/no-unlimited-disable": "off",
+      "import/no-duplicates": "off",
+      "unused-imports/no-unused-vars": "off"
+    },
+  },
 );
