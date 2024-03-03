@@ -3,29 +3,32 @@
 
 // Configs
 import airbnbConfig from "airbnb";
-import airbnbTypscriptPrettierConfig from "eslint-config-airbnb-typescript-prettier";
-import eslintConfig from "@eslint/js";
+import js from "@eslint/js";
 import eslintConfigAirbnbConfig from "eslint-config-airbnb";
-import eslintConfigAirbnbBaseConfig from "eslint-config-airbnb-base";
 import eslintConfigAirbnbTypescriptConfig from "eslint-config-airbnb-typescript";
 import eslintConfigAirbnbTypescriptPrettierConfig from "eslint-config-airbnb-typescript-prettier";
 import eslintConfigPrettierConfig from "eslint-config-prettier";
-"eslint-config-airbnb-typescript-prettier";
-import jestConfig from "jest";
-import reactAppConfig from "react-app";
-/* typescript-eslint vs @typescript-eslint/parser
-* Parser: '@typescript-eslint/parser' tells ESLint to use the @typescript-eslint/parser package you installed to parse your source files.
-* This is required, or else ESLint will throw errors as it tries to parse TypeScript code as if it were regular JavaScript.
-* Plugins: ['@typescript-eslint'] tells ESLint to load the @typescript-eslint/eslint-plugin package as a plugin.
-This allows you to use typescript-eslint's rules within your codebase. */
+import reactAppConfig from "react";
 
-import tseslint from "typescript-eslint"; /* jsxnote: modern ts-eslint parser */
-import * as parserTypeScript from "@typescript-eslint/parser"; /* jsxnote: standard ts-eslint parser */
+import tseslint from "typescript-eslint";
+// import parserTypeScript from "@typescript-eslint/parser"
+/* typescript-eslint vs @typescript-eslint/parser
+* Migrated
+* Parser: '@typescript-eslint/parser' tells ESLint to use the @typescript-eslint/parser package you installed to parse your source files.
+* This is required, or else ESLint will throw errors as it tries to parse
+* TypeScript code as if it were regular JavaScript.
+* SEE: https://typescript-eslint.io/packages/typescript-eslint
+* Current
+* modern ts-eslint parser
+* Plugins: ['@typescript-eslint'] tells ESLint to load the
+* @typescript-eslint/eslint-plugin package as a plugin. This allows you to use typescript-eslint's rules within your codebase.
+*/
 
 // Plugins
 import eslintPluginEslintComments from "eslint-plugin-eslint-comments";
-import eslintPluginImport from "eslint-plugin-import";
-import eslintPluginJest from "eslint-plugin-jest";
+// NOTE: Fix for eslint-plugin-import.
+// SEE: https://stackoverflow.com/questions/40429927/error-ts1192-module-a-module-has-no-default-export
+import * as eslintPluginImport from "eslint-plugin-import";
 import eslintPluginJSXA11y from "eslint-plugin-jsx-a11y";
 import eslintPluginPromise from "eslint-plugin-promise";
 import eslintPluginReact from "eslint-plugin-react";
@@ -34,11 +37,12 @@ import eslintPluginReactRefresh  from "eslint-plugin-react-refresh";
 import eslintPluginRegex from "eslint-plugin-regex";
 import eslintPluginPrettier from "eslint-plugin-prettier";
 import eslintPluginUnusedImports from "eslint-plugin-unused-imports";
-import stylistic from "@stylistic/eslint-plugin";
+import stylisticEslintPlugin from "@stylistic/eslint-plugin";
+import stylisticEslintPluginPlus from "@stylistic/eslint-plugin-plus";
+import stylisticEslintPluginMigrate from "@stylistic/eslint-plugin-migrate";
 import stylisticJs from "@stylistic/eslint-plugin-js";
 import stylisticTs from "@stylistic/eslint-plugin-ts";
 import stylisticJsx from "@stylistic/eslint-plugin-jsx";
-import TypescriptEslintEslintPlugin from "@typescript-eslint/eslint-plugin";
 // Resolvers
 // FIXME: needs to migrated from eslint legacy
 // import eslintImportResolverTypescriptConfig from "eslint-import-resolver-typescript";
@@ -47,28 +51,24 @@ import TypescriptEslintEslintPlugin from "@typescript-eslint/eslint-plugin";
 // "typescript": {}
 // }
 
-export default tseslint.config(
-	/* Config */
-	airbnbConfig.configs.recommended,
-	airbnbTypscriptPrettierConfig.configs.recommended,
-	eslintConfig.configs.recommended,
-	eslintConfigAirbnbConfig.configs.recommended,
-	eslintConfigAirbnbBaseConfig.configs.recommended,
-	eslintConfigAirbnbTypescriptConfig.configs.recommended,
-	eslintConfigAirbnbTypescriptPrettierConfig.configs.recommended,
-	eslintConfigPrettierConfig.configs.recommended,
-	jestConfig.configs.recommended,
-	reactAppConfig.configs.recommended,
-
+export default tseslint.config (
+	js.configs.recommended,
 	...tseslint.configs.recommendedTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
-
+	...tseslint.configs.stylisticTypeChecked,
+	eslintConfigPrettierConfig,
+	airbnbConfig,
+	eslintConfigAirbnbConfig.configs.recommended,
+	// SEE: https://www.npmjs.com/package/eslint-config-airbnb-typescript
+	...eslintConfigAirbnbTypescriptConfig.configs.recommended,
+	...eslintConfigAirbnbConfig.configs.recommended,
+	//eslintPluginUnusedImports,
+	/* NEW */
+	stylisticEslintPlugin.configs["disable-legacy"],
+	stylisticEslintPlugin.configs["recommended-flat"],
+	stylisticJs.configs["recommended-flat"],
+	stylisticTs.configs["recommended-flat"],
+	stylisticJsx.configs["recommended-flat"],
 	{
-		/* Only global ignores will bypass the parser
-		* and avoid JS parsing errors
-		* See https://github.com/eslint/eslint/discussions/17412
-		*/
-
 		files: [
 			"src/**/*.{j,t}s",
 			"src/**/*.{t,j}sx"
@@ -92,7 +92,7 @@ export default tseslint.config(
 		languageOptions: {
 			// Allows for the parsing of modern ECMAScript features
 			ecmaVersion: 2022,
-			parser: parserTypeScript, // tseslint.parser,
+			parser: tseslint.parser,
 			parserOptions: {
 				// NOTE: import.meta.dirname is only present for ESM files in Node.js >=20.11.0 / >= 21.2.0.
 				tsconfigRootDir: import.meta.dirname,
@@ -101,32 +101,46 @@ export default tseslint.config(
 				},
 				project: true,
 				requireConfigFile: true,
+				warnOnUnsupportedTypeScriptVersion: true,
 			},
 			sourceType: "module",
 		},
 
-		linterOptions: {
-			"reportUnusedDisabledDirectories": "warn"
-		},
-
-		/* Plugins */
 		plugins: {
-			"eslint-plugin-eslint-comments": eslintPluginEslintComments.plugin,
-			"eslint-plugin-import": eslintPluginImport.plugin,
-			"eslint-plugin-jest": eslintPluginJest.plugin,
-			"eslint-plugin-jsx-a11y": eslintPluginJSXA11y.plugin,
-			"eslint-plugin-prettier": eslintPluginPrettier.plugin,
-			"eslint-plugin-promise": eslintPluginPromise.plugin,
-			"eslint-plugin-react": eslintPluginReact.plugin,
-			"eslint-plugin-react-hooks": eslintPluginReactHooks.plugin,
-			"eslint-plugin-regex": eslintPluginRegex.plugin,
-			"eslint-plugin-unused-imports": eslintPluginUnusedImports.plugin,
+			"@typescript-eslint": tseslint.plugin,
+			"eslint-plugin-regex": eslintPluginRegex,
+			"eslint-plugin-unused-imports": eslintPluginUnusedImports,
+			//"eslint-plugin-promise": eslintPluginPromise,
+			"eslint-plugin-jsx-a11y": eslintPluginJSXA11y,
+			"eslint-plugin-eslint-comments": eslintPluginEslintComments,
+			"eslint-plugin-prettier": eslintPluginPrettier,
+			"eslint-plugin-import": eslintPluginImport,
+			/* Stylistic */
+			"stylistic": stylisticEslintPlugin,
+			"@stylistic/eslint-plugin-migrate": stylisticEslintPluginMigrate,
+			"@stylistic/eslint-plugin-plus": stylisticEslintPluginPlus,
+			"@stylistic/eslint-plugin-js": stylisticJs,
+			"@stylistic/eslint-plugin-ts": stylisticTs,
+			"@stylistic/eslint-plugin-jsx": stylisticJsx,
 		},
-
 		rules: {
-			// airbnb recommended
-			"airbnb-base/arrow-body-style": "off",
+			/* airbnb recommended */
+			//...eslintConfigAirbnbConfig.configs.recommended.rules,
+			//...eslintConfigAirbnbTypescriptConfig.configs.recommended.rules,
+			//...eslintConfigAirbnbTypescriptPrettierConfig.configs.recommended.rules,
+			//"airbnb-base/arrow-body-style": "off",
 			"react/jsx-filename-extension": ["warn", { "extensions": [".tsx"]} ],
+			/* extended rules */
+			...eslintPluginRegex.configs.recommended.rules,
+			...eslintPluginUnusedImports["recommended"].rules,
+			...eslintPluginPromise.configs.recommended.rules,
+			...eslintPluginJSXA11y.configs.recommended.rules,
+			...eslintPluginEslintComments.configs.recommended.rules,
+			...eslintPluginImport.configs.recommended,
+			// FIXME: Fix This
+			...eslintConfigPrettierConfig.rules,
+
+			"prettier/prettier": ["error", { endOfLine: "auto" }],
 			// eslint recommended
 			"brace-style": ["error", "1tbs"],
 			// We use console["error"]() as a signal to not transform it:
@@ -162,7 +176,7 @@ export default tseslint.config(
 			"keyword-spacing": ["error", {after: true, before: true}],
   		"init-declarations": ["error"],
 			"linebreak-style": ["error", "unix"],
-  		"line-comment-position": ["error", {"postion": "above"}],
+  		"line-comment-position": ["warn", {"postion": "above"}],
   		"logical-assignment-operators": ["error"],
   		"max-classes-per-file": ["error"],
   		"max-depth": ["error"],
@@ -222,11 +236,9 @@ export default tseslint.config(
   		"no-global-assign": ["error"],
   		"no-implicit-coercion": ["error"],
   		"no-implicit-globals": ["error"],
-  		// "no-implied-eval": ["error"],
   		"no-import-assign": ["error"],
-  		"no-inline-comments": ["error", {"ignorePattern": "jsxnote:\\s.+"}],
+  		"no-inline-comments": ["warn", {"ignorePattern": "jsxnote:\\s.+"}],
   		"no-inner-declarations": ["error"],
-  		// "no-invalid-regexp": ["error"],
   		"no-invalid-this": ["error"],
   		"no-irregular-whitespace": ["warn"],
   		"no-iterator": ["error"],
@@ -235,8 +247,7 @@ export default tseslint.config(
   		"no-lone-blocks": ["warn"],
   		"no-lonely-if": ["error"],
   		"no-loop-func": ["error"],
-  		// "no-loss-of-precision": ["error"],
-  		"no-magic-numbers": ["error"],
+  		"no-magic-numbers": ["error", {"ignore": [2]}],
   		"no-misleading-character-class": ["error"],
   		"no-multi-assign": ["error"],
 			"no-multi-spaces": ["error"],
@@ -266,12 +277,9 @@ export default tseslint.config(
   		"no-restricted-globals": ["error"],
   		"no-restricted-imports": ["error"],
   		"no-restricted-properties": ["error"],
-  		"no-restricted-syntax": [
-				"error",
-				"WithStatement",
+  		"no-restricted-syntax": ["error", "WithStatement",
 				{
-					selector: "MemberExpression[property.name=/^(?:substring|substr)$/]",
-					message: "Prefer string.slice() over .substring() and .substr().",
+					selector: "MemberExpression[property.name=/^(?:substring|substr)$/]", message: "Prefer string.slice() over .substring() and .substr().",
 				},
 			],
   		"no-return-assign": ["error"],
@@ -336,10 +344,9 @@ export default tseslint.config(
 			"space-before-blocks": ["error"],
       "radix": ["error"],
       "require-atomic-updates": ["error"],
-      // "require-await": ["error"],
       "require-unicode-regexp": ["error"],
       "require-yield": ["error"],
-      "sort-keys": ["warn", "asc", {"caseSensitive": true, "natural": false, "minKeys": 2}],
+      "sort-keys": ["warn", "asc", {"caseSensitive": false, "natural": true, "minKeys": 2}],
       "sort-vars": ["error"],
       "strict": ["error"],
       "symbol-description": ["error"],
@@ -348,61 +355,7 @@ export default tseslint.config(
       "valid-typeof": ["error", {requireStringLiterals: true}],
       "vars-on-top": ["error"],
       "yoda": ["error"],
-
-			// React Rules
-			// NOTE: added from react facebook
-			// https://github.com/facebook/react
-			// We apply these settings to files that should run on Node.
-  	  // They can"t use JSX or ES6 modules, and must be in strict mode.
-  	  // They can, however, use other ES6 features.
-  	  // (Note these rules are overridden later for source files.)
-  	  // Our transforms set this automatically
-  	  "react/jsx-boolean-value": ["error", "always"],
-			"react/jsx-equals-spacing": "warn",
-			"react/react-in-jsx-scope": "error",
-  	  "react/jsx-no-duplicate-props": "error",
-  	  "react/jsx-no-undef": "error",
-  	  // We don"t care to do this
-  	  "react/jsx-space-before-closing": "error",
-  	  "react/jsx-uses-react": "error",
-			"react/jsx-uses-vars": "error",
-  	  // We don"t care to do this
-  	  "react/jsx-wrap-multilines": ["error", { declaration: false, assignment: false }],
-			"react/self-closing-comp": "error",
-
-			// eslint-plugin-import
-			"import/extensions": [
-  			"error",
-  			"ignorePackages",
-  			{
-  		  	"js": "never",
-  		  	"jsx": "never",
-  		  	"ts": "never",
-  		  	"tsx": "never",
-  			}
-  		],
-			"import/no-unresolved": ["error"],
-		},
-	},
-	/* Stylistic */
-	{
-		plugins: {
-			"@stylistic": stylistic,
-			"@stylistic/eslint-plugin-js": stylisticJs,
-			"@stylistic/eslint-plugin-ts": stylisticTs,
-			"@stylistic/eslint-plugin-jsx": stylisticJsx,
-			"@typescript-eslint/eslint-plugin": TypescriptEslintEslintPlugin,
-			"@typescript-eslint": tseslint.plugin,
-		},
-		rules: {
-			"@stylistic/semi": "error",
-		},
-	},
-	// TODO: Organize Plugins & Rules
-	/* typescript-eslint/eslint-plugin */
-	{
-		plugins: {},
-		rules: {
+			// Stylictic Rules
 			// recommendedTypeCheck
 			"@typescript-eslint/await-thenable": "error",
     	"@typescript-eslint/ban-ts-comment": "error",
@@ -468,41 +421,9 @@ export default tseslint.config(
     	"@typescript-eslint/prefer-nullish-coalescing": "error",
     	"@typescript-eslint/prefer-optional-chain": "error",
     	"@typescript-eslint/prefer-string-starts-ends-with": "error",
-		},
-	},
-	// eslint-plugin-prettier
-	{
-		plugins: {},
-		rules: {
-			...eslintConfigPrettierConfig.rules,
-			// FIXME: Fix This
-			...eslintPluginPrettier.configs.recommended.rules,
-			"prettier/prettier": [
-        	"error",
-        	{
-        		endOfLine: "auto"
-        	}
-      ],
-		},
-	},
-	{
-		// TODO: Still Needs fine tuning
-    files: [
-      "tests/config/**/*.js",
-      "tests/format/**/jsfmt.spec.js",
-      "tests/integration/**/*.js",
-      "tests/unit/**/*.js",
-      "tests/dts/unit/**/*.js",
-      "scripts/release/__tests__/**/*.spec.js",
-    ],
-    plugins: {
-			jest: eslintPluginJest
-		},
-    languageOptions: {
-      globals: eslintPluginJest.environments.globals.globals,
-    },
-    rules: {
-      "@stylistic/js/quotes": [
+			/* Stylistic Extra Rules*/
+			"@stylistic/semi": "error",
+			"@stylistic/js/quotes": [
         "error",
         "double",
         {
@@ -510,15 +431,26 @@ export default tseslint.config(
           allowTemplateLiterals: true,
         },
       ],
-      "jest/valid-expect": [
-        "error",
-        {
-          alwaysAwait: true,
-        },
-      ],
-      "jest/prefer-to-be": "error",
-    },
-  },
+			"@stylistic/ts/indent": ["error", 2],
+			"@stylistic/jsx/jsx-indent": ["error", 2],
+			/* eslint-plugin-import */
+			"import/extensions": [
+  			"error",
+  			"ignorePackages",
+  			{
+  		  	"js": "never",
+  		  	"jsx": "never",
+  		  	"ts": "never",
+  		  	"tsx": "never",
+  			}
+  		],
+			/*
+			* The rule offers little value in a TypeScript world, as the TypeScript
+			* compiler will catch these errors. In some cases, Its recommended to disable it
+			*/
+			"import/no-unresolved": ["error"],
+		},
+	},
 	{
 		files: ['*.js'],
 		...tseslint.configs.disableTypeChecked,
@@ -531,4 +463,39 @@ export default tseslint.config(
       "unused-imports/no-unused-vars": "off"
     },
   },
+	/* eslint-plugin-react || eslint-plugin-react-hooks ||
+	eslint-plugin-react-refresh */
+	reactAppConfig["recommended"],
+	{
+		plugins: {
+			"eslint-plugin-react": eslintPluginReact,
+			"eslint-plugin-react-hooks": eslintPluginReactHooks,
+			"eslint-plugin-react-refresh": eslintPluginReactRefresh,
+		},
+		rules: {
+			...eslintPluginReact.configs.recommended.rules,
+			...eslintPluginReactHooks.configs.recommended.rules,
+			...eslintPluginReactRefresh.configs.recommended.rules,
+			// NOTE: added from react facebook
+			// https://github.com/facebook/react
+			// We apply these settings to files that should run on Node.
+  	  // They can"t use JSX or ES6 modules, and must be in strict mode.
+  	  "react/jsx-boolean-value": ["error", "always"],
+			"react/jsx-equals-spacing": "warn",
+			"react/react-in-jsx-scope": "error",
+  	  "react/jsx-no-duplicate-props": "error",
+  	  "react/jsx-no-undef": "error",
+  	  "react/jsx-space-before-closing": "error",
+  	  "react/jsx-uses-react": "error",
+			"react/jsx-uses-vars": "error",
+  	  "react/jsx-wrap-multilines": ["error", { declaration: false, assignment: false }],
+			"react/self-closing-comp": ["error"],
+			"react-refresh/only-export-components": ["warn"],
+		},
+		settings: {
+      react: {
+        version: "detect",
+      },
+    },
+	},
 );

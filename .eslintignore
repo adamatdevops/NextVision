@@ -11,6 +11,8 @@ packages/react-art/npm/lib
 /dist
 /public
 scripts/bench/benchmarks/**/*.js
+tests/**
+/tests
 
 # React repository clone
 scripts/bench/remote-repo/

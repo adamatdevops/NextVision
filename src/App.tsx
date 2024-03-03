@@ -1,3 +1,4 @@
+// @ts-check
 import React from 'react';
 // import { useState } from 'react';
 import { Button, Paper, Text } from '@mantine/core';

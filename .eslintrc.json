@@ -1,0 +1,72 @@
+// @ts-check
+
+// import js from "@eslint/js";
+//import tseslint from "typescript-eslint";
+// Parser
+// import parserTS from "@typescript-eslint/parser";
+// Config
+//import eslintConfigPrettierConfig from "eslint-config-prettier";
+// Plugins
+// import parserTsPlugin from "@typescript-eslint/eslint-plugin";
+
+{
+  "env": {
+  	"browser": false,
+		"node": true,
+		"jest": true
+  },
+
+	"extends": [
+		"eslint:recommended",
+		//"typescript-eslint",
+		"eslint-config-prettier",
+    "prettier",
+    /* Plugins */
+		"plugin:@typescript-eslint/recommended"
+	],
+
+  "root": true,
+
+	// "files": [
+	// 	"src/**/*.{j,t}s",
+	// 	"src/**/*.{t,j}sx"
+	// ],
+
+	// "ignores": [
+	// 	"**/*.json",
+	// 	"**/*.rs",
+	// 	"**/*.toml",
+	// 	"**/*.md",
+	// 	"**/*.log",
+	// 	"**/*.yml",
+	// 	"**/*.lock",
+	// 	".vscode/",
+	// 	"dist/**",
+	// 	"node_modules/**",
+	// 	"bin/**",
+	// 	"build/**",
+	// 	"tests/"
+	// ],
+	// Allows for the parsing of modern ECMAScript features
+	"parser": "@typescript-eslint/parser", // tseslint.parser,
+	"parserOptions": {
+	// NOTE: import.meta.dirname is only present for ESM files in Node.js >=20.11.0 / >= 21.2.0.
+	// tsconfigRootDir: import.meta.dirname,
+	  "ecmaFeatures":  {
+		  "jsx": true
+	  },
+		"ecmaVersion": 2022,
+		"project": ["./tsconfig.eslint.json"], // true
+		"requireConfigFile": false,
+		"warnOnUnsupportedTypeScriptVersion": true,
+		"sourceType": "module"
+	},
+
+	"plugins": [
+		"@typescript-eslint"
+	],
+
+	"rules": {
+		"strict": "off"
+	}
+}
