@@ -1,5 +1,8 @@
 # TAURI APP
 
+
+
+
 Tauri is a framework to build desktop applications with any frontend framework and a Rust core. Each app consists of two parts:
 
 1. Rust binary that creates the windows and exposes native functionality to those windows
@@ -11,7 +14,7 @@ In the following, we will first scaffold the frontend, set up the Rust project, 
 1. Building a Desktop Client-App
 2. Design the Desktop Client-App to be able to transfer files
 
-Project Description:
+## Project Description
 
 Prerequisites:
 
@@ -22,6 +25,10 @@ Prerequisites:
 - Choosing Front-End Proggramming Language and Install
 
 ## Setting Up A Working Environment
+
+- Development Environment: Mac OS X or Linux
+  __NOTE:__ It is also possible to install & develop this application on
+  windows-based systems.
 
 - Installing Rust
 
