@@ -1,8 +1,5 @@
 # TAURI APP
 
-
-
-
 Tauri is a framework to build desktop applications with any frontend framework and a Rust core. Each app consists of two parts:
 
 1. Rust binary that creates the windows and exposes native functionality to those windows
