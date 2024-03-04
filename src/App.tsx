@@ -5,7 +5,7 @@ import { Button, Paper, Text } from "@mantine/core";
 // import { MantineProvider, Text, AppShell, Navbar, Header, MediaQuery, Burger, ActionIcon, Group, Skeleton, Button } from '@mantine/core';
 // import { useDisclosure } from '@mantine/hooks';
 // import { MantineLogo } from '@mantinex/mantine-logo';
-// import logo from './logo.svg';
+import logo from "./logo.svg";
 import "./App.css";
 
 // Icons
