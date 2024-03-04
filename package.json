@@ -1,6 +1,6 @@
 {
   "name": "tauri-client",
-  "version": "0.2.11",
+  "version": "0.2.22",
   "description": "Modern Tauri Desktop application that utilizes Rust, TypeScript & React",
   "type": "module",
   "private": true,

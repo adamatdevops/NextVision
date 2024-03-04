@@ -21,8 +21,13 @@
 		//"typescript-eslint",
 		"eslint-config-prettier",
     "prettier",
+    "airbnb",
+    "eslint-config-airbnb",
+    "eslint-config-airbnb-typescript",
+    "eslint-config-airbnb-typescript-prettier",
     /* Plugins */
 		"plugin:@typescript-eslint/recommended"
+    // "plugin:eslint-plugin-eslint-comments"
 	],
 
   "root": true,
@@ -63,7 +68,7 @@
 	},
 
 	"plugins": [
-		"@typescript-eslint"
+		"@typescript-eslint",
 	],
 
 	"rules": {
