@@ -1,12 +1,9 @@
-import '@mantine/core/styles.css';
-import { MantineProvider } from '@mantine/core';
-import { Router } from './Router';
-import { theme } from './theme';
+// import React from 'react';
+import { render, screen } from '@testing-library/react';
+import App from './App.tsx';
 
-export default function App() {
-  return (
-    <MantineProvider theme={theme}>
-      <Router />
-    </MantineProvider>
-  );
-}
+test('renders learn react link', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
+});

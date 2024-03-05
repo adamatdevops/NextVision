@@ -9,9 +9,13 @@
 
   "plugins": [
 		"@typescript-eslint",
+    "react",
     "react-refresh",
     "regexp",
     "unused-imports",
+    "jest",
+    "jest-dom",
+    "jest-formatting",
     "@stylistic/eslint-plugin",
     "@stylistic/eslint-plugin-js",
     "@stylistic/eslint-plugin-jsx",
@@ -26,24 +30,23 @@
     "airbnb/hooks",
 		"eslint:recommended",
 		//"typescript-eslint",
-    "eslint-config-airbnb",
-    "eslint-config-airbnb-typescript",
-    "eslint-config-airbnb-typescript-prettier",
-		"eslint-config-prettier",
-    "prettier",
-    // "react",
+    // "react-app",
     /* Plugins */
-    "plugin:eslint-plugin-eslint-comments/recommended",
+    "plugin:eslint-comments/recommended",
     "plugin:import/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
+    "plugin:import/typescript",
     "plugin:eslint-plugin-jsx-a11y/recommended",
     "plugin:promise/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:regexp/recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:jest/recommended",
+    "plugin:jest-dom/recommended",
+    "plugin:jest-formatting/recommended",
+    // NOTE: prettier needs to be last
     "plugin:prettier/recommended"
 	],
 
@@ -69,9 +72,7 @@
     "airbnb-base/arrow-body-style": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"]} ],
 		// "strict": "off"
-
     /* Extended Rules */
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
 
     /* Eslint Recommended */
     "brace-style": ["error", "1tbs"],
@@ -382,12 +383,42 @@
   	  	"tsx": "never"
   		}
   	],
+    "import/no-unresolved": ["error"],
 		/*
 		* The rule offers little value in a TypeScript world, as the TypeScript
 		* compiler will catch these errors. In some cases, Its recommended to disable it
 		*/
-		"import/no-unresolved": ["error"]
+    /* rect rules */
+    /* NOTE: added from react facebook(SEE: https://github.com/facebook/react)
+    * We apply these settings to files that should run on Node.
+    * They can"t use JSX or ES6 modules, and must be in strict mode.
+    */
+    "react/jsx-boolean-value": ["error", "always"],
+    "react/jsx-equals-spacing": "warn",
+    "react/react-in-jsx-scope": "error",
+    "react/jsx-no-duplicate-props": "error",
+    "react/jsx-no-undef": "error",
+    "react/jsx-space-before-closing": "error",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/jsx-wrap-multilines": ["error", { "declaration": false, "assignment": false }],
+    "react/self-closing-comp": ["error"],
+    "react-refresh/only-export-components": ["warn"],
+    /* eslint-plugin-unused-imports */
+    "unused-imports/no-unused-imports": "warn",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    /* prettier */
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
 	},
+
   "ignorePatterns": [
     "**/*.json",
     "**/*.rs",
@@ -402,6 +433,23 @@
     "bin/**",
     "build/**"
   ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      },
+      "node": true
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "react": {
+      "version": "detect"
+      //"flowVersion": "0.53" // Flow version
+    }
+  },
+
   "overrides": [
     {
       "files": ["*.js"],
@@ -415,36 +463,6 @@
         "eslint-comments/no-unlimited-disable": "off",
         "import/no-duplicates": "off",
         "unused-imports/no-unused-vars": "off"
-      }
-    },
-    {
-      "files": ["**/*.jsx"],
-      // FIXME: Needs ignore
-      //"ignorePatterns":["*.ts"],
-      "plugins": [
-        "eslint-plugin-react",
-        "eslint-plugin-react-hooks",
-        "eslint-plugin-react-refresh"
-      ],
-      "rules": {
-        // ...eslintPluginReact.configs.recommended.rules,
-        // ...eslintPluginReactHooks.configs.recommended.rules,
-        // ...eslintPluginReactRefresh.configs.recommended.rules,
-        // NOTE: added from react facebook
-        // https://github.com/facebook/react
-        // We apply these settings to files that should run on Node.
-        // They can"t use JSX or ES6 modules, and must be in strict mode.
-        "react/jsx-boolean-value": ["error", "always"],
-        "react/jsx-equals-spacing": "warn",
-        "react/react-in-jsx-scope": "error",
-        "react/jsx-no-duplicate-props": "error",
-        "react/jsx-no-undef": "error",
-        "react/jsx-space-before-closing": "error",
-        "react/jsx-uses-react": "error",
-        "react/jsx-uses-vars": "error",
-        "react/jsx-wrap-multilines": ["error", { "declaration": false, "assignment": false }],
-        "react/self-closing-comp": ["error"],
-        "react-refresh/only-export-components": ["warn"]
       }
     }
   ]

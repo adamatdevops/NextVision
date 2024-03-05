@@ -6,21 +6,29 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
-    "@mantine/core": "^7.5.3",
-    "@mantine/hooks": "^7.5.3",
-    "@mantine/notifications": "^7.5.3",
-    "@mantine/nprogress": "^7.5.3",
-    "@mantine/spotlight": "^7.5.3",
+    "@mantine/charts": "^7.6.1",
+    "@mantine/code-highlight": "^7.6.1",
+    "@mantine/core": "^7.6.1",
+    "@mantine/dropzone": "^7.6.1",
+    "@mantine/form": "^7.6.1",
+    "@mantine/hooks": "^7.6.1",
+    "@mantine/modals": "^7.6.1",
+    "@mantine/notifications": "^7.6.1",
+    "@mantine/nprogress": "^7.6.1",
+    "@mantine/spotlight": "^7.6.1",
     "@mantine/styles": "^6.0.21",
-    "@modulz/radix-icons": "^4.0.0",
     "@tauri-apps/api": "^1.5.3",
     "postcss": "^8.4.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.1",
+    "react-scripts": "^5.0.1",
+    "recharts": "2",
     "web-vitals": "^3.5.2"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "node ./scripts/build/build.js",
     "test": "react-scripts test",
@@ -29,7 +37,7 @@
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "lint": "pretty-quick --staged && lint-staged",
-    "eslint-dev": "ESLINT_USE_FLAT_CONFIG=true npx eslint --config eslint.config.js",
+    "eslint-dev": "ESLINT_USE_FLAT_CONFIG=false npx eslint --config .eslintrc.json",
     "dev": "tauri dev",
     "clean": "tauri clean",
     "typecheck": "tsc --noEmit",
@@ -68,7 +76,6 @@
     "@tauri-apps/cli": "^1.5.9",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
-    "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.20",
     "@types/react": "^18.2.58",
@@ -84,8 +91,6 @@
     "esbuild": "^0.20.1",
     "eslint": "^8.56.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.1.0",
-    "eslint-config-airbnb-typescript-prettier": "^5.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-base-style-config": "^2.9.4",
@@ -100,6 +105,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-regex": "^1.10.0",
     "eslint-plugin-regexp": "^2.2.0",
     "eslint-plugin-unused-imports": "^3.1.0",
     "eslint-scope": "^8.0.0",
@@ -114,12 +120,11 @@
     "prettier-plugin-properties": "^0.3.0",
     "prettier-plugin-rust": "^0.1.9",
     "pretty-quick": "^4.0.0",
-    "react-scripts": "^5.0.1",
     "react-ts-jest": "^1.0.0",
-    "source-map-loader": "^5.0.0",
+    "source-map-explorer": "^2.5.3",
     "ts-jest": "^29.1.2",
     "tsx": "^4.7.1",
-    "typescript": "^5.3.3",
+    "typescript": "^4.0.0",
     "typescript-eslint": "^7.1.0"
   },
   "resolutions": {
@@ -131,7 +136,9 @@
     }
   },
   "lint-staged": {
-    "*.{ts,js}": "eslint --cache --fix"
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss}": [
+      "prettier --write"
+    ]
   },
   "packageManager": "yarn@4.1.0"
 }

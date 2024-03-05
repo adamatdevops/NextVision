@@ -6,12 +6,12 @@
   },
   "include": [
     // whatever paths you intend to lint
-    "./src/**/*.ts",
-    "./.*.js,",
-    "./src/**/*.jsx",
-    "./"
+    "src/**/*.ts",
+    "src/**/*.jsx",
+    "src/**/*.tsx"
   ],
   "exclude": [
+    "src/**/*.js",
     "./tests/**/*",
   ]
 }

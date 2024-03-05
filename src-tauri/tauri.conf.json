@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "yarn build",
+    "beforeBuildCommand": "yarn run build",
     "beforeDevCommand": "yarn cross-env BROWSER=none yarn start",
     "devPath": "http://localhost:3000",
     "distDir": "../build",
@@ -9,7 +9,7 @@
   },
   "package": {
     "productName": "transfermate",
-    "version": "0.1.0"
+    "version": "0.2.23"
   },
   "tauri": {
     "allowlist": {

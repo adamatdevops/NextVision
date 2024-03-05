@@ -1,35 +1,27 @@
-// @ts-check
-import React from "react";
-// import { useState } from 'react';
-import { Button, Paper, Text } from "@mantine/core";
-// import { MantineProvider, Text, AppShell, Navbar, Header, MediaQuery, Burger, ActionIcon, Group, Skeleton, Button } from '@mantine/core';
-// import { useDisclosure } from '@mantine/hooks';
-// import { MantineLogo } from '@mantinex/mantine-logo';
-import logo from "./logo.svg";
-import "./App.css";
+/* React */
+// import React from "react";
 
-// Icons
+// Icons & logos
+// import logo from "./logo.svg";
 // import { SunIcon } from '@modulz/radix-icons';
-// Theme
+/* More Theme Coponents */
+import "./App.css";
 //import { createStyles, useMantineTheme } from '@mantine/core';
 // Utils
 //import { MemoryRouter, NavLink, Route, Routes } from 'react-router-dom';
 
-// Components
-//import home from './home'
-//import SOME_ACTION from './utilities';
-
+/* Mantine */
+//import { useDisclosure } from "@mantine/hooks";
+import { Button } from "@mantine/core";
+//import ButtonComponent from "./components/Buttons.tsx";
+//import TextComponent from "./components/Text.tsx";
 
 function App() {
 
+
 	return (
 		<div className="App">
-			<Paper>
-				<Text>THIS IS A SIMPLE TEXT TAG</Text>
-				<Text>THIS IS A ANOTHER SIMPLE TEXT TAG</Text>
-			</Paper>
-			<Button>Hello</Button>
-			<Button>Hello</Button>
+			<Button variant="filled">Button</Button>
 		</div>
   );
 }

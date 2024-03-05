@@ -35,7 +35,7 @@
     "allowImportingTsExtensions": true,
     "allowArbitraryExtensions": true,
     "verbatimModuleSyntax": true, // or `isolatedModules`
-		"jsx": "react" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
+		"jsx": "react-jsx" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
 
 		/* Strict Type-Checking Options */
 		"strict": true /* Enable all strict type-checking options. */,
