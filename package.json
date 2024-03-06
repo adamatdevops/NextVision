@@ -1,6 +1,6 @@
 {
   "name": "tauri-client",
-  "version": "0.2.23",
+  "version": "0.2.24",
   "description": "Modern Tauri Desktop application that utilizes Rust, TypeScript & React",
   "type": "module",
   "private": true,
@@ -18,6 +18,7 @@
     "@mantine/spotlight": "^7.6.1",
     "@mantine/styles": "^6.0.21",
     "@tauri-apps/api": "^1.5.3",
+    "material-icons": "^1.13.12",
     "postcss": "^8.4.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

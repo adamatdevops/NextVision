@@ -14172,6 +14172,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"material-icons@npm:^1.13.12":
+  version: 1.13.12
+  resolution: "material-icons@npm:1.13.12"
+  checksum: 10/823bba6c3f8344d887a680d93eea9c96f63f178838b4f39b4954ee11a440e79bbbb4a67527a6ce3732ac47378afec236d5d5f2f9c2b2e71ab3f3f580eee9a2d9
+  languageName: node
+  linkType: hard
+
 "mdn-data@npm:2.0.14":
   version: 2.0.14
   resolution: "mdn-data@npm:2.0.14"
@@ -19141,6 +19148,7 @@ __metadata:
     jest: "npm:^29.7.0"
     jest-cli: "npm:^29.7.0"
     lint-staged: "npm:>=10"
+    material-icons: "npm:^1.13.12"
     postcss: "npm:^8.4.35"
     postcss-preset-mantine: "npm:^1.13.0"
     postcss-simple-vars: "npm:^7.0.1"

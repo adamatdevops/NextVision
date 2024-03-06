@@ -22,10 +22,10 @@ import { createTheme, rem } from "@mantine/core";
 // import { useDisclosure } from '@mantine/hooks';
 // import { MantineLogo } from '@mantinex/mantine-logo';
 
-const theme = createTheme({
+const mantineTheme = createTheme({
 	/** Put your config */
 	focusRing: "always",
-	scale: 2,
+	scale: 1,
 	fontSmoothing: true,
 	//Black value from Blueprint. We could change this.
 	// Without it things look a little darker than before.
@@ -39,11 +39,13 @@ const theme = createTheme({
 		"ocean-blue": ['#7AD1DD', '#5FCCDB', '#44CADC', '#2AC9DE', '#1AC2D9', '#11B7CD', '#09ADC3', '#0E99AC', '#128797', '#147885'],
 		"bright-pink": ['#F0BBDD', '#ED9BCF', '#EC7CC3', '#ED5DB8', '#F13EAF', '#F71FA7', '#FF00A1', '#E00890', '#C50E82', '#AD1374'],
 	},
+	primaryShade: {light: 6, dark: 7 },
 	/** Key of `theme.colors`, hex/rgb/hsl values are not supported.
   *  Determines which color will be used in all components by default.
   *  Default value – `blue`.
   * */
-  primaryColor: "bright-pink",
+  primaryColor: "ocean-blue",
+	//variantColorResolver:
 	autoContrast: true,
 	luminanceThreshold: 0.4,
 	fontFamily: "Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Open Sans, Helvetica Neue, Apple Color Emoji, Segoe UI Emoji, sans-serif",
@@ -84,4 +86,4 @@ const theme = createTheme({
 	cursorType: "pointer",
 });
 
-export default theme;
+export default mantineTheme;

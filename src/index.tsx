@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { MantineProvider } from "@mantine/core";
-import theme from "./mantineTheme.tsx";
+import mantineTheme from "./mantineTheme.tsx";
 // import reportWebVitals from "./reportWebVitals.ts";
 // import type { ReportHandler } from "web-vitals";
 // Importing Components
@@ -19,7 +19,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-	<MantineProvider theme={theme}>
+	<MantineProvider theme={mantineTheme}>
   	<React.StrictMode>
     	<App />
   	</React.StrictMode>
