@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import { MantineProvider } from "@mantine/core";
+import {MantineProvider} from "@mantine/core";
 import mantineTheme from "./mantineTheme.tsx";
 // import reportWebVitals from "./reportWebVitals.ts";
 // import type { ReportHandler } from "web-vitals";
@@ -14,16 +14,16 @@ import mantineTheme from "./mantineTheme.tsx";
 // './components/ColorSchemeToggle/ColorSchemeToggle';
 import "@mantine/core/styles.css";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
 	<MantineProvider theme={mantineTheme}>
-  	<React.StrictMode>
-    	<App />
-  	</React.StrictMode>
-	</MantineProvider>
+		<MantineProvider defaultColorScheme="dark">
+			<React.StrictMode>
+				<App />
+			</React.StrictMode>
+		</MantineProvider>
+	</MantineProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

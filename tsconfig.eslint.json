@@ -1,17 +1,15 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-  // ensure that nobody can accidentally use this config for a build
-    "noEmit": true,
-  },
-  "include": [
-    // whatever paths you intend to lint
-    "src/**/*.ts",
-    "src/**/*.jsx",
-    "src/**/*.tsx"
-  ],
-  "exclude": [
-    "src/**/*.js",
-    "./tests/**/*",
-  ]
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		//"target": "es2022",
+		// ensure that nobody can accidentally use this config for a build
+		"noEmit": true
+	},
+	"include": [
+		// whatever paths you intend to lint
+		"src/**/*.ts",
+		"src/**/*.jsx",
+		"src/**/*.tsx"
+	],
+	"exclude": ["src/**/*.js", "./tests/**/*"]
 }

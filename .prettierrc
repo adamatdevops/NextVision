@@ -8,7 +8,7 @@
 	"semi": true,
 	"quoteProps": "preserve",
 	"jsxSingleQuote": false,
-	"bracketSpacing": true,
+	"bracketSpacing": false,
 	"overrides": [
 		{
 			"files": ["*.html"],
