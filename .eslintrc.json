@@ -4,7 +4,8 @@
 	"env": {
 		"browser": false,
 		"node": true,
-		"jest": true
+    "es2020": true
+		//"jest": true
 	},
 
 	"plugins": [
@@ -45,9 +46,15 @@
 		"plugin:@typescript-eslint/stylistic-type-checked",
 		"plugin:jest/recommended",
 		"plugin:jest-dom/recommended",
-		"plugin:jest-formatting/recommended",
-		// NOTE: prettier needs to be last
-		"plugin:prettier/recommended"
+		"plugin:jest-formatting/recommended"
+		/* NOTE:
+    * 1. prettier needs to be last
+    * 2. While it is possible to pass options to Prettier via your ESLint
+    *    configuration file, it is not recommended because editor extensions
+    *    will read .prettierrc, but won't read settings from ESLint, which can
+    *    lead to an inconsistent experience.
+    */
+		//"plugin:prettier/recommended"
 	],
 
 	"root": true,
@@ -60,7 +67,7 @@
 		"ecmaFeatures": {
 			"jsx": true
 		},
-		"ecmaVersion": "latest",
+		"ecmaVersion": 2020,
 		"project": ["./tsconfig.eslint.json"], // true
 		"requireConfigFile": false,
 		"warnOnUnsupportedTypeScriptVersion": true,
@@ -98,7 +105,7 @@
 		"for-direction": ["error"],
 		"func-name-matching": ["error"],
 		"func-names": ["error"], // jsxnote: consider switch to "off"
-		"func-style": ["error"],
+		"func-style": ["off"],
 		"getter-return": ["error"],
 		"grouped-accessor-pairs": ["error"],
 		"guard-for-in": ["error"],
@@ -177,7 +184,7 @@
 		"no-lone-blocks": ["warn"],
 		"no-lonely-if": ["error"],
 		"no-loop-func": ["error"],
-		"no-magic-numbers": ["error", {"ignore": [2]}],
+		"no-magic-numbers": ["off"], // {"ignore": ["0", "1", "2"]}],
 		"no-misleading-character-class": ["error"],
 		"no-multi-assign": ["error"],
 		"no-multi-spaces": ["error"],
@@ -221,14 +228,14 @@
 		"no-self-compare": ["warn"],
 		"no-sequences": ["warn"],
 		"no-setter-return": ["error"],
-		"no-shadow": ["error"],
+		"no-shadow": ["off"],
 		"no-shadow-restricted-names": ["warn"],
 		"no-sparse-arrays": ["error"],
 		"no-template-curly-in-string": ["error"],
 		"no-ternary": ["error"],
 		"no-this-before-super": ["error"],
 		"no-throw-literal": ["error"],
-		"no-undef": ["error"],
+		"no-undef": ["warn"],
 		"no-undef-init": ["error"],
 		"no-undefined": ["error"],
 		"no-underscore-dangle": ["error"],
@@ -390,20 +397,26 @@
 		 */
 		/* rect rules */
 		/* NOTE: added from react facebook(SEE: https://github.com/facebook/react)
-		 * We apply these settings to files that should run on Node.
-		 * They can"t use JSX or ES6 modules, and must be in strict mode.
-		 */
+		* We apply these settings to files that should run on Node.
+		* They can"t use JSX or ES6 modules, and must be in strict mode.
+		*/
+    "react/button-has-type": ["off"],
 		"react/jsx-boolean-value": ["error", "always"],
 		"react/jsx-equals-spacing": "warn",
-		"react/react-in-jsx-scope": "error",
+		"react/react-in-jsx-scope": "off",
 		"react/jsx-no-duplicate-props": "error",
 		"react/jsx-no-undef": "error",
+    "react/jsx-no-target-blank": "warn",
+    "react/jsx-one-expression-per-line": "warn",
 		"react/jsx-space-before-closing": "error",
 		"react/jsx-uses-react": "error",
 		"react/jsx-uses-vars": "error",
 		"react/jsx-wrap-multilines": ["error", {"declaration": false, "assignment": false}],
 		"react/self-closing-comp": ["error"],
-		"react-refresh/only-export-components": ["warn"],
+		"react-refresh/only-export-components": [
+      "warn",
+      { "allowConstantExport": true }
+    ],
 		/* eslint-plugin-unused-imports */
 		"unused-imports/no-unused-imports": "warn",
 		"unused-imports/no-unused-vars": [
@@ -414,9 +427,7 @@
 				"args": "after-used",
 				"argsIgnorePattern": "^_"
 			}
-		],
-		/* prettier */
-		"prettier/prettier": ["error", {"endOfLine": "auto"}]
+		]
 	},
 
 	"ignorePatterns": [
@@ -428,10 +439,10 @@
 		"**/*.yml",
 		"**/*.lock",
 		".vscode/",
-		"dist/**",
+		"dist",
 		"node_modules/**",
 		"bin/**",
-		"build/**"
+    "eslintrc.js"
 	],
 	"settings": {
 		"import/resolver": {

@@ -3,7 +3,6 @@
 
 fn main() {
   tauri::Builder::default()
-    .invoke_handler(tauri::generate_handler![App])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
@@ -13,10 +12,10 @@ fn main() {
 
 // Let's make a simple example:
 
-#[tauri::command]
-fn App(name: &str) -> String {
-   format!("Hello From App, {}!", name)
-}
+// #[tauri::command]
+// fn App(name: &str) -> String {
+//   format!("Hello From App, {}!", name)
+// }
 
 // A Command is just like any regular Rust function, with the addition of the
 // #[tauri::command] attribute macro that allows your function to communicate

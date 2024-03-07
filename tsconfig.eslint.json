@@ -1,12 +1,17 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		//"target": "es2022",
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
 		// ensure that nobody can accidentally use this config for a build
-		"noEmit": true
+		// "noEmit": true
 	},
 	"include": [
-		// whatever paths you intend to lint
+    "vite.config.ts",
 		"src/**/*.ts",
 		"src/**/*.jsx",
 		"src/**/*.tsx"
