@@ -9,6 +9,8 @@
 	"quoteProps": "preserve",
 	"jsxSingleQuote": false,
 	"bracketSpacing": false,
+	"bracketLine": true,
+	"parser": "typescript",
 	"overrides": [
 		{
 			"files": ["*.html"],

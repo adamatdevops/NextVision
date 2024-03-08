@@ -1,6 +1,6 @@
 {
   "name": "tauri-client",
-  "version": "0.2.24",
+  "version": "0.3.1",
   "description": "Modern Tauri Desktop application that utilizes Rust, TypeScript & React",
   "type": "module",
   "private": true,
@@ -18,6 +18,7 @@
     "@mantine/spotlight": "^7.6.1",
     "@mantine/styles": "^6.0.21",
     "@tauri-apps/api": "^1.5.3",
+    "@vitejs/plugin-react": "4.2.1",
     "clsx": "^2.1.0",
     "material-icons": "^1.13.12",
     "postcss": "^8.4.35",
@@ -26,6 +27,7 @@
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.1",
     "recharts": "2",
+    "vite": "5.1.4",
     "web-vitals": "^3.5.2"
   },
   "scripts": {
@@ -46,12 +48,13 @@
     "lint:typecheck": "tsc",
     "lint:eslint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint:changelog": "node ./scripts/lint-changelog.js",
-    "lint:prettier": "prettier . --check --cache",
+    "cache:prettier": "prettier . --check --cache",
+    "check:prettier": "prettier --check 'src/**/*.tsx'",
     "preview": "vite preview",
-    "write:prettier": "prettier . --write",
+    "format:prettier": "prettier-eslint . --write",
     "fix": "run-s fix:eslint fix:prettier",
-    "fix:eslint": "yarn lint:eslint --fix",
-    "fix:prettier": "yarn lint:prettier --write",
+    "fix:eslint": "yarn lint:eslint --fix --ignore-unknown",
+    "fix:prettier": "yarn lint:prettier --write --ignore-unknown",
     "gen:changelog": "node ./scripts/generate-changelog.js",
     "debug": "node bin/prettier.js --ignore-path=.prettierignore"
   },
@@ -71,6 +74,7 @@
     "@airbnb/config-jest": "^3.0.2",
     "@eslint/eslintrc": "^3.0.2",
     "@eslint/js": "^8.57.0",
+    "@mantinex/mantine-logo": "^1.0.1",
     "@stylistic/eslint-plugin": "^1.6.2",
     "@stylistic/eslint-plugin-js": "^1.6.2",
     "@stylistic/eslint-plugin-jsx": "^1.6.2",
@@ -90,7 +94,6 @@
     "@typescript-eslint/rule-tester": "^7.1.0",
     "@typescript-eslint/scope-manager": "^7.1.0",
     "@typescript-eslint/typescript-estree": "^7.1.0",
-    "@vitejs/plugin-react": "4.2.1",
     "airbnb": "^0.0.2",
     "cross-env": "^7.0.3",
     "css-loader": "^6.10.0",
@@ -124,6 +127,7 @@
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.1.0",
     "prettier-eslint": "^16.1.2",
+    "prettier-eslint-cli": "^8.0.1",
     "prettier-plugin-properties": "^0.3.0",
     "prettier-plugin-rust": "^0.1.9",
     "pretty-quick": "^4.0.0",
@@ -132,8 +136,7 @@
     "ts-jest": "^29.1.2",
     "tsx": "^4.7.1",
     "typescript": "5.2.2",
-    "typescript-eslint": "^7.1.0",
-    "vite": "5.1.4"
+    "typescript-eslint": "^7.1.0"
   },
   "resolutions": {
     "mini-css-extract-plugin": "2.8.0"

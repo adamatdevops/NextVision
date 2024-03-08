@@ -1,4 +1,5 @@
 // @ts-check
+/*eslint-disable no-tabs */
 
 {
 	"env": {
@@ -46,15 +47,16 @@
 		"plugin:@typescript-eslint/stylistic-type-checked",
 		"plugin:jest/recommended",
 		"plugin:jest-dom/recommended",
-		"plugin:jest-formatting/recommended"
+		"plugin:jest-formatting/recommended",
 		/* NOTE:
-    * 1. prettier needs to be last
+    * 1. Add "prettier" last, so it gets the chance to override other configs
     * 2. While it is possible to pass options to Prettier via your ESLint
     *    configuration file, it is not recommended because editor extensions
     *    will read .prettierrc, but won't read settings from ESLint, which can
     *    lead to an inconsistent experience.
     */
-		//"plugin:prettier/recommended"
+		"plugin:prettier/recommended"
+    //"prettier"
 	],
 
 	"root": true,
@@ -80,11 +82,12 @@
 		"react/jsx-filename-extension": ["warn", {"extensions": [".tsx"]}],
 		// "strict": "off"
 		/* Extended Rules */
-
+    /* eslint-comments */
+    "eslint-comments/disable-enable-pair": ["error", {"allowWholeFile": true}],
 		/* Eslint Recommended */
 		"brace-style": ["error", "1tbs"],
 		// We use console["error"]() as a signal to not transform it:
-		"eol-last": ["error"],
+		"eol-last": ["off"],
 		"eqeqeq": ["error", "allow-null"],
 		"accessor-pairs": ["error"],
 		"array-callback-return": ["error"],
@@ -121,7 +124,15 @@
 		"max-classes-per-file": ["error"],
 		"max-depth": ["error"],
 		"max-lines": ["warn", {"max": 500, "skipBlankLines": true, "skipComments": true}],
-		"max-lines-per-function": ["error"],
+		"max-lines-per-function": [
+      "warn",
+      {
+        "max": 80,
+        "skipComments": true,
+        "skipBlankLines": true,
+        "IIFEs": true
+      }
+    ],
 		"max-nested-callbacks": ["error"],
 		"max-params": ["error"],
 		"max-statements": ["error"],
@@ -231,6 +242,7 @@
 		"no-shadow": ["off"],
 		"no-shadow-restricted-names": ["warn"],
 		"no-sparse-arrays": ["error"],
+    "no-tabs": "off", // deprecated in ESLint v8.53.0
 		"no-template-curly-in-string": ["error"],
 		"no-ternary": ["error"],
 		"no-this-before-super": ["error"],
@@ -270,6 +282,15 @@
 			}
 		],
 		"no-with": ["error"],
+    "object-curly-newline": ["error", { "consistent": true, "minProperties": 6 }],
+    "object-curly-spacing": [
+      "error",
+      "always",
+      {
+        "arraysInObjects": true,
+        "objectsInObjects": false
+      }
+    ],
 		"object-shorthand": ["error"], // jsxnote: consider switch to "off"
 		"one-var": ["warn", {"initialized": "never"}],
 		"operator-assignment": ["warn", "always"],
@@ -328,7 +349,7 @@
 		"@typescript-eslint/no-unnecessary-type-assertion": "error",
 		"@typescript-eslint/no-unnecessary-type-constraint": "error",
 		"@typescript-eslint/no-unsafe-argument": "error",
-		"@typescript-eslint/no-unsafe-assignment": "error",
+		"@typescript-eslint/no-unsafe-assignment": "warn",
 		"@typescript-eslint/no-unsafe-call": "error",
 		"@typescript-eslint/no-unsafe-declaration-merging": "error",
 		"@typescript-eslint/no-unsafe-enum-comparison": "error",
@@ -369,6 +390,7 @@
 		"@typescript-eslint/prefer-string-starts-ends-with": "error",
 		/* Stylistic Extra Rules */
 		"@stylistic/semi": "error",
+    "@stylistic/js/no-tabs": ["error", { "allowIndentationTabs": true }],
 		"@stylistic/js/quotes": [
 			"error",
 			"double",
@@ -377,20 +399,8 @@
 				"allowTemplateLiterals": true
 			}
 		],
-		"@stylistic/ts/indent": ["error", 2],
-		"@stylistic/jsx/jsx-indent": ["error", 2],
-		/* eslint-plugin-import */
-		"import/extensions": [
-			"error",
-			"ignorePackages",
-			{
-				"js": "never",
-				"jsx": "never",
-				"ts": "never",
-				"tsx": "never"
-			}
-		],
-		"import/no-unresolved": ["error"],
+		"@stylistic/ts/indent": ["off"],
+		"@stylistic/jsx/jsx-indent": ["off"],
 		/*
 		 * The rule offers little value in a TypeScript world, as the TypeScript
 		 * compiler will catch these errors. In some cases, Its recommended to disable it
@@ -403,6 +413,7 @@
     "react/button-has-type": ["off"],
 		"react/jsx-boolean-value": ["error", "always"],
 		"react/jsx-equals-spacing": "warn",
+    "react/jsx-indent-props": [2, "tab", {"indentMode": 2, "ignoreTernaryOperator": true}],
 		"react/react-in-jsx-scope": "off",
 		"react/jsx-no-duplicate-props": "error",
 		"react/jsx-no-undef": "error",
@@ -473,6 +484,37 @@
 				"import/no-duplicates": "off",
 				"unused-imports/no-unused-vars": "off"
 			}
+		},
+    {
+      /* eslint-plugin-import overrides */
+			"files": ["*.jsx", "*.tsx", "*.ts", "*.js"],
+			"extends": [
+        "plugin:import/recommended",
+        "plugin:import/typescript"
+      ],
+      "rules": {
+		    "import/extensions": [
+			    "error",
+			    {
+            "ignorePackages": true,
+			    	"js": "never",
+			    	"jsx": "never",
+			    	"ts": "never",
+			    	"tsx": "never"
+			    }
+		    ],
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": true,
+            "peerDependencies": true,
+            "includeTypes": false
+          }
+        ],
+		    "import/no-unresolved": ["error"],
+        "import/prefer-default-export": ["warn", { "target": "any" }]
+        // default is "single"
+      }
 		}
 	]
 }
