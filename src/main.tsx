@@ -1,23 +1,16 @@
 // @ts-check
-/* eslint-disable no-tabs */
 
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { MantineProvider } from "@mantine/core";
 import App from "./App";
 import "./index.css";
-import mantineTheme from "./mantineTheme";
 import "@mantine/core/styles.css";
 // import reportWebVitals from "./reportWebVitals.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <MantineProvider theme={mantineTheme}>
-    <MantineProvider defaultColorScheme="dark">
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </MantineProvider>
-  </MantineProvider>,
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

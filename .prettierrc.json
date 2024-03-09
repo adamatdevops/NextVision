@@ -1,16 +1,18 @@
 {
-	"printWidth": 120,
-	"singleQuote": false,
-	"htmlWhitespaceSensitivity": "strict",
+	"printWidth": 80,
 	"trailingComma": "all",
 	"useTabs": true,
 	"tabWidth": 2,
 	"semi": true,
-	"quoteProps": "preserve",
+	"quoteProps": "as-needed",
 	"jsxSingleQuote": false,
-	"bracketSpacing": false,
-	"bracketLine": true,
+	"singleQuote": false,
+	"bracketSpacing": true,
+	"bracketLine": false,
 	"parser": "typescript",
+	"htmlWhitespaceSensitivity": "ignore",
+	"endOfLine": "lf",
+	"singleAttributePerLine": false,
 	"overrides": [
 		{
 			"files": ["*.html"],
@@ -21,7 +23,8 @@
 		{
 			"files": ["*.css"],
 			"options": {
-				"parser": "css"
+				"parser": "css",
+				"htmlWhitespaceSensitivity": "css"
 			}
 		},
 		{

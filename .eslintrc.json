@@ -13,6 +13,8 @@
 		"@typescript-eslint",
 		"react",
 		"react-refresh",
+		"base-style-config",
+		"regex",
 		"regexp",
 		"unused-imports",
 		"jest",
@@ -24,17 +26,20 @@
 		"@stylistic/eslint-plugin-ts",
 		"@stylistic/eslint-plugin-migrate",
 		"@stylistic/eslint-plugin-plus",
-		"@typescript-eslint"
+		"@typescript-eslint",
+		"prettier"
 	],
 
 	"extends": [
 		"airbnb",
 		"airbnb/hooks",
+		"airbnb-typescript",
 		"eslint:recommended",
 		//"typescript-eslint",
 		// "react-app",
 		/* Plugins */
 		"plugin:eslint-comments/recommended",
+		"plugin:base-style-config/js-rules",
 		"plugin:import/recommended",
 		"plugin:import/typescript",
 		"plugin:eslint-plugin-jsx-a11y/recommended",
@@ -55,8 +60,9 @@
     *    will read .prettierrc, but won't read settings from ESLint, which can
     *    lead to an inconsistent experience.
     */
-		"plugin:prettier/recommended"
-    //"prettier"
+		"plugin:prettier/recommended",
+		"prettier"
+
 	],
 
 	"root": true,
@@ -91,7 +97,7 @@
 		"eqeqeq": ["error", "allow-null"],
 		"accessor-pairs": ["error"],
 		"array-callback-return": ["error"],
-		"arrow-body-style": ["error"],
+		"arrow-body-style": ["off"],
 		"block-scoped-var": ["error"],
 		"camelcase": ["error"],
 		"class-methods-use-this": ["error"], // jsxnote: consider switch to "off"
@@ -294,7 +300,7 @@
 		"object-shorthand": ["error"], // jsxnote: consider switch to "off"
 		"one-var": ["warn", {"initialized": "never"}],
 		"operator-assignment": ["warn", "always"],
-		"prefer-arrow-callback": ["error"],
+		"prefer-arrow-callback": ["off"],
 		"prefer-const": ["error"],
 		"prefer-destructuring": ["error"],
 		"prefer-exponentiation-operator": ["error"],
@@ -413,7 +419,7 @@
     "react/button-has-type": ["off"],
 		"react/jsx-boolean-value": ["error", "always"],
 		"react/jsx-equals-spacing": "warn",
-    "react/jsx-indent-props": [2, "tab", {"indentMode": 2, "ignoreTernaryOperator": true}],
+    "react/jsx-indent-props": [2, "tab"],
 		"react/react-in-jsx-scope": "off",
 		"react/jsx-no-duplicate-props": "error",
 		"react/jsx-no-undef": "error",
@@ -428,6 +434,20 @@
       "warn",
       { "allowConstantExport": true }
     ],
+		/* eslint-plugin-regex */
+		"regex/invalid": [
+      "error", [
+        "invalidRegex1",
+        "invalidRegexN"
+      ]
+    ],
+    "regex/required": [
+      "error", [
+        "requiredRegex1",
+        "requiredRegexN"
+      ],
+      "ignoreFilesRegex"
+    ],
 		/* eslint-plugin-unused-imports */
 		"unused-imports/no-unused-imports": "warn",
 		"unused-imports/no-unused-vars": [
@@ -437,6 +457,17 @@
 				"varsIgnorePattern": "^_",
 				"args": "after-used",
 				"argsIgnorePattern": "^_"
+			}
+		],
+		/* prettier */
+		"prettier/prettier": [
+			"off",
+			{
+				"singleQuote": false,
+				"usePrettierrc": true,
+				"fileInfoOptions": {
+					"withNodeModules": true
+				}
 			}
 		]
 	},
@@ -459,6 +490,7 @@
 		"import/resolver": {
 			"typescript": {
 				"alwaysTryTypes": true,
+				// use <root>/path/to/folder/tsconfig.json
 				"project": "./tsconfig.json"
 			},
 			"node": true
@@ -471,7 +503,7 @@
 			//"flowVersion": "0.53" // Flow version
 		}
 	},
-
+	/* Overrides */
 	"overrides": [
 		{
 			"files": ["*.js"],
@@ -504,7 +536,7 @@
 			    }
 		    ],
         "import/no-extraneous-dependencies": [
-          "error",
+          "warn",
           {
             "devDependencies": true,
             "peerDependencies": true,
