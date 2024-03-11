@@ -1,16 +1,12 @@
 /* Mantine */
 // import { useDisclosure } from "@mantine/hooks";
+import React from "react";
 import { Button } from "@mantine/core";
-
 /* CSS */
-import "./App.css";
+// import "../App.css";
 
 function ButtonComponent() {
-	return (
-		<div className="App">
-			<Button variant="filled">ButtonComponent</Button>
-		</div>
-	);
+	return <Button variant="filled">Hello, Mantine!</Button>;
 }
 
 export default ButtonComponent;

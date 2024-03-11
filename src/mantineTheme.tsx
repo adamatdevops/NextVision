@@ -107,4 +107,4 @@ export const mantineTheme = createTheme({
 	cursorType: "pointer",
 });
 
-// export default mantineTheme;
+export default mantineTheme;

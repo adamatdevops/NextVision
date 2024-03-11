@@ -1,15 +1,17 @@
-// @ts-check
-
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+// import App from "./App";
+import { MantineProvider } from "@mantine/core";
 import "./index.css";
 import "@mantine/core/styles.css";
-// import reportWebVitals from "./reportWebVitals.ts";
+// import AppShell from "./components/mantineAppShell";
+import SegmentedControl from "./components/NavbarSegmented";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-		<App />
+		<MantineProvider>
+		 <SegmentedControl />
+		</MantineProvider>
 	</React.StrictMode>,
 );
 

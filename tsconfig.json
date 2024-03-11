@@ -3,7 +3,8 @@
 		/* Basic Options */
 		"incremental": true /* Enable incremental compilation */,
 		// RECOMMENDED: Set to the *lowest* target you support
-		"target": "ES2020" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
+		"target": "ESNext" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
+		"useDefineForClassFields": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
 		"allowJs": true,
 		"checkJs": true /* Report errors in .js files. */,
@@ -16,7 +17,7 @@
 		//"outDir": "./build" /* Redirect output structure to the directory. */,
 		// "rootDir": "./src" /* Specify the root directory of input files. Use to
 		// control the output directory structure with --outDir. */,
-		// "composite": true,                     /* Enable project compilation */
+		"composite": true,                     /* Enable project compilation */
 		// "tsBuildInfoFile": "./",               /* Specify file to store
 		// incremental compilation information */
 		"removeComments": true /* Do not emit comments to output. */,
@@ -40,23 +41,29 @@
 		/* Strict Type-Checking Options */
 		"strict": true /* Enable all strict type-checking options. */,
 		"noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */,
+		"noImplicitOverride": true,
 		"strictNullChecks": true /* Enable strict null checks. */,
-		// "strictFunctionTypes": true,           /* Enable strict checking of function types. */
-		// "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
-		// "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
-		// "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
-		// "alwaysStrict": true,                  /* Parse in strict mode and emit
-		// "use strict" for each source file. */
+		"strictFunctionTypes": true,           /* Enable strict checking of function types. */
+		"strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
+		"strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
+		"noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
+		"alwaysStrict": true,                  /* Parse in strict mode and emit
+		"useUnknownInCatchVariables": true,
 		/* Additional Checks */
 		"noUnusedLocals": true /* Report errors on unused locals. */,
+		"noPropertyAccessFromIndexSignature": false,
 		"noUnusedParameters": true /* Report errors on unused parameters. */,
 		"noImplicitReturns": true /* Report error when not all code paths in function return a value. */,
 		"noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
+		"exactOptionalPropertyTypes": true,
+		"allowUnusedLabels": true,
+		"allowUnreachableCode": true,
+
 
 		/* Module Resolution Options */
 		// Implied by "module": "nodenext"
-		"moduleResolution": "bundler" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
-		// "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
+		"moduleResolution": "Node", // "bundler" * Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
+		"baseUrl": ".",                       /* Base directory to resolve non-absolute module names. */
 		// "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
 		// "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
 		// "typeRoots": [],                       /* List of folders to include type definitions from. */
@@ -94,7 +101,7 @@
 		"dist*/",
 		"docs/",
 		"scripts/",
-		"tests/"
+		"tests/",
 	],
   "references": [{ "path": "./tsconfig.eslint.json" }]
 }

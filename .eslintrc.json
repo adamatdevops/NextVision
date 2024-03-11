@@ -435,19 +435,8 @@
       { "allowConstantExport": true }
     ],
 		/* eslint-plugin-regex */
-		"regex/invalid": [
-      "error", [
-        "invalidRegex1",
-        "invalidRegexN"
-      ]
-    ],
-    "regex/required": [
-      "error", [
-        "requiredRegex1",
-        "requiredRegexN"
-      ],
-      "ignoreFilesRegex"
-    ],
+		"regex/invalid": ["error"],
+    "regex/required": ["error"],
 		/* eslint-plugin-unused-imports */
 		"unused-imports/no-unused-imports": "warn",
 		"unused-imports/no-unused-vars": [

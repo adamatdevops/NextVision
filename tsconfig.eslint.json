@@ -4,7 +4,7 @@
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "strict": true,
 		// ensure that nobody can accidentally use this config for a build
@@ -16,5 +16,16 @@
 		"src/**/*.jsx",
 		"src/**/*.tsx"
 	],
-	"exclude": ["src/**/*.js", "./tests/**/*"]
+	"exclude": [
+		"node_modules",
+		"build/**/*",
+		"coverage/",
+		"test*.*",
+		"jest.config.js",
+		"bin/",
+		"dist/**/*",
+		"docs/",
+		"scripts/",
+		"tests/**/*"
+	]
 }
