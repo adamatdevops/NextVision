@@ -331,14 +331,22 @@
 		// Stylistic Rules
 		// recommendedTypeCheck
 		"@typescript-eslint/await-thenable": "error",
-		"@typescript-eslint/ban-ts-comment": "error",
-		"@typescript-eslint/ban-types": "error",
+		"@typescript-eslint/ban-ts-comment": "off",
+		"@typescript-eslint/ban-types": "off",
+		"@typescript-eslint/consistent-type-imports": [
+      "warn",
+      {
+        "prefer": "type-imports",
+        "disallowTypeAnnotations": true,
+        "fixStyle": "inline-type-imports"
+      }
+    ],
 		"no-array-constructor": "off",
 		"@typescript-eslint/no-array-constructor": "error",
 		"@typescript-eslint/no-base-to-string": "error",
 		"@typescript-eslint/no-duplicate-enum-values": "error",
 		"@typescript-eslint/no-duplicate-type-constituents": "error",
-		"@typescript-eslint/no-explicit-any": "error",
+		"@typescript-eslint/no-explicit-any": "warn",
 		"@typescript-eslint/no-extra-non-null-assertion": "error",
 		"@typescript-eslint/no-floating-promises": "error",
 		"@typescript-eslint/no-for-in-array": "error",
@@ -362,8 +370,8 @@
 		"@typescript-eslint/no-unsafe-member-access": "error",
 		"@typescript-eslint/no-unsafe-return": "error",
 		"no-unused-vars": "off",
-		"@typescript-eslint/no-unused-vars": "error",
-		"@typescript-eslint/no-var-requires": "error",
+		"@typescript-eslint/no-unused-vars": "warn",
+		"@typescript-eslint/no-var-requires": "warn",
 		"@typescript-eslint/prefer-as-const": "warn",
 		"require-await": "off",
 		"@typescript-eslint/require-await": "error",
@@ -423,7 +431,7 @@
 		"react/react-in-jsx-scope": "off",
 		"react/jsx-no-duplicate-props": "error",
 		"react/jsx-no-undef": "error",
-    "react/jsx-no-target-blank": "warn",
+    "react/jsx-no-target-blank": [ "error", {"allowReferrer": true}],
     "react/jsx-one-expression-per-line": "warn",
 		"react/jsx-space-before-closing": "error",
 		"react/jsx-uses-react": "error",
