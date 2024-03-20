@@ -1,11 +1,9 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "yarn build",
-    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn run build",
+    "beforeDevCommand": "yarn run dev",
     "devPath": "http://localhost:5173",
-    "distDir": "../build",
-    "withGlobalTauri": true
+    "distDir": "../build"
   },
   "package": {
     "productName": "transfermate",
@@ -30,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.transfermate.dev",
+      "identifier": "com.surgimate.transfermate",
       "longDescription": "",
       "macOS": {
         "entitlements": null,

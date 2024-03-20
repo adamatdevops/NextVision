@@ -3,7 +3,7 @@
 		/* Basic Options */
 		"incremental": true /* Enable incremental compilation */,
 		// RECOMMENDED: Set to the *lowest* target you support
-		"target": "ESNext" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
+		"target": "ES2020" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
 		"useDefineForClassFields": true,
 		"lib": ["ES2020", "DOM", "DOM.Iterable"],
 		"allowJs": true,
@@ -62,7 +62,7 @@
 
 		/* Module Resolution Options */
 		// Implied by "module": "nodenext"
-		"moduleResolution": "Node", // "bundler" * Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
+		"moduleResolution": "bundler", // "Node" * Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
 		"baseUrl": ".",                       /* Base directory to resolve non-absolute module names. */
 		// "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
 		// "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
@@ -90,18 +90,11 @@
 		/* Advanced Options */
 		"forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
 	},
-	"include": ["src/**/*.{ts,js}x"],
+	"include": ["src"],
 	"exclude": [
-		"node_modules",
-		"build",
-		"coverage/",
 		"test*.*",
 		"jest.config.js",
-		"bin/",
-		"dist*/",
-		"docs/",
-		"scripts/",
 		"tests/",
 	],
-  "references": [{ "path": "./tsconfig.eslint.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

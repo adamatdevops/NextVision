@@ -1,8 +1,8 @@
 [package]
 name = "app"
-version = "0.2.0"
+version = "0.1.0"
 description = "A Tauri App"
-authors = ["adam keinan"]
+authors = ["you"]
 license = ""
 repository = ""
 default-run = "app"
@@ -17,7 +17,7 @@ tauri-build = { version = "1.5.1", features = [] }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.6.0", features = [] }
+tauri = { version = "1.6.1", features = [] }
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.

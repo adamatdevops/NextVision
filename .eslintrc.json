@@ -71,12 +71,12 @@
 	"parser": "@typescript-eslint/parser", // tseslint.parser,
 	"parserOptions": {
 		// NOTE: import.meta.dirname is only present for ESM files in Node.js >=20.11.0 / >= 21.2.0.
-		// tsconfigRootDir: import.meta.dirname,
+		"tsconfigRootDir":  "./", // ["import.meta.dirname"],
 		"ecmaFeatures": {
 			"jsx": true
 		},
 		"ecmaVersion": 2020,
-		"project": ["./tsconfig.eslint.json"], // true
+		"project": ["tsconfig.json", "./tsconfig.node.json"], // true
 		"requireConfigFile": false,
 		"warnOnUnsupportedTypeScriptVersion": true,
 		"sourceType": "module"
@@ -481,7 +481,7 @@
 		"dist",
 		"node_modules/**",
 		"bin/**",
-    "eslintrc.js"
+    ".eslintrc.*"
 	],
 	"settings": {
 		"import/resolver": {

@@ -6,34 +6,25 @@ import react from "@vitejs/plugin-react";
 // import envCompatible from "vite-plugin-env-compatible";
 // import html from "vite-plugin-html";
 
-// Vite handles environment variables in a different way than CRA
-// To avoid complete refactoring and preserve backwards-compatibilty we can use a custom plugin.
-// const ENV_PREFIX = "REACT_APP_";
-
 // https://vitejs.dev/config/
 export default defineConfig({
-// export default defineConfig(({ mode }) => {
-	plugins: [
+  plugins: [
 		//checker({
-		//	overlay: false,
-		//	typescript: true,
-		//}),
-		react({
-			//babel: {
-			//	plugins: [
-			//	],
-			//}
-		}),
+    //      overlay: false,
+    //      typescript: true,
+    //}),
+		react({}),
+		// svgr options (https://react-svgr.com/docs/options/)
 		//svgrPlugin({
     //  svgrOptions: {
     //    icon: true,
-    //    // ...svgr options (https://react-svgr.com/docs/options/)
     //  },
     //}),
 		//envCompatible({
-		//	prefix: ENV_PREFIX
-		//}),
+		//      prefix: ENV_PREFIX
+    //}),
 	],
+	// FIXME: Verify that
 	//resolve: {
   //  alias: {
   //    "~": path.resolve(__dirname, "src"),
@@ -42,16 +33,14 @@ export default defineConfig({
 	// prevent vite from obscuring rust errors
 	clearScreen: false,
 	// Tauri expects a fixed port, fail if that port is not available
-	server: {
+  server: {
 		strictPort: true,
-		// FIXME: Verify that
-		// port: 3000,
-	},
+    port: 5173,
+  },
 	// FIXME: Verify that
-	//build: {
+  //build: {
   //  outDir: "build",
   //},
-	// to access the Tauri environment variables set by the CLI with information about the current target
 	envPrefix: [
 		"VITE_",
 		"TAURI_PLATFORM",
@@ -65,7 +54,7 @@ export default defineConfig({
 	build: {
 		// Tauri uses Chromium on Windows and WebKit on macOS and Linux
 		// eslint-disable-next-line no-ternary
-		target: process.env.TAURI_PLATFORM === "windows" ? "chrome105" : 	"safari13",
+		target: process.env.TAURI_PLATFORM === "windows" ? "chrome105" : "safari13",
 		// don't minify for debug builds
 		// eslint-disable-next-line no-negated-condition, no-ternary
 		minify: !process.env.TAURI_DEBUG ? "esbuild" : false,

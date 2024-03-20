@@ -1,5 +1,5 @@
 /* Mantine Core */
-import { createTheme, MantineProvider, rem } from "@mantine/core";
+import { createTheme, rem } from "@mantine/core";
 
 const theme = createTheme({
 	focusRing: "always",

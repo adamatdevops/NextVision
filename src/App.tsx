@@ -1,13 +1,11 @@
 import "@mantine/core/styles.css";
-import { MantineProvider, useComputedColorScheme } from "@mantine/core";
-import { useState } from 'react'
+import { MantineProvider } from "@mantine/core";
 import "./index.css";
 import "./App.css";
 // import theme from "./mantineTheme";
 // import ColorSchemeToggle from "./components/ColorSchemeToggle";
-import { HeaderTabs } from "./components/HeaderTabs";
-import { NavbarSimple } from "./components/NavbarSimple";
-import { FooterCentered } from "./components/FooterCentered";
+import { MantineAppShell } from "./components/MantineAppShell";
+// import { NavbarSimple } from "./components/NavbarSimple";
 import theme from "./mantineTheme"
 
 
@@ -30,9 +28,7 @@ function App() {
 				<MantineProvider
 				theme={theme}
 				>
-					<HeaderTabs />
-					<NavbarSimple />
-					<FooterCentered />
+					<MantineAppShell />
 				</MantineProvider>
 			</div>
 		</>

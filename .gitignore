@@ -61,14 +61,7 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
-### Node ###
 # Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
 .pnpm-debug.log*
 chrome-user-data
 *.swp
@@ -103,8 +96,6 @@ coverage
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directories
-node_modules/
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
@@ -174,8 +165,6 @@ out
 .DS_*
 **/*.backup.*
 **/*.back.*
-
-node_modules
 
 *.sublime*
 
@@ -384,7 +373,6 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/
@@ -441,3 +429,23 @@ Cargo.lock
 
 .husky
 .history
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist-ssr
+*.local
+
+# Editor directories and files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
