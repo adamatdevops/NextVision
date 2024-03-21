@@ -1,7 +1,7 @@
 import { AppShell, Button, Flex, Group, rem, Stack, Space } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import {
-	IconPhoto,
+	IconSwitchHorizontal,
 	IconDashboard,
 	IconAddressBook,
 	IconShieldHalf,
@@ -14,7 +14,8 @@ import {
 	IconUserCircle,
 	IconSettings
 } from '@tabler/icons-react';
-import classes from "./Buttons.module.css";
+// import classes from "./Buttons.module.css";
+import { HeaderMegaMenu } from './HeaderMegaMenu';
 
 export function MantineAppShell() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
@@ -22,25 +23,25 @@ export function MantineAppShell() {
 
   return (
     <AppShell
-      header={{ height: { base: 28, sm: 40, lg: 68 } }}
-			footer={{ height: 60 }}
+      header={{ height: { base: 28, sm: 40, lg: 80 } }}
+			footer={{ height: { base: 28, sm: 40, lg: 80 } }}
       navbar={{
-        width: { sm: 120, lg: 300	},
-        breakpoint: 'sm',
+        width: { sm: 120, lg: 220	},
+        breakpoint: "sm",
         collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
       }}
-      padding="md"
+      padding="ms"
     >
 			<AppShell.Header>
-				<Group h="100%" px="md">
-					<Button onClick={toggleDesktop} visibleFrom="sm" leftSection={<IconPhoto size={14} />}>
-        		Toggle Home View
-      		</Button>
-      		<Button onClick={toggleMobile} hiddenFrom="sm" leftSection={<IconPhoto size={14} />}>
-        		Toggle Home View
-      		</Button>
+				<Group h="90%" px="lg">
+					<HeaderMegaMenu></HeaderMegaMenu>
+					<Button onClick={toggleDesktop} visibleFrom="md" variant="outline" color="#d618c6" justify="space-between" leftSection={<IconSwitchHorizontal style={{ width: rem(30), height: rem(20) }}/>} size="md" h="40">
+						Toggle Home
+					</Button>
+					<Button onClick={toggleMobile} hiddenFrom="md" variant="outline" color="#d618c6" justify="space-between" leftSection={<IconSwitchHorizontal style={{ width: rem(30), height: rem(20) }}/>} size="md" h="40">
+						Toggle Home
+					</Button>
 				</Group>
-
       </AppShell.Header>
 
       <AppShell.Navbar>
@@ -53,28 +54,29 @@ export function MantineAppShell() {
       		align="center"
       		direction="column"
       		wrap="wrap"
+					h="100%"
+					px="md"
     		>
 					<Stack
 						h={640}
-						//bg="#ffffff"
 						align="flex-start"
 						justify="space-around"
 						gap="sm"
 					>
-						<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconDashboard style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40" mt="md">Dashboard</Button>
-      			<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconAddressBook style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40">Profile</Button>
-						<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconShieldHalf style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40">Security</Button>
-						<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconNotification style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40">Notifications</Button>
-						<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconBellRinging style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40">Alerts</Button>
-						<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconDeviceDesktopAnalytics style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40">Logs & Activity</Button>
-						<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconBrandWikipedia style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40">SurgiWiki</Button>
-						<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconHelpOctagon style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40">Support</Button>
-						<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconRefresh style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40">Updates</Button>
+						<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconDashboard style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40" mt="md">Dashboard</Button>
+      			<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconAddressBook style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Profile</Button>
+						<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconShieldHalf style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Security</Button>
+						<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconNotification style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Notifications</Button>
+						<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconBellRinging style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Alerts</Button>
+						<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconDeviceDesktopAnalytics style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Logs & Activity</Button>
+						<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconBrandWikipedia style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">SurgiWiki</Button>
+						<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconHelpOctagon style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Support</Button>
+						<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconRefresh style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Updates</Button>
 						<Space h="md" />
-						<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconUserCircle style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40" mt="xl">Accounts</Button>
-						<Button onClick={toggleDesktop} visibleFrom="lg" variant="outline" color="rgba(250, 245, 245, 1)" leftSection={<IconSettings style={{ width: rem(40), height: rem(20) }}/>} p="10" size="md" h="40">Settings</Button>
+						<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconUserCircle style={{ width: rem(40), height: rem(20)}}/>} p="10" size="md" h="40" mt="xl">Accounts</Button>
+						<Button visibleFrom="md" variant="outline" color="rgba(250, 245, 245, 1)" justify="left" fullWidth leftSection={<IconSettings style={{ width: rem(40), height: rem(20)}}/>} p="10" size="md" h="40">Settings</Button>
 					</Stack>
-    	</Flex>
+			</Flex>
 
 			</AppShell.Navbar>
 

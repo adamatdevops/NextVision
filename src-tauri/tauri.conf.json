@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "transfermate",
-    "version": "0.2.241"
+    "version": "0.2.242"
   },
   "tauri": {
     "allowlist": {
@@ -55,10 +55,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 800,
         "resizable": true,
-        "title": "transfermate",
-        "width": 800
+        "title": "TransferMate",
+        "width": 1400
       }
     ]
   }
