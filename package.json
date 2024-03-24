@@ -40,6 +40,7 @@
     "dev-tauri": "yarn tauri dev",
     "dev-compile-run": "yarn tauri build",
     "build": "tsc && vite build",
+    "commit": "npx cz",
     "serve": "vite preview --port 3000",
     "test": "jest",
     "test:watch": "yarn run test -- --watch",
@@ -183,7 +184,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint"
+      "pre-commit": "yarn lint",
+			"prepare-commit-msg": "exec < /dev/tty && npx cz --hook || true"
     }
   },
   "lint-staged": {
