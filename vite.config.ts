@@ -1,8 +1,9 @@
+/// <reference types="vite-plugin-svgr/client" />
 // import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-// import checker from "vite-plugin-checker";
-// import svgrPlugin from "vite-plugin-svgr";
+import checker from "vite-plugin-checker";
+import svgr from "vite-plugin-svgr";
 // import envCompatible from "vite-plugin-env-compatible";
 // import html from "vite-plugin-html";
 
@@ -14,15 +15,17 @@ export default defineConfig({
     //      typescript: true,
     //}),
 		react({}),
-		// svgr options (https://react-svgr.com/docs/options/)
-		//svgrPlugin({
-    //  svgrOptions: {
-    //    icon: true,
-    //  },
-    //}),
-		//envCompatible({
-		//      prefix: ENV_PREFIX
-    //}),
+		svgr({
+			// svgr options (https://react-svgr.com/docs/options/)
+			svgrOptions: {
+				plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
+    	//    icon: true,
+			},
+    	//}),
+			include: "**/*.svg?react",
+			//envCompatible({
+			//      prefix: ENV_PREFIX
+    }),
 	],
 	// FIXME: Verify that
 	//resolve: {

@@ -1,3 +1,4 @@
+/// <reference types="vite-plugin-svgr/client" />
 import {
   HoverCard,
   Group,
@@ -17,7 +18,8 @@ import {
   rem,
   useMantineTheme,
 } from '@mantine/core';
-import { MantineLogo } from '@mantinex/mantine-logo';
+import { MantineLogo }  from '@mantinex/mantine-logo';
+// import TransferMateLogo from '../assets/TransferMateLogov2.svg?react';
 import { useDisclosure } from '@mantine/hooks';
 import {
   IconNotification,

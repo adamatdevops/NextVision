@@ -1,0 +1,9 @@
+{
+  "icon": true,
+	"jsxRuntimeImport": {},
+	"typescript": true,
+	"dimensions": true,
+	"expandProps": false,
+	"prettier": true,
+	"svgo": true
+}
