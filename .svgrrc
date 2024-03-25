@@ -1,6 +1,10 @@
 {
   "icon": true,
-	"jsxRuntimeImport": {},
+	"jsxRuntimeImport": {
+		"namespace": "React",
+		"source": "react"
+	},
+	"plugins": ["@svgr/plugin-jsx", "@svgr/plugin-prettier"],
 	"typescript": true,
 	"dimensions": true,
 	"expandProps": false,

@@ -4,6 +4,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import checker from "vite-plugin-checker";
 import svgr from "vite-plugin-svgr";
+import reactRefresh from '@vitejs/plugin-react-refresh';
+import tsconfigPaths from 'vite-tsconfig-paths';
 // import envCompatible from "vite-plugin-env-compatible";
 // import html from "vite-plugin-html";
 
@@ -14,7 +16,12 @@ export default defineConfig({
     //      overlay: false,
     //      typescript: true,
     //}),
-		react({}),
+		react(),
+		reactRefresh({
+			exclude: [/\.stories\.(t|j)sx?$/, /node_modules/],
+			include: "**/*.tsx"
+		}),
+		tsconfigPaths(),
 		svgr({
 			// svgr options (https://react-svgr.com/docs/options/)
 			svgrOptions: {

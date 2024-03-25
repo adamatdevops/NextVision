@@ -1,14 +1,18 @@
 {
   "presets": [
 		["airbnb"],
+		["@svgr/babel-preset"],
 		[
 			"@babel/env",
 			{
 				"targets": {
 					"browsers": [
-						"last 2 versions",
-						"> 1%",
-						"IE 11"
+						">= 2%, not dead",
+						"last 2 chrome versions, not dead",
+						"last 2 edge versions, not dead",
+						"last 2 safari versions, not dead",
+						"last 1 firefox versions, not dead",
+						"node >= 18"
 					]
 				}
 			}
@@ -21,8 +25,16 @@
 		],
 		["@babel/preset-typescript"],
 		["babel-preset-vite"]
-	]
-	//"plugins": [
+	],
+	"plugins": [
+		["@svgr/babel-plugin-transform-svg-component", { "titleProp": true }],
+		// ["@svgr/babel-plugin-svg-em-dimensions", { "width": 24, "height": 24 }],
+		"inline-react-svg"
 	//	"@babel/plugin-proposal-class-properties"
-	//]
+	],
+	"env": {
+		"development": {
+			"compact": false
+		}
+	}
 }
