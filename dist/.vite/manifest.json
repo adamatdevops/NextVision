@@ -1,0 +1,22 @@
+{
+  "index.html": {
+    "file": "assets/index-DIIfgbep.js",
+    "src": "index.html",
+    "isEntry": true,
+    "css": [
+      "assets/index-C5NOW2lH.css"
+    ],
+    "assets": [
+      "assets/TransferMateLogo-DRRhcr1O.svg",
+      "assets/TransferMateHor-j_2GLl7T.svg"
+    ]
+  },
+  "src/assets/TransferMateHor.svg": {
+    "file": "assets/TransferMateHor-j_2GLl7T.svg",
+    "src": "src/assets/TransferMateHor.svg"
+  },
+  "src/assets/TransferMateLogo.svg": {
+    "file": "assets/TransferMateLogo-DRRhcr1O.svg",
+    "src": "src/assets/TransferMateLogo.svg"
+  }
+}

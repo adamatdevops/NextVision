@@ -1,12 +1,20 @@
 /* Mantine Core */
-import { createTheme, rem } from "@mantine/core";
+import { createTheme, rem, MantineProvider } from "@mantine/core";
 
-const theme = createTheme({
-	focusRing: "always",
+export const theme = createTheme({
+
+	/** Used to retrieve/set color scheme value in external storage, by default
+	 * uses `window.localStorage` */
+	// FIXME: Add This
+  // colorSchemeManager?: MantineColorSchemeManager;
+	// FIXME: Add This
+	/** Default color scheme value used when `colorSchemeManager` cannot retrieve value from external storage, `light` by default */
+
+	focusRing:"always",
 	scale: 1,
 	fontSmoothing: true,
 	white: "#e3e8ef",
-	black: "#111418",
+	black: "#1a1e24",
 
 	colors: {
 		deepBlue: [
@@ -56,22 +64,22 @@ const theme = createTheme({
     xl: '5px 5px 3px rgba(0, 0, 0, .25)',
   },
 
-	// primaryColor: "green",
-	// variantColorResolver:
+
+	primaryColor: "blue",
 	autoContrast: true,
 	luminanceThreshold: 0.4,
 	headings: {
 		fontFamily:
-			"Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Open Sans, Helvetica Neue, Apple Color Emoji, Segoe UI Emoji, sans-serif",
+			"Reddit Mono, Roboto, -apple-system, BlinkMacSystemFont, Noto Sans, Ubuntu, Droid Sans, Open Sans, Helvetica Neue, Apple Color Emoji, Segoe UI Emoji, sans-serif",
 
 			textWrap: "wrap",
 			sizes: {
-				h1: { fontSize: rem(36) },
-				h2: { fontSize: rem(30) },
+				h1: { fontSize: rem(38) },
+				h2: { fontSize: rem(32) },
 				h3: { fontSize: rem(24) },
-				h4: { fontSize: rem(18) },
-				h5: { fontSize: rem(12) },
-				h6: { fontSize: rem(6) },
+				h4: { fontSize: rem(20) },
+				h5: { fontSize: rem(14) },
+				h6: { fontSize: rem(8) },
 			},
 		},
 
@@ -107,6 +115,11 @@ const theme = createTheme({
 		},
 		defaultRadius: "sm",
 		cursorType: "pointer",
+		defaultGradient: {
+			from: '#FF8787',
+			to: '#1C7ED6',
+			deg: 45,
+		}
 	}
 );
 

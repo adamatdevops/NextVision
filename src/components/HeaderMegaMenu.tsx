@@ -18,9 +18,9 @@ import {
   rem,
   useMantineTheme,
 } from '@mantine/core';
-// import { MantineLogo }  from '@mantinex/mantine-logo';
-import TransferMateLogo from '../assets/TransferMateLogo.svg?react';
-import TransferMateLogoHorizon from '../assets/TransferMateHor.svg?react';
+import { MantineLogo }  from '@mantinex/mantine-logo';
+// import TransferMateLogo from '../assets/TransferMateLogo.svg?react';
+// import TransferMateLogoHorizon from '../assets/TransferMateHor.svg?react';
 import { useDisclosure } from '@mantine/hooks';
 import {
   IconNotification,
@@ -32,7 +32,7 @@ import {
   IconChevronDown,
 } from '@tabler/icons-react';
 import classes from './HeaderMegaMenu.module.css';
-import svgrPlugin from "vite-plugin-svgr";
+// import svgrPlugin from "vite-plugin-svgr";
 
 const mockdata = [
   {
@@ -73,6 +73,7 @@ export function HeaderMegaMenu() {
   const theme = useMantineTheme();
 
   const links = mockdata.map((item) => (
+
     <UnstyledButton className={classes.subLink} key={item.title}>
       <Group wrap="nowrap" align="flex-start">
         <ThemeIcon size={34} variant="default" radius="md">
@@ -99,17 +100,7 @@ export function HeaderMegaMenu() {
             wrap="nowrap"
             preventGrowOverflow={true}
           >
-            <Button
-						visibleFrom="md"
-						color="transparent"
-						justify="left"
-						fullWidth
-						p="6"
-						size="54"
-            >
-							<TransferMateLogo style={{ width: rem(30), height: rem(30) }} />
-							<TransferMateLogoHorizon style={{ width: rem(30), height: rem(30) }} />
-            </Button>
+					<MantineLogo className={classes.logo} />
 					</Group>
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="#" className={classes.link}>

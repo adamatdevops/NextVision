@@ -1,5 +1,5 @@
 /// <reference types="vite-plugin-svgr/client" />
-// import path from "path";
+import { resolve } from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import checker from "vite-plugin-checker";
@@ -16,23 +16,23 @@ export default defineConfig({
     //      overlay: false,
     //      typescript: true,
     //}),
-		react(),
+		react({}),
 		reactRefresh({
-			exclude: [/\.stories\.(t|j)sx?$/, /node_modules/],
-			include: "**/*.tsx"
+		//	exclude: [resolve(__dirname, "node_modules/**/*")],
+			include: [resolve(__dirname, "src/**/*.tsx")]
 		}),
-		tsconfigPaths(),
-		svgr({
+		//tsconfigPaths(),
+		//svgr({
 			// svgr options (https://react-svgr.com/docs/options/)
-			svgrOptions: {
-				plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
+			//svgrOptions: {
+			//	plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
     	//    icon: true,
-			},
+			//},
     	//}),
-			include: "**/*.svg?react",
+			//include: "**/*.svg?react",
 			//envCompatible({
 			//      prefix: ENV_PREFIX
-    }),
+    //}),
 	],
 	// FIXME: Verify that
 	//resolve: {
@@ -62,6 +62,8 @@ export default defineConfig({
 	],
 	optimizeDeps: { exclude: ["fsevents"] },
 	build: {
+		// generate .vite/manifest.json in outDir
+		manifest: true,
 		// Tauri uses Chromium on Windows and WebKit on macOS and Linux
 		// eslint-disable-next-line no-ternary
 		target: process.env.TAURI_PLATFORM === "windows" ? "chrome105" : "safari13",

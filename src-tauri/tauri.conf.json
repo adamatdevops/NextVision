@@ -3,11 +3,11 @@
     "beforeBuildCommand": "yarn run build",
     "beforeDevCommand": "yarn run dev",
     "devPath": "http://localhost:5173",
-    "distDir": "../build"
+    "distDir": "../dist"
   },
   "package": {
     "productName": "transfermate",
-    "version": "0.2.242"
+    "version": "0.2.244"
   },
   "tauri": {
     "allowlist": {
@@ -55,11 +55,13 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 800,
+        "height": 900,
         "resizable": true,
         "title": "TransferMate",
-        "width": 1400
+        "width": 1600,
+				"visible": true
       }
-    ]
+    ],
+		"macOSPrivateApi": true
   }
 }

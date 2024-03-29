@@ -12,7 +12,7 @@
 						"last 2 edge versions, not dead",
 						"last 2 safari versions, not dead",
 						"last 1 firefox versions, not dead",
-						"node >= 18"
+						"node >= 19"
 					]
 				}
 			}
