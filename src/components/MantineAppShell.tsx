@@ -16,7 +16,7 @@ import {
 } from '@tabler/icons-react';
 // import classes from "./Buttons.module.css";
 import { HeaderMegaMenu } from './HeaderMegaMenu';
-import { LeadGrid } from './LeadGrid'
+// import { LeadGrid } from './LeadGrid'
 //import TransferMateLogo from "./src/assets/TransferMateLogov2.svg";
 
 /* Standard */
@@ -26,7 +26,6 @@ import { LeadGrid } from './LeadGrid'
 // - theme.spacing.xl when viewport width is >= theme.breakpoints.lg
 
 export function MantineAppShell() {
-	const [visible, setVisible] = useState(false);
 
   return (
 		<Container
