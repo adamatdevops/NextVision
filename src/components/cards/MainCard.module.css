@@ -1,0 +1,32 @@
+.MainCard{
+	/** Sizeable width for the form **/
+	width: 75vh;
+	/** Sizeable height for the form **/
+	height: 75vw;
+	/** Black color with opacity **/
+	background-color: lightblue;
+	//background-color:"linear-gradient(145deg, rgba(226, 117, 117, 0.95) 0%, rgba(0, 0, 0, 0) 100%)";
+	/** Responsive layout **/
+	display: flex;
+	position: relative;
+	/** One element on top of the other **/
+	//flex-direction:column;
+	/** Vertically at the center **/
+	align-items: center;
+	justify-content: space-between;
+	//justify-content: center;
+	/** Smooth corners **/
+	border-radius:10px;
+	/** Top, bottom, right, and left spacing between form and it's content **/
+	padding:20px;
+	/** Spacing from the top **/
+	margin-top:10px;
+	/* This controls the blurring effect*/
+	backdrop-filter: blur( 7.5px );
+	-webkit-backdrop-filter: blur( 7.5px );
+	/*Adding the shadow*/
+	box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.18 );
+	/* Adding our borders*/
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}

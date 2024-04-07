@@ -1,6 +1,6 @@
 {
   "name": "tauri-client",
-  "version": "0.3.492",
+  "version": "0.3.592",
   "description": "Modern Tauri Desktop application that utilizes Rust, TypeScript & React",
   "type": "module",
   "private": true,
@@ -60,7 +60,10 @@
     "lint:changelog": "node ./scripts/lint-changelog.js",
     "cache:yarn": "yarn cache clean",
     "cache:prettier": "prettier . --check --cache",
+		"cache:cargo": "rm -rf ~/.cargo/registry/index/* ~/.cargo/registry/cache/* ~/.cargo/.package-cache",
+		"cache-index:cargo": "rm -rf ~/.cargo/registry/index/*",
     "check:prettier": "prettier --check 'src/**/*.tsx'",
+		"clean:cargo": "cargo clean",
     "format:prettier": "prettier-eslint . --write",
     "fix": "run-s fix:eslint fix:prettier",
     "fix:eslint": "yarn lint:eslint --fix --ignore-unknown",

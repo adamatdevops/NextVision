@@ -1,0 +1,29 @@
+.NavbarCard{
+	/** Sizeable width for the form **/
+	//width:400px;
+	/** Sizeable height for the form **/
+	//height:300px;
+	/** Black color with opacity **/
+	background-color:rgba(239, 90, 208, 0.48);
+	/** Responsive layout **/
+	display:flex;
+	/** One element on top of the other **/
+	flex-direction:column;
+	/** Vertically at the center **/
+	justify-content: center;
+	/** Smooth corners **/
+	border-radius:14px;
+	/** Top, bottom, right, and left spacing between form and it's content **/
+	padding:8px;
+	/** Spacing from the top **/
+	margin-top:8px;
+	/** Spacing from the bottom **/
+	margin-bottom:8px;
+	/** Smooth transition to the bottom from a greyish to a less greyish color **/
+	//background-image:linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(255,255,255,0));
+	/** A blur effect behind the form **/
+	backdrop-filter: blur(5.6px);
+	-webkit-backdrop-filter: blur(5.6px);
+	/** Thick box shadow with a greyish background on the right, bottom, with a blurred shadow **/
+	box-shadow: 2 4px 24px rgba(0, 0, 0, 0.1);
+}

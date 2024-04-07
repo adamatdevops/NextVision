@@ -1,0 +1,141 @@
+.AppShell{
+	/** Sizeable width for the form **/
+	width: 100%;
+	height: 100%;
+	//max-width:1280px;
+	/** Sizeable height for the form **/
+	//max-height: fit-content;
+	/** Black color with opacity **/
+	background-image: url("https://miro.medium.com/v2/resize:fit:828/format:webp/1*OrmBhCAZtY812tSPGIf93A.png");
+	//background-color:linear-gradient(145deg, rgba(231, 75, 40, 0.955) 1%, rgba(205, 50, 104, 0.95) 100%);
+	/** Responsive layout **/
+	display: flex;
+	position: relative;
+	/** One element on top of the other **/
+	//flex-direction:center;
+	/** Vertically at the center **/
+	//justify-content: center;
+	/** Smooth corners **/
+	//border-radius:10px;
+	/** Top, bottom, right, and left spacing between form and it's content **/
+	//padding:2px;
+	/** Spacing from the top **/
+	//margin-top:4px;
+	//margin-bottom:4px;
+	//margin-left:18px;
+	//margin-right:18px;
+}
+
+.AppShellMain{
+	/** Sizeable width for the form **/
+	width: 84vw;
+	height: 144vh;
+	//max-width:1280px;
+	/** Sizeable height for the form **/
+	//max-height: fit-content;
+	align-items: center;
+  justify-content: center;
+	/** Black color with opacity **/
+	background: rgba(255, 255, 255, 0.13);
+	background-position: center;
+	/** Responsive layout **/
+	display: flex;
+	position: relative;
+	/** One element on top of the other **/
+	flex-direction:center;
+	/** Vertically at the center **/
+	justify-content: space-between;
+	/** Smooth corners **/
+	border-radius:16px;
+	/** Top, bottom, right, and left spacing between form and it's content **/
+	padding:20px;
+	/** Spacing from the top **/
+	margin-top: 80px;
+	margin-bottom: 80px;
+	margin-left: 250px;
+	//margin-right:4px;
+
+	/* This controls the blurring effect*/
+	backdrop-filter: blur(8.5px);
+	-webkit-backdrop-filter: blur(8.5px);
+
+	/*Adding the shadow*/
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.40);
+}
+
+.AppShellNavbar{
+	/** Sizeable width for the form **/
+	width: 14vw;
+	height: 64vh;
+	//max-width:1280px;
+	/** Sizeable height for the form **/
+	//max-height: fit-content;
+	align-items: left;
+  //justify-content: center;
+	/** Black color with opacity **/
+	background: rgba(255, 255, 255, 0.13);
+	//background-position: left;
+	/** Responsive layout **/
+	display: flex;
+	position: left;
+	/** One element on top of the other **/
+	//flex-direction:center;
+	/** Vertically at the center **/
+	//justify-content: left;
+	/** Smooth corners **/
+	border-radius:16px;
+	/** Top, bottom, right, and left spacing between form and it's content **/
+	padding:20px;
+	/** Spacing from the top **/
+	margin-top: 20px;
+	//margin-bottom: 1px;
+	margin-left: 8px;
+	//margin-right:4px;
+	/* This controls the blurring effect*/
+	backdrop-filter: blur(8.5px);
+	//-webkit-backdrop-filter: blur(8.5px);
+
+	/*Adding the shadow*/
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.40);
+}
+
+
+.AppShellNav{
+	/** Sizeable width for the form **/
+	width: 14vw;
+	height: 68vh;
+	//max-width:1280px;
+	/** Sizeable height for the form **/
+	//max-height: fit-content;
+	//align-items: left;
+  justify-content: center;
+	/** Black color with opacity **/
+	background: rgba(255, 255, 255, 0.13);
+	background-position: left;
+	/** Responsive layout **/
+	display: flex;
+	position: relative;
+	/** One element on top of the other **/
+	flex-direction:center;
+	/** Vertically at the center **/
+	justify-content: left;
+	/** Smooth corners **/
+	border-radius:16px;
+	/** Top, bottom, right, and left spacing between form and it's content **/
+	padding:20px;
+	/** Spacing from the top **/
+	margin-top: 1px;
+	margin-bottom: 1px;
+	margin-left: 2px;
+	//margin-right:4px;
+
+	/* This controls the blurring effect*/
+	backdrop-filter: blur(8.5px);
+	-webkit-backdrop-filter: blur(8.5px);
+
+	/*Adding the shadow*/
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.40);
+}

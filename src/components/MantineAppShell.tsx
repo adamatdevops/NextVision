@@ -1,22 +1,9 @@
-import { useState } from 'react';
-import { AppShell, Button, Flex, rem, Stack, Space, Card, Box, Overlay, Container } from '@mantine/core';
-import {
-	// IconSwitchHorizontal,
-	IconDashboard,
-	IconAddressBook,
-	IconShieldHalf,
-	IconNotification,
-	IconBellRinging,
-	IconDeviceDesktopAnalytics,
-	IconBrandWikipedia,
-	IconHelpOctagon,
-	IconRefresh,
-	IconUserCircle,
-	IconSettings
-} from '@tabler/icons-react';
+// import { useState } from 'react';
+import { AppShell, Flex, Stack } from '@mantine/core';
 import { HeaderMegaMenu } from './HeaderMegaMenu';
-// import { LeadGrid } from './LeadGrid'
-//import TransferMateLogo from "./src/assets/TransferMateLogov2.svg";
+import { NavbarCard } from "./cards/NavbarCard";
+import { MainCard } from "./cards/MainCard";
+import classes from "./MantineAppShell.module.css";
 
 /* Standard */
 // Padding is:
@@ -27,28 +14,43 @@ import { HeaderMegaMenu } from './HeaderMegaMenu';
 export function MantineAppShell() {
 
   return (
-		<Container
-		bg="blue"
-		>
     <AppShell
+			className={classes.AppShell}
+			layout="default"
       header={{
-				height: { base: 18, sm: 48, lg: 80 },
-				offset: false
+				height: { base: 18, sm: 28, lg: 48 },
+			//	offset: true
 			}}
-			footer={{ height: { base: 18, sm: 24, lg: 40 } }}
+			footer={{
+				height: { base: 18, sm: 28, lg: 48, breakpoint: "sm" },
+			//	offset: true,
+			}}
       navbar={{
-        width: { sm: 120, lg: 240	},
-        breakpoint: "sm",
+        width: { sm: 120, lg: 220	},
+        breakpoint: "sm"
       }}
+			//withBorder={true}
 			padding="md"
-			withBorder={true}
-			zIndex={100}
-			bg="defaultGradient"
+			visibleFrom="xs"
+			style={{ preventOverflow: true }}
+			//zIndex={100}
+			//bg="lightBlue"
+			//bg="linear-gradient(145deg, rgba(231, 75, 40, 0.955) 1%, rgba(205, 50, 104, 0.95) 100%)"
     >
-
+		{/* <Stack
+			justify="center"
+			align="center"
+			//bg="blue"
+		>
+			<MainCard/>
+		</Stack> */}
 		<AppShell.Header
-		h="48"
-		bg="defaultGradient"
+		mt={0}
+		mb={0}
+		//my={0}
+		ml={0}
+		mr={0}
+		bg="linear-gradient(145deg, rgb(224, 82, 50) 1%, rgba(205, 50, 104, 0.95) 100%)"
 		>
 			<Flex
 			justify="center"
@@ -61,49 +63,38 @@ export function MantineAppShell() {
 			</Flex>
 		</AppShell.Header>
 		<AppShell.Main
-			bg="transparent"
-			// p="10"
-			mt="sm"
-			h="820"
-			w="1000"
+			className={classes.AppShellMain}
 			visibleFrom="sm"
-			style={{ width: rem(900), height: rem(20) }}
+			style={{ preventOverflow: true }}
+			//bg="linear-gradient(145deg, rgb(224, 82, 50) 1%, rgba(205, 50, 104, 0.95) 100%)"
+			//bg="blue"
 			>
-			<Card shadow="md" padding="lg" radius="md" withBorder >
-				<Overlay color="#2c83ca" backgroundOpacity={0.35} blur={3} radius="md" />
-    	</Card>
+				<MainCard/>
 		</AppShell.Main>
-    <AppShell.Navbar
-			h="800"
-			bg="lightBlue"
+		<AppShell.Navbar
+			className={classes.AppShellNavbar}
+			p="AppShellResponsiveSize"
+			visibleFrom="sm"
+			style={{ preventOverflow: true }}
+			//style={{ width: rem(220), height: rem(944), preventOverflow: true }}
+			// style={{ preventOverflow: true, justify: "center" }}
+			//bg="transparent"
 			>
-				<Flex
-					mih={800}
-					gap="sm"
-					rowGap="10"
-					columnGap="10"
-					justify="flex-start"
-					align="flex-start"
-					direction="column"
-					wrap="nowrap"
-					px="md"
-				>
-					<Button visibleFrom="md" variant="gradient" radius="md" color="#F8F9FA" justify="left" fullWidth leftSection={<IconDashboard style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40" mt="md">Dashboard</Button>
-      		<Button visibleFrom="md" variant="outline" radius="md" color="#F8F9FA" bg="#1864AB" justify="left" fullWidth leftSection={<IconAddressBook style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Profile</Button>
-					<Button visibleFrom="md" variant="outline" radius="md" color="#F8F9FA" bg="#1864AB" justify="left" fullWidth leftSection={<IconShieldHalf style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Security</Button>
-					<Button visibleFrom="md" variant="outline" radius="md" color="#1864AB" bg="#66D9E8" justify="left" fullWidth leftSection={<IconNotification style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Notifications</Button>
-					<Button visibleFrom="md" variant="light" radius="md" color="#1864AB" bg="#66D9E8" justify="left" fullWidth leftSection={<IconBellRinging style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Alerts</Button>
-					<Button visibleFrom="md" variant="outline" radius="md" color="#1864AB" bg="#66D9E8" justify="left" fullWidth leftSection={<IconDeviceDesktopAnalytics style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Logs & Activity</Button>
-					<Button visibleFrom="md" variant="outline" radius="md" color="#495057" bg="#63E6BE" justify="left" fullWidth leftSection={<IconHelpOctagon style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Support</Button>
-					<Button visibleFrom="md" variant="outline" radius="md" color="#495057" bg="#63E6BE" justify="left" fullWidth leftSection={<IconRefresh style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">Updates</Button>
-					<Button visibleFrom="md" variant="outline" radius="md" color="#495057" bg="#DEE2E6" justify="left" fullWidth leftSection={<IconBrandWikipedia style={{ width: rem(30), height: rem(20)}}/>} p="10" size="md" h="40">SurgiWiki</Button>
-					<Space h="md" />
-					<Button visibleFrom="md" variant="gradient" radius="md" color="#F8F9FA" justify="left" fullWidth leftSection={<IconUserCircle style={{ width: rem(40), height: rem(20)}}/>} p="10" size="md" h="40" mt="xl">Accounts</Button>
-					<Button visibleFrom="md" variant="gradient" radius="md" color="#F8F9FA" justify="left" fullWidth leftSection={<IconSettings style={{ width: rem(40), height: rem(20)}}/>} p="10" size="md" h="40">Settings</Button>
-			</Flex>
+		<NavbarCard/>
 			</AppShell.Navbar>
+
+			<AppShell.Footer
+				//my="0"
+				//p="AppShellResponsiveSize"
+				visibleFrom="sm"
+				//bg="transparent"
+				bg="linear-gradient(145deg, rgb(224, 82, 50) 1%, rgba(205, 50, 104, 0.95) 100%)"
+				//style={{ width: rem(1440), height: rem(48), preventOverflow: true,
+				//justify: "center" }}
+				style={{ preventOverflow: true }}
+			>
+			</AppShell.Footer>
     </AppShell>
-		</Container>
   );
 }
 

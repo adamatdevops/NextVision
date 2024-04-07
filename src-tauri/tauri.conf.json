@@ -55,10 +55,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 900,
+        "height": 1080,
         "resizable": true,
         "title": "TransferMate",
-        "width": 1600,
+        "width": 1920,
 				"visible": true
       }
     ],

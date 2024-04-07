@@ -1,0 +1,145 @@
+/* From https://css.glass */
+
+.DashboardButton {
+	/** Greyish Black color with opacity **/
+  background-color:rgba(242, 253, 178, 0.4);
+	/** Color of text **/
+	color:rgb(27, 26, 26);
+	/** Medium sized font **/
+	font-size:16px;
+	/** Display a pointer when mouse is over it **/
+	cursor:pointer;
+	/** Responsive layout **/
+	display:flex;
+	/** Smooth corners at all edges **/
+	border-radius:16px;
+	/** No line on the outline **/
+	border:1px solid rgba(242, 253, 178, 0.56);
+	//backdrop-filter: "blur(12px)";
+	box-shadow: 2px 4px 20px rgba(30,30,30,0.5);
+	//padding: 8px;
+	border-radius:16px;
+	margin-bottom:2px;
+}
+
+.AccountButton {
+	/** Greyish Black color with opacity **/
+  background-color:rgba(242, 253, 178, 0.4);
+	/** Color of text **/
+	color:rgb(27, 26, 26);
+	/** Medium sized font **/
+	font-size:16px;
+	/** Display a pointer when mouse is over it **/
+	cursor:pointer;
+	/** Responsive layout **/
+	display:flex;
+	/** Smooth corners at all edges **/
+	border-radius:16px;
+	/** No line on the outline **/
+	border:1px solid rgba(242, 253, 178, 0.56);
+	//backdrop-filter: "blur(12px)";
+	box-shadow: 2px 4px 20px rgba(30,30,30,0.5);
+	//padding: 8px;
+	border-radius:16px;
+	margin-bottom:2px;
+}
+
+.AlertsButton {
+	/** Greyish Black color with opacity **/
+  background-color:rgba(242, 253, 178, 0.4);
+	/** Color of text **/
+	color:rgb(27, 26, 26);
+	/** Medium sized font **/
+	font-size:16px;
+	/** Display a pointer when mouse is over it **/
+	cursor:pointer;
+	/** Responsive layout **/
+	display:flex;
+	/** Smooth corners at all edges **/
+	border-radius:16px;
+	/** No line on the outline **/
+	border:1px solid rgba(242, 253, 178, 0.56);
+	//backdrop-filter: "blur(12px)";
+	box-shadow: 2px 4px 20px rgba(30,30,30,0.5);
+	//padding: 8px;
+	border-radius:16px;
+	margin-bottom:2px;
+	margin-top:2px;
+}
+
+.LogsAndActivityButton {
+	background: rgba(83, 216, 218, 0.4);
+	border-radius: 16px;
+	box-shadow: 4px 6px 8px rgba(30,30,30,0.5);
+	backdrop-filter: "blur(14px)";
+	-webkit-backdrop-filter: blur(4.9px);
+	border: 1px solid rgba(83, 216, 218, 0.56);
+	margin-bottom:2px;
+	margin-top:2px;
+}
+
+.ProfilenotificationsButton {
+	background: rgba(83, 216, 218, 0.4);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(4.9px);
+	-webkit-backdrop-filter: blur(4.9px);
+	border: 1px solid rgba(83, 216, 218, 0.56);
+	margin-bottom:2px;
+	margin-top:2px;
+}
+
+.SecurityButton {
+	background: rgba(83, 216, 218, 0.4);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(4.9px);
+	-webkit-backdrop-filter: blur(4.9px);
+	border: 1px solid rgba(83, 216, 218, 0.56);
+	margin-bottom:2px;
+	margin-top:2px;
+}
+
+.SettingsButton {
+	background: rgba(83, 216, 218, 0.4);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(4.9px);
+	-webkit-backdrop-filter: blur(4.9px);
+	border: 1px solid rgba(83, 216, 218, 0.56);
+	margin-bottom:2px;
+	margin-top:2px;
+}
+
+.SupportButton {
+  background-color:rgba(134, 90, 171, 0.44);
+	backdrop-filter: "blur(14px)";
+	box-shadow: 4px 6px 8px rgba(30,30,30,0.5);
+	padding: 10px;
+	border-radius:16px;
+	margin-bottom:2px;
+	margin-top:2px;
+}
+
+.SurgiWikiButton {
+	background: rgba(83, 216, 218, 0.4);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(4.9px);
+	-webkit-backdrop-filter: blur(4.9px);
+	border: 1px solid rgba(83, 216, 218, 0.56);
+	margin-bottom:2px;
+	margin-top:2px;
+}
+
+.UpdatesButton {
+	background: rgba(83, 216, 218, 0.4);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(4.9px);
+	-webkit-backdrop-filter: blur(4.9px);
+	border: 1px solid rgba(83, 216, 218, 0.56);
+	margin-bottom:2px;
+	margin-top:2px;
+}
+
