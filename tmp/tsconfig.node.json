@@ -1,0 +1,19 @@
+{
+	// "extends": "./tsconfig.json",
+	"compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+		// ensure that nobody can accidentally use this config for a build
+		// "noEmit": true
+	},
+	"include": ["vite.config.ts"],
+	"exclude": [
+		"test*.*",
+		"jest.config.js",
+		"tests/**/*"
+	]
+}
