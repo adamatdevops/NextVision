@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nextvision-dev-74e41-authRole",
+      "UnauthRoleArn": "arn:aws:iam::730335488506:role/amplify-nextvision-dev-74e41-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::730335488506:role/amplify-nextvision-dev-74e41-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-nextvision-dev-74e41-deployment",
+      "UnauthRoleName": "amplify-nextvision-dev-74e41-unauthRole",
+      "StackName": "amplify-nextvision-dev-74e41",
+      "StackId": "arn:aws:cloudformation:eu-central-1:730335488506:stack/amplify-nextvision-dev-74e41/2e675600-fb00-11ee-bf38-0ae9d139c25b",
+      "AmplifyAppId": "ds7dacq68orgq"
+    }
+  }
+}
