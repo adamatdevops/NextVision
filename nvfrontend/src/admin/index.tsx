@@ -1,4 +1,3 @@
-// in src/admin/index.tsx
 import { Admin, Resource, ListGuesser } from "react-admin";
 import jsonServerProvider from "ra-data-json-server";
 import { ralayout } from "./layout";
