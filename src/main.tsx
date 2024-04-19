@@ -1,6 +1,6 @@
 /* Importing Backend */
 import { Amplify } from 'aws-amplify';
-import amplifyconfig from '../../src/amplifyconfiguration.json';
+import amplifyconfig from './amplifyconfiguration.json';
 Amplify.configure(amplifyconfig);
 /* Importing UI */
 import React from 'react'
