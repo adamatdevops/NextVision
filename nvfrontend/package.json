@@ -1,7 +1,7 @@
 {
   "name": "nvfrontend",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.1.1",
 	"description": "Modern React - Typescript - Vite Amplify Web application that utilizes AWS Amplify",
   "type": "module",
   "scripts": {
