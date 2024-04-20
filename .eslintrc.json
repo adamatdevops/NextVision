@@ -62,9 +62,7 @@
     */
 		"plugin:prettier/recommended",
 		"prettier"
-
 	],
-
 	"root": true,
 
 	// Allows for the parsing of modern ECMAScript features
@@ -76,7 +74,10 @@
 			"jsx": true
 		},
 		"ecmaVersion": 2020,
-		"project": ["tsconfig.json", "./tsconfig.node.json"], // true
+		"project": [
+			"tsconfig.json",
+			"./tsconfig.node.json"
+			],
 		"requireConfigFile": false,
 		"warnOnUnsupportedTypeScriptVersion": true,
 		"sourceType": "module"
