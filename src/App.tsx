@@ -1,6 +1,17 @@
 import MyAdmin from "./admin";
+// https://github.com/MrHertal/react-admin-amplify?tab=readme-ov-file#installation
+import { Amplify } from "aws-amplify";
+import { Resource } from "react-admin";
+import { AmplifyAdmin } from "react-admin-amplify";
+import awsExports from "./aws-exports";
+import * as mutations from "./graphql/mutations";
+import * as queries from "./graphql/queries";
 
-const App = () => <MyAdmin />;
+Amplify.configure(awsExports); // Configure Amplify the usual way
+
+function App() {
+	return <MyAdmin />;
+}
 
 export default App;
 

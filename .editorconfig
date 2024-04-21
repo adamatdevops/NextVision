@@ -1,19 +1,15 @@
 # EditorConfig is awesome: https://EditorConfig.org
-
 # top-most EditorConfig file
 root = true
 
 [*]
-indent_style = tab
-indent_size = 2
 end_of_line = lf
 charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
 
 [*.sh]
-indent_style = space
+indent_style = tab
 indent_size = 2
+tab_width = 4
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
@@ -22,6 +18,7 @@ insert_final_newline = false
 [*.env]
 indent_style = space
 indent_size = 2
+tab_width = 4
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = false
@@ -30,14 +27,7 @@ insert_final_newline = false
 [*.conf|*.options|*.local]
 indent_style = space
 indent_size = 2
-end_of_line = lf
-charset = utf-8
-trim_trailing_whitespace = false
-insert_final_newline = false
-
-[*.yaml]
-indent_style = space
-indent_size = 2
+tab_width = 4
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = false
@@ -45,7 +35,8 @@ insert_final_newline = false
 
 [*.yml]
 indent_style = space
-indent_size = 2
+indent_size = 4
+tab_width = 4
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = false
@@ -54,22 +45,25 @@ insert_final_newline = false
 [*.json]
 indent_style = tab
 indent_size = 2
+tab_width = 4
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = false
 
-[*.tf]
+[*.css]
 indent_style = space
-indent_size = 2
+indent_size = 4
+tab_width = 4
 end_of_line = lf
 charset = utf-8
-trim_trailing_whitespace = false
+trim_trailing_whitespace = true
 insert_final_newline = false
 
 [*.txt]
 indent_style = space
 indent_size = 2
+tab_width = 4
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
@@ -78,31 +72,32 @@ insert_final_newline = false
 [*.log]
 indent_style = space
 indent_size = 2
+tab_width = 4
 end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = false
 insert_final_newline = false
 
-[{src,scripts}/**.{js,ts,json,js,tsx,jsx}]
+[*.{js,ts,json,js,tsx,jsx}]
 end_of_line = lf
 charset = utf-8
-max_line_length = 80
+max_line_length = 92
 trim_trailing_whitespace = true
 insert_final_newline = false
-indent_style = tab
+indent_style = space
 indent_size = 2
-
-[*.rs]
-indent_size = 4
-indent_style = tab
-tab_width = 4
-max_line_length = 80
+tab_width = 8
 
 [*.md]
 # double whitespace at end of line
 # denotes a line break in Markdown
 trim_trailing_whitespace = true
 insert_final_newline = true
+tab_width = 4
 
 [Makefile]
 indent_style = tab
+tab_width = 4
+
+[CHANGELOG.md]
+indent_size = false

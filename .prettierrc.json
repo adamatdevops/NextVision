@@ -2,11 +2,11 @@
 	"printWidth": 80,
 	"trailingComma": "all",
 	"useTabs": true,
-	"tabWidth": 2,
+	"tabWidth": 4,
 	"semi": true,
 	"quoteProps": "as-needed",
-	"jsxSingleQuote": false,
-	"singleQuote": false,
+	"jsxSingleQuote": true,
+	"singleQuote": true,
 	"bracketSpacing": true,
 	"bracketLine": false,
 	"parser": "typescript",
@@ -31,12 +31,6 @@
 			"files": "*.properties",
 			"options": {
 				"printWidth": 0
-			}
-		},
-		{
-			"files": ["**/*.rs"],
-			"options": {
-				"printWidth": 80
 			}
 		}
 	]

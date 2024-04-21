@@ -75,7 +75,7 @@
 		},
 		"ecmaVersion": 2020,
 		"project": [
-			"tsconfig.json",
+			"./tsconfig.json",
 			"./tsconfig.node.json"
 			],
 		"requireConfigFile": false,
@@ -122,7 +122,7 @@
 		"id-denylist": ["error"],
 		"id-length": ["error"],
 		"id-match": ["error"],
-		"jsx-quotes": ["error", "prefer-double"],
+		"jsx-quotes": ["error", "prefer-single"],
 		"keyword-spacing": ["error", {"after": true, "before": true}],
 		"init-declarations": ["error"],
 		"linebreak-style": ["error", "unix"],
@@ -472,8 +472,6 @@
 
 	"ignorePatterns": [
 		"**/*.json",
-		"**/*.rs",
-		"**/*.toml",
 		"**/*.md",
 		"**/*.log",
 		"**/*.yml",
@@ -482,14 +480,18 @@
 		"dist",
 		"node_modules/**",
 		"bin/**",
-    ".eslintrc.*"
+        ".eslintrc.json",
+		"vite.config.ts"
 	],
 	"settings": {
 		"import/resolver": {
 			"typescript": {
 				"alwaysTryTypes": true,
 				// use <root>/path/to/folder/tsconfig.json
-				"project": "./tsconfig.json"
+				"project": [
+					"./tsconfig.json",
+					"./tsconfig.node.json"
+				]
 			},
 			"node": true
 		},
