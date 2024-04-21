@@ -10,11 +10,12 @@ frontend:
     phases:
         preBuild:
             commands:
-                -  cd nextvision
+                - echo "$(pwd)" 
                 - node -v
                 - npm ci --cache .npm --prefer-offline
         build:
             commands:
+                - echo "$(pwd)" 
                 - npm run build
     artifacts:
         files:
