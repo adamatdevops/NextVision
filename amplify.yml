@@ -10,6 +10,8 @@ frontend:
     phases:
     preBuild:
         commands:
+            -  cd nextvision
+            - node -v
             - npm ci --cache .npm --prefer-offline
     build:
         commands:
