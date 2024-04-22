@@ -1,4 +1,3 @@
-import { type AuthProvider, HttpError } from 'react-admin';
 // import data from './users.json';
 
 /**

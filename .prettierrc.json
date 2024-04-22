@@ -24,7 +24,9 @@
 			"files": ["*.css"],
 			"options": {
 				"parser": "css",
-				"htmlWhitespaceSensitivity": "css"
+				"htmlWhitespaceSensitivity": "css",
+                "tabWidth": 4,
+                "singleQuote": false
 			}
 		},
 		{

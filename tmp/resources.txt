@@ -1,0 +1,3 @@
+https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/
+
+https://dev.to/ethanlloyd21/react-typescript-vite-amplify-setup-052023-25ge

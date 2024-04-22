@@ -11,36 +11,45 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [
-		react(),
-		reactRefresh({		//	exclude: [resolve(__dirname, "node_modules/**/*")],
-			include: [resolve(__dirname, "src/**/*.tsx")]
-		})
-		//tsconfigPaths(),
-		//checker({
-    //      overlay: false,
-    //      typescript: true,
-    //}),
-	],
-	define: {
-			'process.env': process.env,
-	},
-	server: {
-			host: true,
-	},
-	// envPrefix: [],
-	base: './',
-	optimizeDeps: { exclude: ["fsevents"] }
-	// build: {
-	// 	// generate .vite/manifest.json in outDir
-	// 	manifest: true,
-	// 	// Tauri uses Chromium on Windows and WebKit on macOS and Linux
-	// 	// eslint-disable-next-line no-ternary
-	// 	target: process.env.TAURI_PLATFORM === "windows" ? "chrome105" : "safari13",
-	// 	// don't minify for debug builds
-	// 	// eslint-disable-next-line no-negated-condition, no-ternary
-	// 	minify: !process.env.TAURI_DEBUG ? "esbuild" : false,
-	// 	// produce sourcemaps for debug builds
-	// 	sourcemap: !!process.env.TAURI_DEBUG,
-	// },
+    plugins: [
+        react(),
+        reactRefresh({		//	exclude: [resolve(__dirname, "node_modules/**/*")],
+            include: [resolve(__dirname, "src/**/*.tsx")]
+        })
+        //tsconfigPaths(),
+        //checker({
+        //      overlay: false,
+        //      typescript: true,
+        //}),
+    ],
+    resolve: {
+        alias: [
+            {
+                find: './runtimeConfig',
+                replacement: './runtimeConfig.browser',
+            },
+        ]
+    },
+    define: {
+        'process.env': process.env,
+    },
+    server: {
+        host: true,
+    },
+    // envPrefix: [],
+    base: './',
+    optimizeDeps: { exclude: ["fsevents"] },
+    build: {
+        // 	generate .vite/manifest.json in outDir
+        manifest: true,
+        // 	eslint-disable-next-line no-ternary
+        // 	target: process.env.MY_PLATFORM === "windows" ? "chrome105" : "safari13",
+        // 	don't minify for debug builds
+        // 	eslint-disable-next-line no-negated-condition, no-ternary
+        // 	minify: !process.env.MY_DEBUG ? "esbuild" : false,
+        // 	produce sourcemaps for debug builds
+        // 	sourcemap: !!process.env.MY_DEBUG,
+        // IMPORTANT:  if build is not included inside defineConfig({}) of your vite.config.ts the application will only work on Amplify manual deployment. In order for the Git-based (CI/CD pipeline) deployment to work, build output must be present.
+        outDir: "dist" // or build
+    }
 });
