@@ -4,7 +4,7 @@
 	"author": "adamatdevops",
 	"license": "Apache-2.0",
   "description": "Modern web application that utilizes Vite, TypeScript & React",
-  "version": "1.4.330",
+  "version": "2.3.0",
 	"main": "index.js",
   "type": "module",
   "scripts": {
