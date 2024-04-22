@@ -10,6 +10,23 @@
       "StackName": "amplify-nextvision-dev-74e41",
       "StackId": "arn:aws:cloudformation:eu-central-1:730335488506:stack/amplify-nextvision-dev-74e41/2e675600-fb00-11ee-bf38-0ae9d139c25b",
       "AmplifyAppId": "ds7dacq68orgq"
+    },
+    "categories": {
+      "auth": {
+        "nextvisionf1138b70": {}
+      },
+      "function": {
+        "nextvisionf1138b70DefineAuthChallenge": {},
+        "nextvisionf1138b70CreateAuthChallenge": {},
+        "nextvisionf1138b70VerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "nextvision"
+        },
+        "nextvisionf1138b70CustomMessage": {
+          "REDIRECTURL": "",
+          "EMAILSUBJECT": "nextvision-community-model",
+          "EMAILMESSAGE": ""
+        }
+      }
     }
   }
 }

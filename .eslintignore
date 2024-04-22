@@ -14,6 +14,13 @@ scripts/bench/benchmarks/**/*.js
 tests/**
 /tests
 
+./history
+
+*.yml
+*.yaml
+*.log
+*.txt
+
 # React repository clone
 scripts/bench/remote-repo/
 
