@@ -1,4 +1,76 @@
-type Todo @model @auth(rules: [{allow: public}]) {
+type EducationModel @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Descrition: String
+  Tuition: String
+  Classes: String
+  HelpLessons: String
 }
+
+type SeniorityModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Status: String
+  Years: Int
+}
+
+type PenssionModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  NumOfPenssionPlansum: Int
+  MonthlyPayment: Int
+  YearllyExpanse: Int
+  MothlyDividend: Int
+  YearlyDividend: Int
+}
+
+type ExpansensModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Laundry: String
+  Cables: String
+  Food: String
+  CommunityServices: String
+  Health: String
+  Groceries: String
+}
+
+type LiveHoodModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Laundry: String
+  Cables: String
+  Food: String
+  CommunityServices: String
+  Health: String
+  Groceries: String
+}
+
+type LaborModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  IsWorking: Boolean!
+  IsEmployedInTheKibutz: Boolean!
+  Hybrid: Boolean!
+  MonthlyIncome: String
+  MonthlyExpanditure: String
+}
+
+type MemberStatusModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Seniority: Int
+  Father: Boolean
+  Mother: Boolean
+  FamilyMember01: Boolean
+  FamilyMember02: Boolean
+  FamilyMember03: Boolean
+  FamilyMember04: Boolean
+  FamilyMember05: Boolean
+  FamilyMember06: Boolean
+  FamilyMember07: Boolean
+  FamilyMember08: Boolean
+}
+
+type IncomeModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  First_Name: String!
+  Last_Name: String!
+  Email: AWSEmail
+  Status: String!
+  Age: Int!
+  DateOfBirth: AWSDate!
+}
+ 

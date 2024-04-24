@@ -1,63 +1,148 @@
-import { Amplify } from "aws-amplify";
-import awsExports from "./aws-exports";
-import { useState } from 'react'
-import { Button, Flex, Heading, Image, Text } from '@aws-amplify/ui-react';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import '@aws-amplify/ui-react/styles.css';
+import { useEffect, useState } from 'react';
 
-// import { generateClient } from "aws-amplify/api";
-// import { createTodo } from './graphql/mutations';
-// mport * as mutations from "./graphql/mutation";
-// import * as queries from "./graphql/queries";
+import { generateClient } from 'aws-amplify/api';
+import { updateFuturPenssionModel } from './graphql/mutations';
+
+import { listFuturPenssionModel } from './graphql/queries';
+import { type CreateFuturPenssionModelInput, type FuturPenssionModel } from './API';
+
+const initialState: CreateFuturPenssionModelInput = { name: '', description: '' };
+const client = generateClient();
+
+// import { Amplify } from "aws-amplify";
+// import awsExports from "./aws-exports";
+// import { Button, Flex, Heading, Image, Text } from '@aws-amplify/ui-react';
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
+// import './App.css'
+// import '@aws-amplify/ui-react/styles.css';
 
 import "@aws-amplify/ui-react/styles.css";
-import {
-    withAuthenticator,
-    View,
-    Card,
-} from "@aws-amplify/ui-react";
+
+const updatedFuturPenssionModel = await client.graphql({
+    query: updateFuturPenssionModel,
+    variables: {
+        input: {
+		"NumOfPenssionPlansum": 1020,
+		"MonthlyPayment": 1020,
+		"YearllyExpanse": 1020,
+		"MothlyDividend": 1020,
+		"YearlyDividend": 1020
+	}
+    }
+});
 
 
-// import * as mutations from "./graphql/mutations"; NOTE: Later
-// import * as queries from "./graphql/queries";
+const App = () => {
+    const [formState, setFormState] = useState < CreateTodoInput > ( initialState );
+    const [todos, setTodos] = useState < Todo[] | CreateTodoInput[] > ( [] );
 
-Amplify.configure( awsExports ); // Configure Amplify the usual way
+    useEffect( () => {
+        fetchTodos();
+    }, [] );
 
-function App( ) {
-    const [count, setCount] = useState( 0 )
+    async function fetchTodos() {
+        try {
+            const todoData = await client.graphql( {
+                query: listTodos,
+            } );
+            const todos = todoData.data.listTodos.items;
+            setTodos( todos );
+        } catch ( err ) {
+            console.log( 'error fetching todos' );
+        }
+    }
+
+    async function addTodo() {
+        try {
+            if ( !formState.name || !formState.description ) return;
+            const todo = { ...formState };
+            setTodos( [...todos, todo] );
+            setFormState( initialState );
+            await client.graphql( {
+                query: createTodo,
+                variables: {
+                    input: todo,
+                },
+            } );
+        } catch ( err ) {
+            console.log( 'error creating todo:', err );
+        }
+    }
 
     return (
-        <Flex
-            direction={{ base: 'column', large: 'row' }}
-            maxWidth="32rem"
-            padding="1rem"
-            width="100%"
-        >
-            <Image
-                alt="Abstract art"
-                height="21rem"
-                objectFit="cover"
-                src="https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987"
+        <div style={styles.container}>
+            <h2>Amplify Todos</h2>
+            <input
+                onChange={( event ) =>
+                    setFormState( { ...formState, name: event.target.value } )
+                }
+                style={styles.input}
+                value={formState.name}
+                placeholder="Name"
             />
-            <Flex justifyContent="space-between" direction="column">
-                <Heading level={3}>Abstract art</Heading>
-                <Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Volutpat
-                    sed cras ornare arcu dui. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse.
-                </Text>
-                <Button
-                    variation="primary"
-                    onClick={() => alert( 'Added item to cart!' )}
-                >
-                    Add to Cart
-                </Button>
-            </Flex>
-        </Flex>
+            <input
+                onChange={( event ) =>
+                    setFormState( { ...formState, description: event.target.value } )
+                }
+                style={styles.input}
+                value={formState.description as string}
+                placeholder="Description"
+            />
+            <button style={styles.button} onClick={addTodo}>
+                Create Todo
+            </button>
+            {todos.map( ( todo, index ) => (
+                <div key={todo.id ? todo.id : index} style={styles.todo}>
+                    <p style={styles.todoName}>{todo.name}</p>
+                    <p style={styles.todoDescription}>{todo.description}</p>
+                </div>
+            ) )}
+        </div>
     );
-}
+};
 
-export default withAuthenticator( App );
+const styles = {
+    container: {
+        width: 400,
+        margin: "0 auto",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: 20,
+    },
+    todo: { marginBottom: 15 },
+    input: {
+        border: "none",
+        backgroundColor: "#ddd",
+        marginBottom: 10,
+        padding: 8,
+        fontSize: 18,
+    },
+    todoName: { fontSize: 20, fontWeight: "bold" },
+    todoDescription: { marginBottom: 0 },
+    button: {
+        backgroundColor: "black",
+        color: "white",
+        outline: "none",
+        fontSize: 18,
+        padding: "12px 0px",
+    },
+} as const;
+
+
+const newNextVision = await client.graphql({
+    query: createNextVision,
+    variables: {
+        input: {
+		"First_Name": "Lorem ipsum dolor sit amet",
+		"Last_Name": "Lorem ipsum dolor sit amet",
+		"Email": "Lorem ipsum dolor sit amet",
+		"Status": "Lorem ipsum dolor sit amet",
+		"Age": 1020,
+		"Gender": "Lorem ipsum dolor sit amet"
+	}
+    }
+});
+
+export default App;

@@ -1,3 +1,11 @@
 https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/
 
 https://dev.to/ethanlloyd21/react-typescript-vite-amplify-setup-052023-25ge
+
+# Great Articale
+# https://ben11kehoe.medium.com/you-only-need-to-call-aws-sso-login-once-for-all-your-profiles-41a334e1b37e
+
+https://ben11kehoe.medium.com/aws-configuration-files-explained-9a7ea7a5b42e
+
+https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html
+
