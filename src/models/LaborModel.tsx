@@ -1,5 +1,8 @@
+import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/api";
+import config from './amplifyconfiguration.json';
 import { createLaborModel } from './graphql/mutations';
+Amplify.configure(config);
 
 const client = generateClient()
 

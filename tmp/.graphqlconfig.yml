@@ -2,14 +2,16 @@ projects:
   reactadminamplifydem:
     schemaPath: amplify/backend/api/reactadminamplifydem/build/schema.graphql
     includes:
-      - src/graphql/**/*.js
+      - src/graphql/**/*.tsx
     excludes:
       - ./amplify/**
+      - src/API.tsx
     extensions:
       amplify:
-        codeGenTarget: javascript
-        generatedFileName: ''
+        codeGenTarget: typescript
+        generatedFileName: src/API.tsx
         docsFilePath: src/graphql
+        maxDepth: 2
 extensions:
   amplify:
     version: 3

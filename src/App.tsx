@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { generateClient } from 'aws-amplify/api';
-import { updateFuturPenssionModel } from './graphql/mutations';
 
-import { listFuturPenssionModel } from './graphql/queries';
+import {createFuturePenssionModel,  } from './graphql/mutations';
+
+import { listFuturPenssionModel, createEducationClassesModel, createEducationTuitionModel, createSeniorityModel, createPenssionModel, create, ExpansensModel, createLiveHoodModel, createLaborModel, createMemberStatusModel, createIncomeModel } from './graphql/queries';
 import { type CreateFuturPenssionModelInput, type FuturPenssionModel } from './API';
 
 const initialState: CreateFuturPenssionModelInput = { name: '', description: '' };
@@ -18,6 +19,7 @@ const client = generateClient();
 // import '@aws-amplify/ui-react/styles.css';
 
 import "@aws-amplify/ui-react/styles.css";
+import { createTheme } from "@mantine/core";
 
 const updatedFuturPenssionModel = await client.graphql({
     query: updateFuturPenssionModel,

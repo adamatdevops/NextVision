@@ -1,8 +1,22 @@
-type EducationModel @model @auth(rules: [{allow: public}]) {
+type EducationHelpLessonsModel @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Tuition: String
-  Classes: String
-  HelpLessons: String
+  ActualCost: Int!
+  MemberDerivedCost: Int!
+  ComnmunityDerivedCost: Int!
+}
+
+type EducationClassesModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  ActualCost: Int!
+  MemberDerivedCost: Int!
+  ComnmunityDerivedCost: Int!
+}
+
+type EducationTuitionModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  ActualCost: Int!
+  MemberDerivedCost: Int!
+  ComnmunityDerivedCost: Int!
 }
 
 type SeniorityModel @model @auth(rules: [{allow: public}]) {

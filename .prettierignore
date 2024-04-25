@@ -22,7 +22,7 @@ bin/
 **/*.tsbuildinfo
 *.api.json
 *.tgz
-yarn.lock
+*.lock
 .docusaurus/
 .cache-loader
 test/output-*/
@@ -45,9 +45,7 @@ generated/
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+npm-debug.log**
 
 # Wireit
 .wireit
