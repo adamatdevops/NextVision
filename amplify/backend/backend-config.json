@@ -21,39 +21,5 @@
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
     }
-  },
-  "parameters": {
-    "AMPLIFY_function_nextvisionf1138b70CustomMessage_EMAILMESSAGE": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "nextvisionf1138b70CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_nextvisionf1138b70CustomMessage_EMAILSUBJECT": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "nextvisionf1138b70CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_nextvisionf1138b70CustomMessage_REDIRECTURL": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "nextvisionf1138b70CustomMessage"
-        }
-      ]
-    },
-    "AMPLIFY_function_nextvisionf1138b70VerifyAuthChallengeResponse_RECAPTCHASECRET": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "nextvisionf1138b70VerifyAuthChallengeResponse"
-        }
-      ]
-    }
   }
 }

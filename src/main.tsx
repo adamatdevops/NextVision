@@ -5,9 +5,18 @@
 // my main.ts to index.ts just for my sanity)
 // Create a aws-exports.d.ts file
 
+Amplify.configure( awsconfig );
+
 import { Amplify } from "aws-amplify";
 import amplifyconfig from "./amplifyconfiguration.json";
 // import config from './aws-exports';
+import { ThemeProvider } from "@aws-amplify/ui-react";
+
+import awsconfig from './aws-exports';
+
+import "@aws-amplify/ui-react/styles.css";
+import { studioTheme } from "./ui-components";
+
 Amplify.configure( amplifyconfig );
 /* Importing UI */
 import React from "react";
