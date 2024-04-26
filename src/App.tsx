@@ -1,12 +1,26 @@
 import { useEffect, useState } from 'react';
 import { Amplify } from "aws-amplify";
 import { generateClient } from 'aws-amplify/api';
-//  TODO: FIX This
-import { createTodo, updateTodo, deleteTodo } from './graphql/mutations';
-import { listTodos } from './graphql/queries';
 import config from './amplifyconfiguration.json';
-// import { listFuturPenssionModel, createEducationClassesModel, createEducationTuitionModel, createSeniorityModel, createPenssionModel, create, ExpansensModel, createLiveHoodModel, createLaborModel, createMemberStatusModel, createIncomeModel } from './graphql/queries';
-Amplify.configure(config);
+import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+//  TODO: FIX This
+import { createTodo } from './graphql/mutations';
+import { listTodos } from './graphql/queries';
+import { type CreateTodoInput, type Todo } from './API';
+
+// import { listFuturPenssionModel, createEducationClassesModel,
+// createEducationTuitionModel, createSeniorityModel, createPenssionModel,
+// create, ExpansensModel, createLiveHoodModel, createLaborModel,
+// createMemberStatusModel, createIncomeModel } from './graphql/queries';
+
+import { signUp, signIn, signOut } from 'aws-amplify/auth';
+import { } from 'aws-amplify/auth';
+
+Amplify.configure( config );
+
+const initialState: CreateTodoInput = { name: '', description: '' };
 const client = generateClient();
 
 // import awsExports from "./aws-exports";
@@ -16,57 +30,77 @@ const client = generateClient();
 // import './App.css'
 // import "@aws-amplify/ui-react/styles.css";
 
-const App = () => {
-    const [formState, setFormState] = useState < CreateTodoInput > ( initialState );
-    const [todos, setTodos] = useState < Todo[] | CreateTodoInput[] > ( [] );
+const initialState = { name: '', description: '' }
+
+const App = ( { signOut, user } ) => {
+    const [formState, setFormState] = useState( initialState )
+    const [todos, setTodos] = useState( [] )
 
     useEffect( () => {
-        fetchTodos();
-    }, [] );
+        fetchTodos()
+    }, [] )
 
+    function setInput( key, value ) {
+        setFormState( { ...formState, [key]: value } )
+    }
 
-    const styles = {
-        container: {
-            width: 400,
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            padding: 20,
-        },
-        todo: { marginBottom: 15 },
-        input: {
-            border: "none",
-            backgroundColor: "#ddd",
-            marginBottom: 10,
-            padding: 8,
-            fontSize: 18,
-        },
-        todoName: { fontSize: 20, fontWeight: "bold" },
-        todoDescription: { marginBottom: 0 },
-        button: {
-            backgroundColor: "black",
-            color: "white",
-            outline: "none",
-            fontSize: 18,
-            padding: "12px 0px",
-        },
-    } as const;
+    async function fetchTodos() {
+        try {
+            const todoData = await API.graphql( graphqlOperation( listTodos ) )
+            const todos = todoData.data.listTodos.items
+            setTodos( todos )
+        } catch ( err ) { console.log( 'error fetching todos' ) }
+    }
 
-
-    const newNextVision = await client.graphql( {
-        query: createNextVision,
-        variables: {
-            input: {
-                "First_Name": "Lorem ipsum dolor sit amet",
-                "Last_Name": "Lorem ipsum dolor sit amet",
-                "Email": "Lorem ipsum dolor sit amet",
-                "Status": "Lorem ipsum dolor sit amet",
-                "Age": 1020,
-                "Gender": "Lorem ipsum dolor sit amet"
-            }
+    async function addTodo() {
+        try {
+            if ( !formState.name || !formState.description ) return
+            const todo = { ...formState }
+            setTodos( [...todos, todo] )
+            setFormState( initialState )
+            await API.graphql( graphqlOperation( createTodo, { input: todo } ) )
+        } catch ( err ) {
+            console.log( 'error creating todo:', err )
         }
-    } );
+    }
+
+    return (
+        <div style={styles.container}>
+            <Heading level={1}>Hello {user.username}</Heading>
+            <Button onClick={signOut} style={styles.button}>Sign out</Button>
+            <h2>Amplify Todos</h2>
+            <input
+                onChange={event => setInput( 'name', event.target.value )}
+                style={styles.input}
+                value={formState.name}
+                placeholder="Name"
+            />
+            <input
+                onChange={event => setInput( 'description', event.target.value )}
+                style={styles.input}
+                value={formState.description}
+                placeholder="Description"
+            />
+            <button style={styles.button} onClick={addTodo}>Create Todo</button>
+            {
+                todos.map( ( todo, index ) => (
+                    <div key={todo.id ? todo.id : index} style={styles.todo}>
+                        <p style={styles.todoName}>{todo.name}</p>
+                        <p style={styles.todoDescription}>{todo.description}</p>
+                    </div>
+                ) )
+            }
+        </div>
+    )
 }
 
-    export default App;
+const styles = {
+    container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
+    todo: { marginBottom: 15 },
+    input: { border: 'none', backgroundColor: '#ddd', marginBottom: 10, padding: 8, fontSize: 18 },
+    todoName: { fontSize: 20, fontWeight: 'bold' },
+    todoDescription: { marginBottom: 0 },
+    button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
+}
+
+export default withAuthenticator( App );

@@ -100,7 +100,7 @@
         "@types/json-server": "^0.14.7",
         "@types/node": "^20.12.7",
         "@types/prettier-linter-helpers": "^1",
-        "@types/react": "^18.2.66",
+        "@types/react": "^18.3.0",
         "@types/react-dom": "^18.2.22",
         "@typescript-eslint/parser": "^7.0.0",
         "@typescript-eslint/rule-tester": "^7.6.0",

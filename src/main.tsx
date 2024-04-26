@@ -1,29 +1,28 @@
-/* Importing Backend */
-
 // Troubleshooting: Declaration file for aws-exports
 // When adding the following code to your index.ts (or main.ts; I usually rename
 // my main.ts to index.ts just for my sanity)
 // Create a aws-exports.d.ts file
 
-Amplify.configure( awsconfig );
+/* Importing Frontend */
+// import { ThemeProvider } from "@aws-amplify/ui-react";
 
-import { Amplify } from "aws-amplify";
-import amplifyconfig from "./amplifyconfiguration.json";
-// import config from './aws-exports';
-import { ThemeProvider } from "@aws-amplify/ui-react";
-
-import awsconfig from './aws-exports';
-
-import "@aws-amplify/ui-react/styles.css";
-import { studioTheme } from "./ui-components";
-
-Amplify.configure( amplifyconfig );
-/* Importing UI */
+// import { studioTheme } from "./ui-components";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import "@aws-amplify/ui-react/styles.css";
 import './index.css'
-import reportWebVitals from "./reportWebVitals";
+import App from "./App.tsx";
+
+/* Importing Backend */
+import { Amplify } from "aws-amplify";
+import amplifyconfig from "./amplifyconfiguration.json";
+import awsconfig from './aws-exports.js';
+Amplify.configure( awsconfig );
+
+import reportWebVitals from "./reportWebVitals.tsx";
+
+Amplify.configure( amplifyconfig );
+
 
 ReactDOM.createRoot( document.getElementById( 'root' )! ).render(
     <React.StrictMode>

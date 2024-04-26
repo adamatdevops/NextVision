@@ -1,16 +1,19 @@
 projects:
-    nextvision:
-        schemaPath: amplify/backend/api/reactadminamplifydem/build/schema.graphql
-        includes:
-            - src/graphql/**/*.tsx
-        excludes:
-            - ./amplify/**
-        extensions:
-            amplify:
-                codeGenTarget: typescript
-                generatedFileName: src/API.tsx
-                docsFilePath: src/graphql
-                maxDepth: 2
+  nextvision:
+    schemaPath: amplify/backend/api/reactadminamplifydem/build/schema.graphql
+    includes:
+      - src/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+      - src/API.tsx
+      - src/API.ts
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
+        docsFilePath: src/graphql
+        maxDepth: 2
 extensions:
-    amplify:
+  amplify:
     version: 3
+  version: 3
