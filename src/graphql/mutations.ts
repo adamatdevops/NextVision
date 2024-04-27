@@ -4,8 +4,8 @@
 
 import * as APITypes from "../API";
 type GeneratedMutation<InputType, OutputType> = string & {
-  __generatedMutationInput: InputType;
-  __generatedMutationOutput: OutputType;
+    __generatedMutationInput: InputType;
+    __generatedMutationOutput: OutputType;
 };
 
 export const createTodo = /* GraphQL */ `mutation CreateTodo(
@@ -22,8 +22,8 @@ export const createTodo = /* GraphQL */ `mutation CreateTodo(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateTodoMutationVariables,
-  APITypes.CreateTodoMutation
+    APITypes.CreateTodoMutationVariables,
+    APITypes.CreateTodoMutation
 >;
 export const updateTodo = /* GraphQL */ `mutation UpdateTodo(
   $input: UpdateTodoInput!
@@ -39,8 +39,8 @@ export const updateTodo = /* GraphQL */ `mutation UpdateTodo(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateTodoMutationVariables,
-  APITypes.UpdateTodoMutation
+    APITypes.UpdateTodoMutationVariables,
+    APITypes.UpdateTodoMutation
 >;
 export const deleteTodo = /* GraphQL */ `mutation DeleteTodo(
   $input: DeleteTodoInput!
@@ -56,6 +56,6 @@ export const deleteTodo = /* GraphQL */ `mutation DeleteTodo(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteTodoMutationVariables,
-  APITypes.DeleteTodoMutation
+    APITypes.DeleteTodoMutationVariables,
+    APITypes.DeleteTodoMutation
 >;

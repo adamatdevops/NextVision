@@ -10,8 +10,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "@aws-amplify/ui-react/styles.css";
-import './index.css'
-import App from "./App.tsx";
+import "./index.css";
+import { App } from "./App.tsx";
 
 /* Importing Backend */
 import { Amplify } from "aws-amplify";

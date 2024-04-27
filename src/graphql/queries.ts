@@ -4,8 +4,8 @@
 
 import * as APITypes from "../API";
 type GeneratedQuery<InputType, OutputType> = string & {
-  __generatedQueryInput: InputType;
-  __generatedQueryOutput: OutputType;
+    __generatedQueryInput: InputType;
+    __generatedQueryOutput: OutputType;
 };
 
 export const getTodo = /* GraphQL */ `query GetTodo($id: ID!) {

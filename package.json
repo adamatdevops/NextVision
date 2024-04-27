@@ -20,8 +20,8 @@
         "eslint-dev": "ESLINT_USE_FLAT_CONFIG=false npx eslint --config .eslintrc.json",
         "format:prettier": "prettier-eslint . --write",
         "fix": "run-s fix:eslint fix:prettier",
-        "fix:eslint": "npm lint:eslint --fix --ignore-unknown",
-        "fix:prettier": "npm lint:prettier --write --ignore-unknown",
+        "fix:eslint": "npm run lint:eslint --fix --ignore-unknown",
+        "fix:prettier": "npm run lint:prettier --write --ignore-unknown",
         "gen:changelog": "node ./scripts/generate-changelog.js",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "lint:changelog": "node ./scripts/lint-changelog.js",
@@ -36,29 +36,15 @@
         "test:watch": "npm run test -- --watch",
         "test:all": "npm run test -- --silent --watchAll=false",
         "test:coverage": "npm run test:all -- --coverage",
-        "test:dev-package": "cross-env INSTALL_PACKAGE=1 yarn test",
-        "test:dist": "cross-env NODE_ENV=production yarn test",
+        "test:dev-package": "cross-env INSTALL_PACKAGE=1 npm run test",
+        "test:dist": "cross-env NODE_ENV=production npm run test",
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
         "@aws-amplify/ui-react": "^6.1.8",
-        "@mantine/carousel": "^7.8.0",
-        "@mantine/charts": "^7.8.0",
-        "@mantine/core": "^7.8.0",
-        "@mantine/dates": "^7.8.0",
-        "@mantine/form": "^7.8.0",
-        "@mantine/hooks": "^7.8.0",
-        "@mantine/modals": "^7.8.0",
-        "@tiptap/core": "^2.0.0",
-        "@tiptap/extension-link": "^2.3.0",
-        "@tiptap/react": "^2.3.0",
         "@tiptap/starter-kit": "^2.3.0",
         "@typescript-eslint/eslint-plugin": "^7.7.0",
         "aws-amplify": "^6.0.28",
-        "clsx": "^2.1.0",
-        "csv": "^6.3.8",
-        "dayjs": "^1.11.10",
-        "embla-carousel-react": "^8.0.2",
         "eslint": "^8.57.0",
         "graphql": "^16.8.1",
         "postcss": "^8.4.38",
@@ -66,7 +52,6 @@
         "react-dom": "^18.0.0",
         "react-icons": "^5.0.1",
         "react-router-dom": "^6.22.1",
-        "recharts": "^2.12.6",
         "web-vitals": "^3.5.2"
     },
     "devDependencies": {
@@ -157,7 +142,6 @@
         "postcss-mixins": "^10.0.0",
         "postcss-plugin": "^1.0.0",
         "postcss-preset-env": "^9.5.5",
-        "postcss-preset-mantine": "^1.14.4",
         "postcss-simple-vars": "^7.0.1",
         "postcss-svgo": "^6.0.3",
         "precss": "^4.0.0",
@@ -180,12 +164,9 @@
         "vite-plugin-html": "^3.2.2",
         "vite-plugin-svgr": "^4.2.0",
         "vite-tsconfig-paths": "^4.3.2",
-        "vitest": "^1.5.2",
-        "xlsx": "^0.18.5"
+        "vitest": "^1.5.2"
     },
     "peerDependencies": {
-        "@tiptap/core": "^2.0.0",
-        "@tiptap/pm": "^2.0.0",
         "jiti": "1.21.0",
         "less": "*",
         "lightningcss": "^1.21.0",
@@ -210,6 +191,11 @@
         }
     },
     "keywords": [
+        "amplify",
+        "react",
+        "aws",
+        "vite",
+        "typescript",
         "commit",
         "pretty",
         "format",
@@ -221,7 +207,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "yarn lint",
+            "pre-commit": "npm run lint",
             "prepare-commit-msg": "exec < /dev/tty && npx cz --hook || true"
         }
     },
