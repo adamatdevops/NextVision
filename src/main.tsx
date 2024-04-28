@@ -7,27 +7,42 @@
 // import { ThemeProvider } from "@aws-amplify/ui-react";
 
 // import { studioTheme } from "./ui-components";
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "@aws-amplify/ui-react/styles.css";
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from "react-router-dom";
 import "./index.css";
+import "@aws-amplify/ui-react/styles.css";
 import App from "./App.tsx";
+
+/* existing imports */
+import Root from "./routes/root";
 
 /* Importing Backend */
 import { Amplify } from "aws-amplify";
 import amplifyconfig from "./amplifyconfiguration.json";
 import awsconfig from './aws-exports.js';
 Amplify.configure( awsconfig );
-
+Amplify.configure( amplifyconfig );
 // TODO: Add Web-Vitals on later stage
 // import reportWebVitals from "./reportWebVitals.tsx";
 
-Amplify.configure( amplifyconfig );
+
+const router = createBrowserRouter( [
+    {
+        path: "/",
+        element: <Root />,
+        // element: <div>Hello world!</div>,
+    },
+] );
 
 
-ReactDOM.createRoot( document.getElementById( 'root' )! ).render(
+ReactDOM.createRoot( document.getElementById( "root" )! ).render(
     <React.StrictMode>
         <App signOut={undefined} user={undefined} />
+        <RouterProvider router={router} />
     </React.StrictMode>,
 )
 
