@@ -35,5 +35,3 @@ ReactDOM.createRoot( document.getElementById( 'root' )! ).render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
-
-https://www.figma.com/file/nHIH6J8g0IshxXFUEffzLt/AWS-Amplify-UI-Kit-(Community)-NextVision?type=design&node-id=861-3635&mode=design
