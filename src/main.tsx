@@ -18,7 +18,7 @@ import "@aws-amplify/ui-react/styles.css";
 import App from "./App.tsx";
 
 /* existing imports */
-import Root from "./routes/root";
+import Root from "./routes/routes.tsx";
 
 /* Importing Backend */
 import { Amplify } from "aws-amplify";
@@ -31,11 +31,42 @@ Amplify.configure( amplifyconfig );
 
 
 const router = createBrowserRouter( [
+    /* Root */
     {
         path: "/",
         element: <Root />,
         // element: <div>Hello world!</div>,
     },
+    /* Login Page */
+    /* {
+        path: "/login",
+        element: <LoginPage />,
+        // element: <div>Hello world!</div>,
+    }, */
+    /* Social Simulator */
+    /* {
+        path: "/social-sim",
+        element: <SocialSimulator />,
+        // element: <div>Hello world!</div>,
+    }, */
+    /* Economic Simulator */
+    /* {
+        path: "/economic-sim",
+        element: <EconomicSimulator />,
+        // element: <div>Hello world!</div>,
+    }, */
+    /* Ending Page */
+    /* {
+        path: "/end",
+        element: <EndingPage />,
+        // element: <div>Hello world!</div>,
+    }, */
+    /* ErrorPage */
+    /* {
+        path: "/error",
+        element: <ErrorPage />,
+        // element: <div>Hello world!</div>,
+    }, */
 ] );
 
 
