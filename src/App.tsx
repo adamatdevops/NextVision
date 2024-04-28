@@ -10,7 +10,6 @@ import '@aws-amplify/ui-react/styles.css';
 Amplify.configure( config );
 
 const client = generateClient();
-
 const result = await client.graphql( {
     query: createTodo,
     variables: {

@@ -1,6 +1,7 @@
 https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/
 
 https://dev.to/ethanlloyd21/react-typescript-vite-amplify-setup-052023-25ge
+https://dev.to/aws-builders/jump-over-a-hurdle-of-working-with-amplify-backend-environment-c77
 
 # Great Articale
 # https://ben11kehoe.medium.com/you-only-need-to-call-aws-sso-login-once-for-all-your-profiles-41a334e1b37e
@@ -9,4 +10,15 @@ https://ben11kehoe.medium.com/aws-configuration-files-explained-9a7ea7a5b42e
 
 https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html
 
+# GraphQL Resources
+https://www.youtube.com/watch?v=eUQvsuO6EnU
+https://graphqleditor.com/docs/graphql-editor/schema-libraries/
+https://dev.to/arifulhasantotul/data-modeling-aws-amplify-appsync-graphql-4l0n
 https://drupal-graphql.gitbook.io/graphql
+
+# lint & Formatters
+https://megalinter.io/5.1.0/descriptors/editorconfig_editorconfig_checker/
+
+# Testing
+https://www.linkedin.com/pulse/getting-started-vite-vitest-aws-amplify-react-david-silva-11usc/
+
