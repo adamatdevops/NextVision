@@ -3,6 +3,10 @@ https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/
 https://dev.to/ethanlloyd21/react-typescript-vite-amplify-setup-052023-25ge
 https://dev.to/aws-builders/jump-over-a-hurdle-of-working-with-amplify-backend-environment-c77
 
+# Deleting Amplify Components
+# amplify fail to import figma kits
+# https://docs.amplify.aws/javascript/tools/console/tutorial/buildui/
+
 # Great Articale
 # https://ben11kehoe.medium.com/you-only-need-to-call-aws-sso-login-once-for-all-your-profiles-41a334e1b37e
 
@@ -22,3 +26,9 @@ https://megalinter.io/5.1.0/descriptors/editorconfig_editorconfig_checker/
 # Testing
 https://www.linkedin.com/pulse/getting-started-vite-vitest-aws-amplify-react-david-silva-11usc/
 
+# Error Handling
+# TypeError: Error while loading rule 'regex/invalid': Cannot read properties of undefined (reading 'map')
+# https://stackoverflow.com/questions/69080597/%C3%97-typeerror-cannot-read-properties-of-undefined-reading-map
+
+# Code Helpers
+https://code.visualstudio.com/docs/languages/identifiers

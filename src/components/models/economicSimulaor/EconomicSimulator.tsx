@@ -1,5 +1,5 @@
 import { generateClient } from "aws-amplify/api";
-import { createEconomicSimulator } from "../../graphql/mutations";
+import { createEconomicSimulator } from "../../../graphql/mutations";
 
 const client = generateClient()
 

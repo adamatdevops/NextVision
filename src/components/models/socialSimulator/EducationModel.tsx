@@ -1,5 +1,5 @@
 import { generateClient } from "aws-amplify/api";
-import { createEducationModel } from "../../graphql/mutations";
+import { createEducationModel } from "../../../graphql/mutations";
 
 const client = generateClient()
 

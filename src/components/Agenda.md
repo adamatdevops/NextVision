@@ -4,6 +4,12 @@
 NOTE: GraphQL Functionality
 Queries: To get data
 Mutations: To change data
+
+NOTE: Structure
+components(ui folder): Reusable components
+Models(models folder): Used once by the Application
+Hooks(hooks folder): Data extraction
+Services(services folder): 3rd party services, API, extra configuration, i18n etc.
 -->
 
 List of all AWS Amplify Backend Data Models according Application Needs

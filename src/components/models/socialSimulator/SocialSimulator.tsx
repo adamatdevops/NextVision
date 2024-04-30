@@ -1,5 +1,5 @@
 import { generateClient } from "aws-amplify/api";
-import { createSocialSimulator } from "../../graphql/mutations";
+import { createSocialSimulator } from "../../../graphql/mutations";
 
 const client = generateClient()
 

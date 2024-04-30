@@ -1,4 +1,11 @@
-type LandingPageModel @model @auth(rules: [{allow: public}]) {
+type ExitPageModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Description: String!
+  Date: AWSDate!
+  Time: AWSTime!
+}
+
+type EntryPageModel @model @auth(rules: [{allow: public}]) {
   id: ID!
   Description: String
   Date: AWSDate
@@ -41,5 +48,4 @@ type SocialSimulator @model @auth(rules: [{allow: public}]) {
   MembershipRel: MembershipModel! @hasOne
   SeniorityRel: SeniorityModel! @hasOne
   EducationRel: EducationModel! @hasOne
-}
- 
+} 

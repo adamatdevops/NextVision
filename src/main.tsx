@@ -1,3 +1,5 @@
+/* Main(aka index.tsx) Functionality: Import Routes */
+
 // Troubleshooting: Declaration file for aws-exports
 // When adding the following code to your index.ts (or main.ts; I usually rename
 // my main.ts to index.ts just for my sanity)
@@ -19,6 +21,10 @@ import App from "./App.tsx";
 
 /* existing imports */
 import Root from "./routes/routes.tsx";
+import ErrorPage from "./pages/errors/ErrorPage.tsx";
+
+/* Builder UI */
+import { BuilderPage } from "@builder.io/react";
 
 /* Importing Backend */
 import { Amplify } from "aws-amplify";
@@ -36,12 +42,33 @@ const router = createBrowserRouter( [
         path: "/",
         element: <Root />,
         // element: <div>Hello world!</div>,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/builder-demo", /* or '/*' */
+        element: <BuilderPage />,
+        // element: <div>Hello world!</div>,
+        errorElement: <ErrorPage />,
     },
     /* Login Page */
     /* {
         path: "/login",
-        element: <LoginPage />,
-        // element: <div>Hello world!</div>,
+        element: <entryPageModel />,
+        // Nested Routes
+        children: [
+        {
+        path: "register/:registerId",
+        element: <register />,
+        },
+        {
+        path: "signIn/:signInId",
+        element: <SignIn />,
+        },
+        {
+        path: "signOut/:signOutId",
+        element: <signOut />,
+        },
+    ],
     }, */
     /* Social Simulator */
     /* {

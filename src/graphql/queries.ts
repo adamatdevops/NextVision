@@ -8,8 +8,8 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getLandingPageModel = /* GraphQL */ `query GetLandingPageModel($id: ID!) {
-  getLandingPageModel(id: $id) {
+export const getExitPageModel = /* GraphQL */ `query GetExitPageModel($id: ID!) {
+  getExitPageModel(id: $id) {
     id
     Description
     Date
@@ -20,15 +20,15 @@ export const getLandingPageModel = /* GraphQL */ `query GetLandingPageModel($id:
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetLandingPageModelQueryVariables,
-  APITypes.GetLandingPageModelQuery
+  APITypes.GetExitPageModelQueryVariables,
+  APITypes.GetExitPageModelQuery
 >;
-export const listLandingPageModels = /* GraphQL */ `query ListLandingPageModels(
-  $filter: ModelLandingPageModelFilterInput
+export const listExitPageModels = /* GraphQL */ `query ListExitPageModels(
+  $filter: ModelExitPageModelFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listLandingPageModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listExitPageModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       Description
@@ -43,8 +43,46 @@ export const listLandingPageModels = /* GraphQL */ `query ListLandingPageModels(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListLandingPageModelsQueryVariables,
-  APITypes.ListLandingPageModelsQuery
+  APITypes.ListExitPageModelsQueryVariables,
+  APITypes.ListExitPageModelsQuery
+>;
+export const getEntryPageModel = /* GraphQL */ `query GetEntryPageModel($id: ID!) {
+  getEntryPageModel(id: $id) {
+    id
+    Description
+    Date
+    Time
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetEntryPageModelQueryVariables,
+  APITypes.GetEntryPageModelQuery
+>;
+export const listEntryPageModels = /* GraphQL */ `query ListEntryPageModels(
+  $filter: ModelEntryPageModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEntryPageModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      Description
+      Date
+      Time
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListEntryPageModelsQueryVariables,
+  APITypes.ListEntryPageModelsQuery
 >;
 export const getOutcomesModel = /* GraphQL */ `query GetOutcomesModel($id: ID!) {
   getOutcomesModel(id: $id) {

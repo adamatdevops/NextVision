@@ -2,20 +2,20 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateLandingPageModelInput = {
+export type CreateExitPageModelInput = {
   id?: string | null,
-  Description?: string | null,
-  Date?: string | null,
-  Time?: string | null,
+  Description: string,
+  Date: string,
+  Time: string,
 };
 
-export type ModelLandingPageModelConditionInput = {
+export type ModelExitPageModelConditionInput = {
   Description?: ModelStringInput | null,
   Date?: ModelStringInput | null,
   Time?: ModelStringInput | null,
-  and?: Array< ModelLandingPageModelConditionInput | null > | null,
-  or?: Array< ModelLandingPageModelConditionInput | null > | null,
-  not?: ModelLandingPageModelConditionInput | null,
+  and?: Array< ModelExitPageModelConditionInput | null > | null,
+  or?: Array< ModelExitPageModelConditionInput | null > | null,
+  not?: ModelExitPageModelConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
 };
@@ -60,8 +60,47 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type LandingPageModel = {
-  __typename: "LandingPageModel",
+export type ExitPageModel = {
+  __typename: "ExitPageModel",
+  id: string,
+  Description: string,
+  Date: string,
+  Time: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateExitPageModelInput = {
+  id: string,
+  Description?: string | null,
+  Date?: string | null,
+  Time?: string | null,
+};
+
+export type DeleteExitPageModelInput = {
+  id: string,
+};
+
+export type CreateEntryPageModelInput = {
+  id?: string | null,
+  Description?: string | null,
+  Date?: string | null,
+  Time?: string | null,
+};
+
+export type ModelEntryPageModelConditionInput = {
+  Description?: ModelStringInput | null,
+  Date?: ModelStringInput | null,
+  Time?: ModelStringInput | null,
+  and?: Array< ModelEntryPageModelConditionInput | null > | null,
+  or?: Array< ModelEntryPageModelConditionInput | null > | null,
+  not?: ModelEntryPageModelConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+};
+
+export type EntryPageModel = {
+  __typename: "EntryPageModel",
   id: string,
   Description?: string | null,
   Date?: string | null,
@@ -70,14 +109,14 @@ export type LandingPageModel = {
   updatedAt: string,
 };
 
-export type UpdateLandingPageModelInput = {
+export type UpdateEntryPageModelInput = {
   id: string,
   Description?: string | null,
   Date?: string | null,
   Time?: string | null,
 };
 
-export type DeleteLandingPageModelInput = {
+export type DeleteEntryPageModelInput = {
   id: string,
 };
 
@@ -331,21 +370,39 @@ export type DeleteSocialSimulatorInput = {
   id: string,
 };
 
-export type ModelLandingPageModelFilterInput = {
+export type ModelExitPageModelFilterInput = {
   id?: ModelIDInput | null,
   Description?: ModelStringInput | null,
   Date?: ModelStringInput | null,
   Time?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
-  and?: Array< ModelLandingPageModelFilterInput | null > | null,
-  or?: Array< ModelLandingPageModelFilterInput | null > | null,
-  not?: ModelLandingPageModelFilterInput | null,
+  and?: Array< ModelExitPageModelFilterInput | null > | null,
+  or?: Array< ModelExitPageModelFilterInput | null > | null,
+  not?: ModelExitPageModelFilterInput | null,
 };
 
-export type ModelLandingPageModelConnection = {
-  __typename: "ModelLandingPageModelConnection",
-  items:  Array<LandingPageModel | null >,
+export type ModelExitPageModelConnection = {
+  __typename: "ModelExitPageModelConnection",
+  items:  Array<ExitPageModel | null >,
+  nextToken?: string | null,
+};
+
+export type ModelEntryPageModelFilterInput = {
+  id?: ModelIDInput | null,
+  Description?: ModelStringInput | null,
+  Date?: ModelStringInput | null,
+  Time?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
+  and?: Array< ModelEntryPageModelFilterInput | null > | null,
+  or?: Array< ModelEntryPageModelFilterInput | null > | null,
+  not?: ModelEntryPageModelFilterInput | null,
+};
+
+export type ModelEntryPageModelConnection = {
+  __typename: "ModelEntryPageModelConnection",
+  items:  Array<EntryPageModel | null >,
   nextToken?: string | null,
 };
 
@@ -464,15 +521,15 @@ export type ModelSocialSimulatorConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionLandingPageModelFilterInput = {
+export type ModelSubscriptionExitPageModelFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   Description?: ModelSubscriptionStringInput | null,
   Date?: ModelSubscriptionStringInput | null,
   Time?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionLandingPageModelFilterInput | null > | null,
-  or?: Array< ModelSubscriptionLandingPageModelFilterInput | null > | null,
+  and?: Array< ModelSubscriptionExitPageModelFilterInput | null > | null,
+  or?: Array< ModelSubscriptionExitPageModelFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -503,6 +560,17 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionEntryPageModelFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  Description?: ModelSubscriptionStringInput | null,
+  Date?: ModelSubscriptionStringInput | null,
+  Time?: ModelSubscriptionStringInput | null,
+  createdAt?: ModelSubscriptionStringInput | null,
+  updatedAt?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionEntryPageModelFilterInput | null > | null,
+  or?: Array< ModelSubscriptionEntryPageModelFilterInput | null > | null,
 };
 
 export type ModelSubscriptionOutcomesModelFilterInput = {
@@ -571,14 +639,65 @@ export type ModelSubscriptionSocialSimulatorFilterInput = {
   socialSimulatorEducationRelId?: ModelSubscriptionIDInput | null,
 };
 
-export type CreateLandingPageModelMutationVariables = {
-  input: CreateLandingPageModelInput,
-  condition?: ModelLandingPageModelConditionInput | null,
+export type CreateExitPageModelMutationVariables = {
+  input: CreateExitPageModelInput,
+  condition?: ModelExitPageModelConditionInput | null,
 };
 
-export type CreateLandingPageModelMutation = {
-  createLandingPageModel?:  {
-    __typename: "LandingPageModel",
+export type CreateExitPageModelMutation = {
+  createExitPageModel?:  {
+    __typename: "ExitPageModel",
+    id: string,
+    Description: string,
+    Date: string,
+    Time: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateExitPageModelMutationVariables = {
+  input: UpdateExitPageModelInput,
+  condition?: ModelExitPageModelConditionInput | null,
+};
+
+export type UpdateExitPageModelMutation = {
+  updateExitPageModel?:  {
+    __typename: "ExitPageModel",
+    id: string,
+    Description: string,
+    Date: string,
+    Time: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteExitPageModelMutationVariables = {
+  input: DeleteExitPageModelInput,
+  condition?: ModelExitPageModelConditionInput | null,
+};
+
+export type DeleteExitPageModelMutation = {
+  deleteExitPageModel?:  {
+    __typename: "ExitPageModel",
+    id: string,
+    Description: string,
+    Date: string,
+    Time: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateEntryPageModelMutationVariables = {
+  input: CreateEntryPageModelInput,
+  condition?: ModelEntryPageModelConditionInput | null,
+};
+
+export type CreateEntryPageModelMutation = {
+  createEntryPageModel?:  {
+    __typename: "EntryPageModel",
     id: string,
     Description?: string | null,
     Date?: string | null,
@@ -588,14 +707,14 @@ export type CreateLandingPageModelMutation = {
   } | null,
 };
 
-export type UpdateLandingPageModelMutationVariables = {
-  input: UpdateLandingPageModelInput,
-  condition?: ModelLandingPageModelConditionInput | null,
+export type UpdateEntryPageModelMutationVariables = {
+  input: UpdateEntryPageModelInput,
+  condition?: ModelEntryPageModelConditionInput | null,
 };
 
-export type UpdateLandingPageModelMutation = {
-  updateLandingPageModel?:  {
-    __typename: "LandingPageModel",
+export type UpdateEntryPageModelMutation = {
+  updateEntryPageModel?:  {
+    __typename: "EntryPageModel",
     id: string,
     Description?: string | null,
     Date?: string | null,
@@ -605,14 +724,14 @@ export type UpdateLandingPageModelMutation = {
   } | null,
 };
 
-export type DeleteLandingPageModelMutationVariables = {
-  input: DeleteLandingPageModelInput,
-  condition?: ModelLandingPageModelConditionInput | null,
+export type DeleteEntryPageModelMutationVariables = {
+  input: DeleteEntryPageModelInput,
+  condition?: ModelEntryPageModelConditionInput | null,
 };
 
-export type DeleteLandingPageModelMutation = {
-  deleteLandingPageModel?:  {
-    __typename: "LandingPageModel",
+export type DeleteEntryPageModelMutation = {
+  deleteEntryPageModel?:  {
+    __typename: "EntryPageModel",
     id: string,
     Description?: string | null,
     Date?: string | null,
@@ -1036,13 +1155,51 @@ export type DeleteSocialSimulatorMutation = {
   } | null,
 };
 
-export type GetLandingPageModelQueryVariables = {
+export type GetExitPageModelQueryVariables = {
   id: string,
 };
 
-export type GetLandingPageModelQuery = {
-  getLandingPageModel?:  {
-    __typename: "LandingPageModel",
+export type GetExitPageModelQuery = {
+  getExitPageModel?:  {
+    __typename: "ExitPageModel",
+    id: string,
+    Description: string,
+    Date: string,
+    Time: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListExitPageModelsQueryVariables = {
+  filter?: ModelExitPageModelFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListExitPageModelsQuery = {
+  listExitPageModels?:  {
+    __typename: "ModelExitPageModelConnection",
+    items:  Array< {
+      __typename: "ExitPageModel",
+      id: string,
+      Description: string,
+      Date: string,
+      Time: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetEntryPageModelQueryVariables = {
+  id: string,
+};
+
+export type GetEntryPageModelQuery = {
+  getEntryPageModel?:  {
+    __typename: "EntryPageModel",
     id: string,
     Description?: string | null,
     Date?: string | null,
@@ -1052,17 +1209,17 @@ export type GetLandingPageModelQuery = {
   } | null,
 };
 
-export type ListLandingPageModelsQueryVariables = {
-  filter?: ModelLandingPageModelFilterInput | null,
+export type ListEntryPageModelsQueryVariables = {
+  filter?: ModelEntryPageModelFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListLandingPageModelsQuery = {
-  listLandingPageModels?:  {
-    __typename: "ModelLandingPageModelConnection",
+export type ListEntryPageModelsQuery = {
+  listEntryPageModels?:  {
+    __typename: "ModelEntryPageModelConnection",
     items:  Array< {
-      __typename: "LandingPageModel",
+      __typename: "EntryPageModel",
       id: string,
       Description?: string | null,
       Date?: string | null,
@@ -1378,13 +1535,61 @@ export type ListSocialSimulatorsQuery = {
   } | null,
 };
 
-export type OnCreateLandingPageModelSubscriptionVariables = {
-  filter?: ModelSubscriptionLandingPageModelFilterInput | null,
+export type OnCreateExitPageModelSubscriptionVariables = {
+  filter?: ModelSubscriptionExitPageModelFilterInput | null,
 };
 
-export type OnCreateLandingPageModelSubscription = {
-  onCreateLandingPageModel?:  {
-    __typename: "LandingPageModel",
+export type OnCreateExitPageModelSubscription = {
+  onCreateExitPageModel?:  {
+    __typename: "ExitPageModel",
+    id: string,
+    Description: string,
+    Date: string,
+    Time: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateExitPageModelSubscriptionVariables = {
+  filter?: ModelSubscriptionExitPageModelFilterInput | null,
+};
+
+export type OnUpdateExitPageModelSubscription = {
+  onUpdateExitPageModel?:  {
+    __typename: "ExitPageModel",
+    id: string,
+    Description: string,
+    Date: string,
+    Time: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteExitPageModelSubscriptionVariables = {
+  filter?: ModelSubscriptionExitPageModelFilterInput | null,
+};
+
+export type OnDeleteExitPageModelSubscription = {
+  onDeleteExitPageModel?:  {
+    __typename: "ExitPageModel",
+    id: string,
+    Description: string,
+    Date: string,
+    Time: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateEntryPageModelSubscriptionVariables = {
+  filter?: ModelSubscriptionEntryPageModelFilterInput | null,
+};
+
+export type OnCreateEntryPageModelSubscription = {
+  onCreateEntryPageModel?:  {
+    __typename: "EntryPageModel",
     id: string,
     Description?: string | null,
     Date?: string | null,
@@ -1394,13 +1599,13 @@ export type OnCreateLandingPageModelSubscription = {
   } | null,
 };
 
-export type OnUpdateLandingPageModelSubscriptionVariables = {
-  filter?: ModelSubscriptionLandingPageModelFilterInput | null,
+export type OnUpdateEntryPageModelSubscriptionVariables = {
+  filter?: ModelSubscriptionEntryPageModelFilterInput | null,
 };
 
-export type OnUpdateLandingPageModelSubscription = {
-  onUpdateLandingPageModel?:  {
-    __typename: "LandingPageModel",
+export type OnUpdateEntryPageModelSubscription = {
+  onUpdateEntryPageModel?:  {
+    __typename: "EntryPageModel",
     id: string,
     Description?: string | null,
     Date?: string | null,
@@ -1410,13 +1615,13 @@ export type OnUpdateLandingPageModelSubscription = {
   } | null,
 };
 
-export type OnDeleteLandingPageModelSubscriptionVariables = {
-  filter?: ModelSubscriptionLandingPageModelFilterInput | null,
+export type OnDeleteEntryPageModelSubscriptionVariables = {
+  filter?: ModelSubscriptionEntryPageModelFilterInput | null,
 };
 
-export type OnDeleteLandingPageModelSubscription = {
-  onDeleteLandingPageModel?:  {
-    __typename: "LandingPageModel",
+export type OnDeleteEntryPageModelSubscription = {
+  onDeleteEntryPageModel?:  {
+    __typename: "EntryPageModel",
     id: string,
     Description?: string | null,
     Date?: string | null,

@@ -39,3 +39,5 @@ packages/react-devtools-timeline/static
 "./postcss.config.cjs"
 
 amplify-codegen-temp/models/models
+
+*.ts

@@ -8,11 +8,11 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
-export const createLandingPageModel = /* GraphQL */ `mutation CreateLandingPageModel(
-  $input: CreateLandingPageModelInput!
-  $condition: ModelLandingPageModelConditionInput
+export const createExitPageModel = /* GraphQL */ `mutation CreateExitPageModel(
+  $input: CreateExitPageModelInput!
+  $condition: ModelExitPageModelConditionInput
 ) {
-  createLandingPageModel(input: $input, condition: $condition) {
+  createExitPageModel(input: $input, condition: $condition) {
     id
     Description
     Date
@@ -23,14 +23,14 @@ export const createLandingPageModel = /* GraphQL */ `mutation CreateLandingPageM
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateLandingPageModelMutationVariables,
-  APITypes.CreateLandingPageModelMutation
+  APITypes.CreateExitPageModelMutationVariables,
+  APITypes.CreateExitPageModelMutation
 >;
-export const updateLandingPageModel = /* GraphQL */ `mutation UpdateLandingPageModel(
-  $input: UpdateLandingPageModelInput!
-  $condition: ModelLandingPageModelConditionInput
+export const updateExitPageModel = /* GraphQL */ `mutation UpdateExitPageModel(
+  $input: UpdateExitPageModelInput!
+  $condition: ModelExitPageModelConditionInput
 ) {
-  updateLandingPageModel(input: $input, condition: $condition) {
+  updateExitPageModel(input: $input, condition: $condition) {
     id
     Description
     Date
@@ -41,14 +41,14 @@ export const updateLandingPageModel = /* GraphQL */ `mutation UpdateLandingPageM
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateLandingPageModelMutationVariables,
-  APITypes.UpdateLandingPageModelMutation
+  APITypes.UpdateExitPageModelMutationVariables,
+  APITypes.UpdateExitPageModelMutation
 >;
-export const deleteLandingPageModel = /* GraphQL */ `mutation DeleteLandingPageModel(
-  $input: DeleteLandingPageModelInput!
-  $condition: ModelLandingPageModelConditionInput
+export const deleteExitPageModel = /* GraphQL */ `mutation DeleteExitPageModel(
+  $input: DeleteExitPageModelInput!
+  $condition: ModelExitPageModelConditionInput
 ) {
-  deleteLandingPageModel(input: $input, condition: $condition) {
+  deleteExitPageModel(input: $input, condition: $condition) {
     id
     Description
     Date
@@ -59,8 +59,62 @@ export const deleteLandingPageModel = /* GraphQL */ `mutation DeleteLandingPageM
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteLandingPageModelMutationVariables,
-  APITypes.DeleteLandingPageModelMutation
+  APITypes.DeleteExitPageModelMutationVariables,
+  APITypes.DeleteExitPageModelMutation
+>;
+export const createEntryPageModel = /* GraphQL */ `mutation CreateEntryPageModel(
+  $input: CreateEntryPageModelInput!
+  $condition: ModelEntryPageModelConditionInput
+) {
+  createEntryPageModel(input: $input, condition: $condition) {
+    id
+    Description
+    Date
+    Time
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateEntryPageModelMutationVariables,
+  APITypes.CreateEntryPageModelMutation
+>;
+export const updateEntryPageModel = /* GraphQL */ `mutation UpdateEntryPageModel(
+  $input: UpdateEntryPageModelInput!
+  $condition: ModelEntryPageModelConditionInput
+) {
+  updateEntryPageModel(input: $input, condition: $condition) {
+    id
+    Description
+    Date
+    Time
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateEntryPageModelMutationVariables,
+  APITypes.UpdateEntryPageModelMutation
+>;
+export const deleteEntryPageModel = /* GraphQL */ `mutation DeleteEntryPageModel(
+  $input: DeleteEntryPageModelInput!
+  $condition: ModelEntryPageModelConditionInput
+) {
+  deleteEntryPageModel(input: $input, condition: $condition) {
+    id
+    Description
+    Date
+    Time
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteEntryPageModelMutationVariables,
+  APITypes.DeleteEntryPageModelMutation
 >;
 export const createOutcomesModel = /* GraphQL */ `mutation CreateOutcomesModel(
   $input: CreateOutcomesModelInput!

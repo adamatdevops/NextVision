@@ -8,10 +8,10 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateLandingPageModel = /* GraphQL */ `subscription OnCreateLandingPageModel(
-  $filter: ModelSubscriptionLandingPageModelFilterInput
+export const onCreateExitPageModel = /* GraphQL */ `subscription OnCreateExitPageModel(
+  $filter: ModelSubscriptionExitPageModelFilterInput
 ) {
-  onCreateLandingPageModel(filter: $filter) {
+  onCreateExitPageModel(filter: $filter) {
     id
     Description
     Date
@@ -22,13 +22,13 @@ export const onCreateLandingPageModel = /* GraphQL */ `subscription OnCreateLand
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateLandingPageModelSubscriptionVariables,
-  APITypes.OnCreateLandingPageModelSubscription
+  APITypes.OnCreateExitPageModelSubscriptionVariables,
+  APITypes.OnCreateExitPageModelSubscription
 >;
-export const onUpdateLandingPageModel = /* GraphQL */ `subscription OnUpdateLandingPageModel(
-  $filter: ModelSubscriptionLandingPageModelFilterInput
+export const onUpdateExitPageModel = /* GraphQL */ `subscription OnUpdateExitPageModel(
+  $filter: ModelSubscriptionExitPageModelFilterInput
 ) {
-  onUpdateLandingPageModel(filter: $filter) {
+  onUpdateExitPageModel(filter: $filter) {
     id
     Description
     Date
@@ -39,13 +39,13 @@ export const onUpdateLandingPageModel = /* GraphQL */ `subscription OnUpdateLand
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateLandingPageModelSubscriptionVariables,
-  APITypes.OnUpdateLandingPageModelSubscription
+  APITypes.OnUpdateExitPageModelSubscriptionVariables,
+  APITypes.OnUpdateExitPageModelSubscription
 >;
-export const onDeleteLandingPageModel = /* GraphQL */ `subscription OnDeleteLandingPageModel(
-  $filter: ModelSubscriptionLandingPageModelFilterInput
+export const onDeleteExitPageModel = /* GraphQL */ `subscription OnDeleteExitPageModel(
+  $filter: ModelSubscriptionExitPageModelFilterInput
 ) {
-  onDeleteLandingPageModel(filter: $filter) {
+  onDeleteExitPageModel(filter: $filter) {
     id
     Description
     Date
@@ -56,8 +56,59 @@ export const onDeleteLandingPageModel = /* GraphQL */ `subscription OnDeleteLand
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteLandingPageModelSubscriptionVariables,
-  APITypes.OnDeleteLandingPageModelSubscription
+  APITypes.OnDeleteExitPageModelSubscriptionVariables,
+  APITypes.OnDeleteExitPageModelSubscription
+>;
+export const onCreateEntryPageModel = /* GraphQL */ `subscription OnCreateEntryPageModel(
+  $filter: ModelSubscriptionEntryPageModelFilterInput
+) {
+  onCreateEntryPageModel(filter: $filter) {
+    id
+    Description
+    Date
+    Time
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateEntryPageModelSubscriptionVariables,
+  APITypes.OnCreateEntryPageModelSubscription
+>;
+export const onUpdateEntryPageModel = /* GraphQL */ `subscription OnUpdateEntryPageModel(
+  $filter: ModelSubscriptionEntryPageModelFilterInput
+) {
+  onUpdateEntryPageModel(filter: $filter) {
+    id
+    Description
+    Date
+    Time
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateEntryPageModelSubscriptionVariables,
+  APITypes.OnUpdateEntryPageModelSubscription
+>;
+export const onDeleteEntryPageModel = /* GraphQL */ `subscription OnDeleteEntryPageModel(
+  $filter: ModelSubscriptionEntryPageModelFilterInput
+) {
+  onDeleteEntryPageModel(filter: $filter) {
+    id
+    Description
+    Date
+    Time
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteEntryPageModelSubscriptionVariables,
+  APITypes.OnDeleteEntryPageModelSubscription
 >;
 export const onCreateOutcomesModel = /* GraphQL */ `subscription OnCreateOutcomesModel(
   $filter: ModelSubscriptionOutcomesModelFilterInput
