@@ -42,9 +42,9 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.1.8",
-    "@builder.io/dev-tools": "latest",
+    "@builder.io/dev-tools": "^1.0.9",
     "@builder.io/react": "^3.2.6",
-    "@builder.io/sdk": "latest",
+    "@builder.io/sdk": "^2.2.2",
     "@tiptap/starter-kit": "^2.3.0",
     "aws-amplify": "^6.0.28",
     "graphql": "^16.8.1",
