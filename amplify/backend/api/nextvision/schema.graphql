@@ -1,51 +1,49 @@
-type ExitPageModel @model @auth(rules: [{allow: public}]) {
+type SimulatorDataTableSection @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Description: String!
-  Date: AWSDate!
-  Time: AWSTime!
+  rowName: String
 }
 
-type EntryPageModel @model @auth(rules: [{allow: public}]) {
+type SimulatorDataTableModel @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Description: String
-  Date: AWSDate
-  Time: AWSTime
+  collumnName: String
+  collomnInfo: String
+  netCost: Int
+  grossCost: Int
+  subtotal: String
 }
 
-type OutcomesModel @model @auth(rules: [{allow: public}]) {
+type EducationDataTable @model @auth(rules: [{allow: public}]) {
   id: ID!
+  tuition: String
+  classes: String
+  privateLessons: String
 }
 
-type IncomesModel @model @auth(rules: [{allow: public}]) {
+type AccountBalanceModel @model @auth(rules: [{allow: public}]) {
   id: ID!
+  income: Int
+  expense: Int
+  subtotal: Int
+  anomaly: Int
 }
 
-type EducationModel @model @auth(rules: [{allow: public}]) {
+type ReportDataTable @model @auth(rules: [{allow: public}]) {
   id: ID!
+  generatedData: [String]
 }
 
-type SeniorityModel @model @auth(rules: [{allow: public}]) {
+type EducationCostSection @model @auth(rules: [{allow: public}]) {
   id: ID!
+  actualCost: Int
+  communityCoverage: Int
+  memberPaticipance: Int
 }
 
-type MembershipModel @model @auth(rules: [{allow: public}]) {
+type SelectModel @model @auth(rules: [{allow: public}]) {
   id: ID!
+  checkbox: String
+  radio: String
+  dropdown: String
+  stepper: String
 }
-
-type EconomicSimulator @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  IncomesData: String!
-  OutcomesData: String!
-  IncomesRel: IncomesModel @hasOne
-  OutcomesRel: OutcomesModel @hasOne
-}
-
-type SocialSimulator @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  MembershipData: ID!
-  SeniorityData: ID!
-  EducationData: ID!
-  MembershipRel: MembershipModel! @hasOne
-  SeniorityRel: SeniorityModel! @hasOne
-  EducationRel: EducationModel! @hasOne
-} 
+ 

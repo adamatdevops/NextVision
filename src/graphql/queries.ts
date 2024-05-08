@@ -8,300 +8,60 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getExitPageModel = /* GraphQL */ `query GetExitPageModel($id: ID!) {
-  getExitPageModel(id: $id) {
+export const getCurrentIncomeDataTable = /* GraphQL */ `query GetCurrentIncomeDataTable($id: ID!) {
+  getCurrentIncomeDataTable(id: $id) {
     id
-    Description
-    Date
-    Time
+    sallary
+    childrenSuppelment
+    food
+    laundry
+    gas
+    hygine
+    maitanence
+    car
+    untitledfield
+    energy
+    extraHoursBenefit
+    extraFood
+    chrony
+    extraSlot
     createdAt
     updatedAt
     __typename
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetExitPageModelQueryVariables,
-  APITypes.GetExitPageModelQuery
+  APITypes.GetCurrentIncomeDataTableQueryVariables,
+  APITypes.GetCurrentIncomeDataTableQuery
 >;
-export const listExitPageModels = /* GraphQL */ `query ListExitPageModels(
-  $filter: ModelExitPageModelFilterInput
+export const listCurrentIncomeDataTables = /* GraphQL */ `query ListCurrentIncomeDataTables(
+  $filter: ModelCurrentIncomeDataTableFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listExitPageModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      Description
-      Date
-      Time
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListExitPageModelsQueryVariables,
-  APITypes.ListExitPageModelsQuery
->;
-export const getEntryPageModel = /* GraphQL */ `query GetEntryPageModel($id: ID!) {
-  getEntryPageModel(id: $id) {
-    id
-    Description
-    Date
-    Time
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetEntryPageModelQueryVariables,
-  APITypes.GetEntryPageModelQuery
->;
-export const listEntryPageModels = /* GraphQL */ `query ListEntryPageModels(
-  $filter: ModelEntryPageModelFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listEntryPageModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      Description
-      Date
-      Time
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListEntryPageModelsQueryVariables,
-  APITypes.ListEntryPageModelsQuery
->;
-export const getOutcomesModel = /* GraphQL */ `query GetOutcomesModel($id: ID!) {
-  getOutcomesModel(id: $id) {
-    id
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetOutcomesModelQueryVariables,
-  APITypes.GetOutcomesModelQuery
->;
-export const listOutcomesModels = /* GraphQL */ `query ListOutcomesModels(
-  $filter: ModelOutcomesModelFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listOutcomesModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListOutcomesModelsQueryVariables,
-  APITypes.ListOutcomesModelsQuery
->;
-export const getIncomesModel = /* GraphQL */ `query GetIncomesModel($id: ID!) {
-  getIncomesModel(id: $id) {
-    id
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetIncomesModelQueryVariables,
-  APITypes.GetIncomesModelQuery
->;
-export const listIncomesModels = /* GraphQL */ `query ListIncomesModels(
-  $filter: ModelIncomesModelFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listIncomesModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListIncomesModelsQueryVariables,
-  APITypes.ListIncomesModelsQuery
->;
-export const getEducationModel = /* GraphQL */ `query GetEducationModel($id: ID!) {
-  getEducationModel(id: $id) {
-    id
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetEducationModelQueryVariables,
-  APITypes.GetEducationModelQuery
->;
-export const listEducationModels = /* GraphQL */ `query ListEducationModels(
-  $filter: ModelEducationModelFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listEducationModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListEducationModelsQueryVariables,
-  APITypes.ListEducationModelsQuery
->;
-export const getSeniorityModel = /* GraphQL */ `query GetSeniorityModel($id: ID!) {
-  getSeniorityModel(id: $id) {
-    id
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetSeniorityModelQueryVariables,
-  APITypes.GetSeniorityModelQuery
->;
-export const listSeniorityModels = /* GraphQL */ `query ListSeniorityModels(
-  $filter: ModelSeniorityModelFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listSeniorityModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListSeniorityModelsQueryVariables,
-  APITypes.ListSeniorityModelsQuery
->;
-export const getMembershipModel = /* GraphQL */ `query GetMembershipModel($id: ID!) {
-  getMembershipModel(id: $id) {
-    id
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetMembershipModelQueryVariables,
-  APITypes.GetMembershipModelQuery
->;
-export const listMembershipModels = /* GraphQL */ `query ListMembershipModels(
-  $filter: ModelMembershipModelFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listMembershipModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListMembershipModelsQueryVariables,
-  APITypes.ListMembershipModelsQuery
->;
-export const getEconomicSimulator = /* GraphQL */ `query GetEconomicSimulator($id: ID!) {
-  getEconomicSimulator(id: $id) {
-    id
-    IncomesData
-    OutcomesData
-    IncomesRel {
-      id
-      createdAt
-      updatedAt
-      __typename
-    }
-    OutcomesRel {
-      id
-      createdAt
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    economicSimulatorIncomesRelId
-    economicSimulatorOutcomesRelId
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetEconomicSimulatorQueryVariables,
-  APITypes.GetEconomicSimulatorQuery
->;
-export const listEconomicSimulators = /* GraphQL */ `query ListEconomicSimulators(
-  $filter: ModelEconomicSimulatorFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listEconomicSimulators(
+  listCurrentIncomeDataTables(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
   ) {
     items {
       id
-      IncomesData
-      OutcomesData
-      IncomesRel {
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      OutcomesRel {
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
+      sallary
+      childrenSuppelment
+      food
+      laundry
+      gas
+      hygine
+      maitanence
+      car
+      untitledfield
+      energy
+      extraHoursBenefit
+      extraFood
+      chrony
+      extraSlot
       createdAt
       updatedAt
-      economicSimulatorIncomesRelId
-      economicSimulatorOutcomesRelId
       __typename
     }
     nextToken
@@ -309,79 +69,63 @@ export const listEconomicSimulators = /* GraphQL */ `query ListEconomicSimulator
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListEconomicSimulatorsQueryVariables,
-  APITypes.ListEconomicSimulatorsQuery
+  APITypes.ListCurrentIncomeDataTablesQueryVariables,
+  APITypes.ListCurrentIncomeDataTablesQuery
 >;
-export const getSocialSimulator = /* GraphQL */ `query GetSocialSimulator($id: ID!) {
-  getSocialSimulator(id: $id) {
+export const getCurrentExpensesDataTable = /* GraphQL */ `query GetCurrentExpensesDataTable($id: ID!) {
+  getCurrentExpensesDataTable(id: $id) {
     id
-    MembershipData
-    SeniorityData
-    EducationData
-    MembershipRel {
-      id
-      createdAt
-      updatedAt
-      __typename
-    }
-    SeniorityRel {
-      id
-      createdAt
-      updatedAt
-      __typename
-    }
-    EducationRel {
-      id
-      createdAt
-      updatedAt
-      __typename
-    }
+    energy
+    mintanence
+    network
+    car
+    school
+    privateLessons
+    classes
+    safetyNet
+    dental
+    food
+    laundry
+    extraSlot
+    gas
+    shifts
     createdAt
     updatedAt
-    socialSimulatorMembershipRelId
-    socialSimulatorSeniorityRelId
-    socialSimulatorEducationRelId
     __typename
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetSocialSimulatorQueryVariables,
-  APITypes.GetSocialSimulatorQuery
+  APITypes.GetCurrentExpensesDataTableQueryVariables,
+  APITypes.GetCurrentExpensesDataTableQuery
 >;
-export const listSocialSimulators = /* GraphQL */ `query ListSocialSimulators(
-  $filter: ModelSocialSimulatorFilterInput
+export const listCurrentExpensesDataTables = /* GraphQL */ `query ListCurrentExpensesDataTables(
+  $filter: ModelCurrentExpensesDataTableFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listSocialSimulators(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listCurrentExpensesDataTables(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
     items {
       id
-      MembershipData
-      SeniorityData
-      EducationData
-      MembershipRel {
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      SeniorityRel {
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
-      EducationRel {
-        id
-        createdAt
-        updatedAt
-        __typename
-      }
+      energy
+      mintanence
+      network
+      car
+      school
+      privateLessons
+      classes
+      safetyNet
+      dental
+      food
+      laundry
+      extraSlot
+      gas
+      shifts
       createdAt
       updatedAt
-      socialSimulatorMembershipRelId
-      socialSimulatorSeniorityRelId
-      socialSimulatorEducationRelId
       __typename
     }
     nextToken
@@ -389,6 +133,450 @@ export const listSocialSimulators = /* GraphQL */ `query ListSocialSimulators(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListSocialSimulatorsQueryVariables,
-  APITypes.ListSocialSimulatorsQuery
+  APITypes.ListCurrentExpensesDataTablesQueryVariables,
+  APITypes.ListCurrentExpensesDataTablesQuery
+>;
+export const getAccountBalanceModel = /* GraphQL */ `query GetAccountBalanceModel($id: ID!) {
+  getAccountBalanceModel(id: $id) {
+    id
+    income
+    expanse
+    anomaly
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetAccountBalanceModelQueryVariables,
+  APITypes.GetAccountBalanceModelQuery
+>;
+export const listAccountBalanceModels = /* GraphQL */ `query ListAccountBalanceModels(
+  $filter: ModelAccountBalanceModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAccountBalanceModels(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      income
+      expanse
+      anomaly
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListAccountBalanceModelsQueryVariables,
+  APITypes.ListAccountBalanceModelsQuery
+>;
+export const getReportDataTable = /* GraphQL */ `query GetReportDataTable($id: ID!) {
+  getReportDataTable(id: $id) {
+    id
+    generatedData
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetReportDataTableQueryVariables,
+  APITypes.GetReportDataTableQuery
+>;
+export const listReportDataTables = /* GraphQL */ `query ListReportDataTables(
+  $filter: ModelReportDataTableFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listReportDataTables(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      generatedData
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListReportDataTablesQueryVariables,
+  APITypes.ListReportDataTablesQuery
+>;
+export const getFutureExpensesDataTable = /* GraphQL */ `query GetFutureExpensesDataTable($id: ID!) {
+  getFutureExpensesDataTable(id: $id) {
+    id
+    arnnona
+    water
+    energy
+    houseMainanace
+    network
+    car
+    school
+    kintergarden
+    classes
+    privateLessons
+    safetyNet
+    healthInsurance
+    dental
+    social
+    food
+    laundry
+    tax
+    specialTax
+    cleaning
+    garden
+    extraSlot
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetFutureExpensesDataTableQueryVariables,
+  APITypes.GetFutureExpensesDataTableQuery
+>;
+export const listFutureExpensesDataTables = /* GraphQL */ `query ListFutureExpensesDataTables(
+  $filter: ModelFutureExpensesDataTableFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFutureExpensesDataTables(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      arnnona
+      water
+      energy
+      houseMainanace
+      network
+      car
+      school
+      kintergarden
+      classes
+      privateLessons
+      safetyNet
+      healthInsurance
+      dental
+      social
+      food
+      laundry
+      tax
+      specialTax
+      cleaning
+      garden
+      extraSlot
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListFutureExpensesDataTablesQueryVariables,
+  APITypes.ListFutureExpensesDataTablesQuery
+>;
+export const getFutureIncomesDataTable = /* GraphQL */ `query GetFutureIncomesDataTable($id: ID!) {
+  getFutureIncomesDataTable(id: $id) {
+    id
+    sallary
+    penssion
+    socialSecurityChildren
+    socialSecuritySenior
+    socialBenefits
+    medicalBenefits
+    safetyNet
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetFutureIncomesDataTableQueryVariables,
+  APITypes.GetFutureIncomesDataTableQuery
+>;
+export const listFutureIncomesDataTables = /* GraphQL */ `query ListFutureIncomesDataTables(
+  $filter: ModelFutureIncomesDataTableFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFutureIncomesDataTables(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      sallary
+      penssion
+      socialSecurityChildren
+      socialSecuritySenior
+      socialBenefits
+      medicalBenefits
+      safetyNet
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListFutureIncomesDataTablesQueryVariables,
+  APITypes.ListFutureIncomesDataTablesQuery
+>;
+export const getEducationDataTable = /* GraphQL */ `query GetEducationDataTable($id: ID!) {
+  getEducationDataTable(id: $id) {
+    id
+    privateLessons
+    classes
+    school
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetEducationDataTableQueryVariables,
+  APITypes.GetEducationDataTableQuery
+>;
+export const listEducationDataTables = /* GraphQL */ `query ListEducationDataTables(
+  $filter: ModelEducationDataTableFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEducationDataTables(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      privateLessons
+      classes
+      school
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListEducationDataTablesQueryVariables,
+  APITypes.ListEducationDataTablesQuery
+>;
+export const getDynamicDataModel = /* GraphQL */ `query GetDynamicDataModel($id: ID!) {
+  getDynamicDataModel(id: $id) {
+    id
+    box
+    text
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetDynamicDataModelQueryVariables,
+  APITypes.GetDynamicDataModelQuery
+>;
+export const listDynamicDataModels = /* GraphQL */ `query ListDynamicDataModels(
+  $filter: ModelDynamicDataModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDynamicDataModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      box
+      text
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListDynamicDataModelsQueryVariables,
+  APITypes.ListDynamicDataModelsQuery
+>;
+export const getFixedDataModel = /* GraphQL */ `query GetFixedDataModel($id: ID!) {
+  getFixedDataModel(id: $id) {
+    id
+    summary
+    stats
+    actualCost
+    communityCoverage
+    memberParticipace
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetFixedDataModelQueryVariables,
+  APITypes.GetFixedDataModelQuery
+>;
+export const listFixedDataModels = /* GraphQL */ `query ListFixedDataModels(
+  $filter: ModelFixedDataModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFixedDataModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      summary
+      stats
+      actualCost
+      communityCoverage
+      memberParticipace
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListFixedDataModelsQueryVariables,
+  APITypes.ListFixedDataModelsQuery
+>;
+export const getSelectModel = /* GraphQL */ `query GetSelectModel($id: ID!) {
+  getSelectModel(id: $id) {
+    id
+    checkbox
+    radio
+    dropdown
+    stepper
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetSelectModelQueryVariables,
+  APITypes.GetSelectModelQuery
+>;
+export const listSelectModels = /* GraphQL */ `query ListSelectModels(
+  $filter: ModelSelectModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSelectModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      checkbox
+      radio
+      dropdown
+      stepper
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListSelectModelsQueryVariables,
+  APITypes.ListSelectModelsQuery
+>;
+export const getButtonModel = /* GraphQL */ `query GetButtonModel($id: ID!) {
+  getButtonModel(id: $id) {
+    id
+    label
+    icon
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetButtonModelQueryVariables,
+  APITypes.GetButtonModelQuery
+>;
+export const listButtonModels = /* GraphQL */ `query ListButtonModels(
+  $filter: ModelButtonModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listButtonModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      label
+      icon
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListButtonModelsQueryVariables,
+  APITypes.ListButtonModelsQuery
+>;
+export const getLayoutModel = /* GraphQL */ `query GetLayoutModel($id: ID!) {
+  getLayoutModel(id: $id) {
+    id
+    backgroundImage
+    theme
+    credits
+    desc
+    date
+    time
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetLayoutModelQueryVariables,
+  APITypes.GetLayoutModelQuery
+>;
+export const listLayoutModels = /* GraphQL */ `query ListLayoutModels(
+  $filter: ModelLayoutModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLayoutModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      backgroundImage
+      theme
+      credits
+      desc
+      date
+      time
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListLayoutModelsQueryVariables,
+  APITypes.ListLayoutModelsQuery
 >;

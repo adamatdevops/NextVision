@@ -1,11 +1,16 @@
 {
   "name": "nextvision",
   "private": true,
-  "version": "2.3.321",
+  "version": "2.3.331",
   "description": "Modern React - Typescript - Vite Amplify Web application that utilizes AWS Amplify",
   "type": "module",
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "amplify:compile": "amplify api gql-compile",
+    "amplify:push": "amplify push --yes",
+    "amplify:push-destructive": "amplify push --yes --allow-destructive-graphql-schema-updates",
+    "amplify:codegen": "amplify codegen && amplify api push",
+    "amplify:rebuild": "amplify rebuild api",
     "babel:transpile-dev": "babel src/**/*.tsx js/dev",
     "babel:transpile-prod": "babel src/**/*.tsx js/prod",
     "build": "vite build",
@@ -46,6 +51,7 @@
     "@builder.io/react": "^3.2.6",
     "@builder.io/sdk": "^2.2.2",
     "@tiptap/starter-kit": "^2.3.0",
+    "antd": "^5.17.0",
     "aws-amplify": "^6.0.28",
     "graphql": "^16.8.1",
     "postcss": "^8.4.38",
@@ -53,6 +59,7 @@
     "react-dom": "^18.0.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.1",
+    "styled-components": "^6.1.9",
     "web-vitals": "^3.5.2"
   },
   "devDependencies": {
@@ -221,5 +228,5 @@
       "prettier --write"
     ]
   },
-  "packageManager": "npm@9.8.1"
+  "packageManager": "npm@10.5.0"
 }

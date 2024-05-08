@@ -2,8 +2,10 @@ import { Builder } from "@builder.io/react";
 import { Button } from "../node_modules/@aws-amplify/ui-react/dist/types/primitives/Button/index.d";
 import { CheckboxField } from "../node_modules/@aws-amplify/ui-react/dist/types/primitives/CheckboxField/index.d";
 import Counter from "./components/Counter/Counter";
+import Error404 from "./pages/errors/Error404";
 import { Icon } from "../node_modules/@aws-amplify/ui-react/dist/types/primitives/Icon/index.d";
 import { Image } from "../node_modules/@aws-amplify/ui-react/dist/types/primitives/Image/index.d";
+import Root from "./routes/routes";
 
 Builder.registerComponent(Counter, {
 	name: "Counter",
@@ -3129,4 +3131,12 @@ Builder.registerComponent(Icon, {
 			},
 		},
 	],
+});
+
+Builder.registerComponent(Error404, {
+	name: "Error404",
+});
+
+Builder.registerComponent(Root, {
+	name: "Root",
 });
