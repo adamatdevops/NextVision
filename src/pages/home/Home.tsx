@@ -1,17 +1,29 @@
-import { Link } from "react-router-dom";
-import GettingStarted from "./GettingStarted";
-import Login from "./Login";
+// src/pages/home/Home.tsx
+import React from 'react';
+import { Layout, Button } from 'antd';
+import { Link } from 'react-router-dom';
+import styles from './css/Home.module.css';
 
-export default function HomePage() {
-    const homePage = [GettingStarted, Login]
+const { Header, Content, Footer } = Layout;
 
+const Home: React.FC = () => {
     return (
-        <div>
-            {homePage.map((home, index) => (
-                <Link key={index} to={`/homePage/${home}`} >
-                Profile {home}
+        <Layout className={styles.layout}>
+            <Header className={styles.header}>ברוכים הבאים לעמוד הבית שלנו</Header>
+            <Content className={styles.content}>
+                <h1>עמוד הבית</h1>
+                <p>תוכן ראשי של עמוד הבית</p>
+                <Link to="/anotherPage">
+                    <Button type="primary" size="large">
+                        מעבר לעמוד הבא
+                    </Button>
                 </Link>
-            ))}
-        </div>
+            </Content>
+            <Footer className={styles.footer}>
+                ©2023 האפליקציה שלנו
+            </Footer>
+        </Layout>
     );
-}
+};
+
+export default Home;

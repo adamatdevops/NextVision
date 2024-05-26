@@ -47,6 +47,9 @@
       },
       "auth": {
         "nextvision6bb00ca2": {}
+      },
+      "storage": {
+        "CommunitySimulator": {}
       }
     }
   }

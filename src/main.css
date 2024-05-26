@@ -1,4 +1,25 @@
-:root {
+/* index.css */
+/* Dev GPT*/
+html,
+body {
+    place-items: center;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    height: 100vh;
+    width: 100vw;
+}
+
+#root {
+    max-width: 3840px;
+    max-height: 2160px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Dev Code*/
+/* :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
@@ -70,4 +91,4 @@ button:focus-visible {
     button {
         background-color: #f9f9f9;
     }
-}
+} */

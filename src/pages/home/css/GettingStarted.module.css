@@ -1,196 +1,129 @@
-.container {
-    background-color: #111;
+/* GettingStarted.module.css */
+.layout {
+    min-height: 100vh; /* Cover the full viewport height */
+    background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-1920.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     display: flex;
     flex-direction: column;
-    padding: 45px 60px 0;
+    /* overflow: hidden; */
+    /* position: absolute; or relative */
+    direction: rtl;
+    padding: 8px 0px 26px;
 }
 
-@media (max-width: 991px) {
-    .container {
-        padding: 45px 20px 0;
-    }
+.header {
+    background: transparent;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 1rem;
+
 }
 
-.hero-section {
+.footer {
+    background: transparent;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 2rem;
+}
+
+.content {
+    background: rgba(0, 0, 0, 0.5);
+    flex: 1; /* Allow content to take up available space */
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    position: relative;
-    min-height: 675px;
-    width: 1216px;
-    max-width: 100%;
-    padding: 80px 60px 0;
-}
-
-@media (max-width: 991px) {
-    .hero-section {
-        padding: 80px 20px 0;
-    }
-}
-
-.hero-background {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-    width: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    -o-object-position: center;
-    object-position: center;
-}
-
-.hero-content {
-    position: relative;
     justify-content: center;
-    display: flex;
-    margin-top: 108px;
-    flex-direction: column;
+    align-items: center;
+    padding: 3rem;
+    /* Optional: add a semi-transparent background */
+    /* padding: 50px; */
 }
 
-@media (max-width: 991px) {
-    .hero-content {
-        max-width: 100%;
-        margin-top: 40px;
-    }
+.h1 {
+    color: white;
+    font-size: 32px;
 }
 
-.hero-title {
-    color: #fff;
-    text-align: center;
-    font: 700 104px Roboto Mono, sans-serif;
-}
-
-@media (max-width: 991px) {
-    .hero-title {
-        max-width: 100%;
-        font-size: 40px;
-    }
-}
-
-.hero-description {
-    color: #fff;
-    text-align: center;
-    margin-top: 48px;
-    font: 400 28px Roboto Mono, sans-serif;
-}
-
-@media (max-width: 991px) {
-    .hero-description {
-        max-width: 100%;
-        margin-top: 40px;
-    }
-}
-
-.features-container {
-    align-self: center;
-    display: flex;
-    margin-top: 48px;
-    width: 100%;
-    max-width: 944px;
-    flex-direction: column;
-}
-
-@media (max-width: 991px) {
-    .features-container {
-        max-width: 100%;
-        margin-top: 40px;
-    }
-}
-
-.features-row {
-    gap: 20px;
-    display: flex;
-}
-
-@media (max-width: 991px) {
-    .features-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-    }
-}
-
-.feature-column {
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    width: 50%;
-    margin-left: 0;
-}
-
-@media (max-width: 991px) {
-    .feature-column {
-        width: 100%;
-    }
-}
-
-.feature-card {
-    border-radius: 24px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-    border: 1px solid rgba(255, 255, 255, 1);
-    display: flex;
-    flex-grow: 1;
-    gap: 20px;
+.button {
+    margin-top: 20px;
     font-size: 18px;
-    color: #fff;
-    font-weight: 400;
-    line-height: 27px;
-    width: 100%;
-    justify-content: space-between;
-    padding: 24px 32px;
 }
 
-@media (max-width: 991px) {
-    .feature-card {
-        margin-top: 40px;
-        flex-wrap: wrap;
-        padding: 24px 20px;
+/* Media Queries for Responsiveness */
+@media (min-width: 375px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/mobile/mobile-tractor-375.jpeg') !important;
+        /* Small background */
     }
 }
 
-.feature-icon {
-    width: 48px;
-    height: 48px;
-    margin: auto 0;
-}
-
-.feature-text {
-    font-family: Roboto Mono, sans-serif;
-}
-
-.cta-container {
-    display: flex;
-    margin-top: 48px;
-    gap: 20px;
-    justify-content: space-between;
-}
-
-@media (max-width: 991px) {
-    .cta-container {
-        max-width: 100%;
-        flex-wrap: wrap;
-        margin-top: 40px;
+@media (min-width: 390px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/mobile/mobile-tractor-390.jpeg') !important;
+        /* Small background */
     }
 }
 
-.cta-card {
-    align-items: start;
-    border-radius: 24px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-    border: 1px solid rgba(255, 255, 255, 1);
-    display: flex;
-    flex-direction: column;
-    padding: 24px 32px;
-}
-
-@media (max-width: 991px) {
-    .cta-card {
-        max-width: 100%;
-        padding: 24px 20px;
+@media (min-width: 414px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/mobile/mobile-tractor-414.jpeg') !important;
+        /* Small background */
     }
 }
 
-.cta-icon {
-    width: 48px;
-    height: 3px;
+@media (min-width: 576px) and (max-width: 767px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/tablet/tablet-tractor-800.jpeg') !important;
+        /* Medium background */
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/tablet/tablet-tractor-800.jpeg') !important;
+        /* Large background */
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/tablet/tablet-tractor-1024.jpeg') !important;
+        /* Extra Large background */
+    }
+}
+
+@media (min-width: 1366px) and (max-width: 1420px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-1366.jpeg') !important;
+        /* Extra Large background */
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 1800px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-1440.jpeg') !important;
+        /* Extra Large background */
+    }
+}
+
+@media (min-width: 1920px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-1920.jpeg') !important;
+        /* Extra Large background */
+    }
+}
+
+@media (min-width: 2560px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-2560.jpeg') !important;
+        /* Extra Large background */
+    }
+}
+
+@media (min-width: 3840px) {
+    .layout {
+        background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-3840.jpeg') !important;
+        /* Extra Large background */
+    }
 }

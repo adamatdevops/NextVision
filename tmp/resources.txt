@@ -32,3 +32,23 @@ https://www.linkedin.com/pulse/getting-started-vite-vitest-aws-amplify-react-dav
 
 # Code Helpers
 https://code.visualstudio.com/docs/languages/identifiers
+
+# 09/05/2024 Watchlist
+
+https://www.youtube.com/watch?v=cchqeWY0Nak
+
+https://www.youtube.com/watch?v=c2fJ7T0N1Sk
+https://www.youtube.com/watch?v=x8g9ti7PT8s
+
+https://www.youtube.com/watch?v=HYKDUF8X3qI
+https://www.youtube.com/watch?v=XATIxcou220
+https://www.youtube.com/watch?v=g-HjIXeURII&list=PLiUrl-SQRR7JXfhpK4JIZRn4m0-Wnjliu
+https://www.youtube.com/watch?v=1uXlLsSmdVA&list=PLiUrl-SQRR7LM5cw7azA2H_FZwFx2UgkI&index=3
+https://www.youtube.com/watch?v=hqjjO37QS08
+
+step-by-step-build-your-first-aws-amplify-and-react-app-1agn
+Dev
+
+
+https://www.freecodecamp.org/news/context-api-in-react/
+https://legacy.reactjs.org/docs/context.html

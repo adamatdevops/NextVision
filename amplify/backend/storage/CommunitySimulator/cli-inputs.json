@@ -1,0 +1,12 @@
+{
+  "resourceName": "CommunitySimulator",
+  "policyUUID": "6e357daa",
+  "bucketName": "nextvision-s3bucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
