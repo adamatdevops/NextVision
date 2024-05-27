@@ -83,7 +83,7 @@ const GettingStarted: React.FC<LayoutComponentProps> = () => {
                 <Flex gap="small" vertical>
                     <Flex wrap gap="small">
                         {/* Your content goes here */}
-                        <Link to="/home">
+                        <Link to="/home/social-data">
                             <Button type="primary" size="large">
                                 בוא נתחיל
                             </Button>

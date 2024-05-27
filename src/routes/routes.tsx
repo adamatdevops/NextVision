@@ -1,11 +1,10 @@
-import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Route, Navigate } from 'react-router-dom';
 
 /* Builder UI */
 import { BuilderPage } from "@builder.io/react";
 
 /* importing Pages */
 // import Root from "./routes/routes.tsx";
-import ThemeWrapper from '../theme'; // Import the theme wrapper
 import Home from '../pages/home/Home';
 import GettingStarted from '../pages/home/GettingStarted';
 import EconomicStatusData from '../pages/economicSim/EconomicStatusData';
@@ -28,11 +27,7 @@ const router = createBrowserRouter(
             {/* TODO: Make the GettingStarted page the entry point for the app */}
             <Route
                 path="/"
-                element={
-                    <ThemeWrapper>
-                        <GettingStarted />
-                    </ThemeWrapper>
-                }
+                element={<GettingStarted />}
                 errorElement={<ErrorPage />}
             />
 
@@ -45,26 +40,30 @@ const router = createBrowserRouter(
             {/* Home */}
             <Route
                 path="/home"
-                element={
-                    <ThemeWrapper>
-                        <Home />
-                    </ThemeWrapper>
-                }
+                element={<SocialSimulator />}
                 errorElement={<ErrorPage />}
             >
                 {/* SocialSimulator */}
                 {/* Phase One: Provides the current/present social data */}
                 {/* TODO: User feeds basic social details about himself or his family status that will be taken into account during the simulation */}
                 <Route
+                    index element={<Navigate to="/home/social-data" replace />}
+                    errorElement={<Error404 />}
+                />
+                <Route
                     path="social-data"
-                    index element={<SocialSimulator />}
+                    element={<SocialSimulator />}
                     errorElement={<Error404 />}
                 />
                 {/* EconomicSimulator */}
                 {/* Phase One: Provides the current/present economic account balance data */}
                 <Route
+                    index element={<Navigate to="/home/account-balance" replace />}
+                    errorElement={<Error404 />}
+                />
+                <Route
                     path="account-balance"
-                    index element={<AccountBalance />}
+                    element={<AccountBalance />}
                     errorElement={<Error404 />}
                 />
             </Route>
@@ -72,29 +71,17 @@ const router = createBrowserRouter(
             {/* Phase Two: Provides a forecast of the economic data */}
             <Route
                 path="incomes-outcomes"
-                element={
-                    <ThemeWrapper>
-                        <EconomicStatusData />
-                    </ThemeWrapper>
-                }
+                element={<EconomicStatusData />}
                 errorElement={<Error404 />}
             />
             <Route
                 path="forecast"
-                element={
-                    <ThemeWrapper>
-                        <EconomicForecastData />
-                    </ThemeWrapper>
-                }
+                element={<EconomicForecastData />}
                 errorElement={<Error404 />}
             />
             <Route
                 path="/review-and-logout"
-                element={
-                    <ThemeWrapper>
-                        <ReviewAndLogout />
-                    </ThemeWrapper>
-                }
+                element={<ReviewAndLogout />}
                 errorElement={<Error404 />}
             />
         </>
