@@ -1,0 +1,154 @@
+.layout {
+    min-height: 100vh;
+    /* width: 100vw; */
+    background-color: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    direction: rtl;
+    padding: 10px 0px 27px;
+}
+
+.header {
+    background: #1890ff;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+.footer {
+    text-align: center;
+    padding: 1rem;
+    background: #001529;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.content {
+    padding: 20px;
+    min-height: calc(100vh - 140px);
+    /* Adjust this based on the height of the header and footer */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: margin-bottom
+}
+
+.sectionCard,
+.summaryCard {
+    display: flex;
+    position: relative;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    justify-content: space-between;
+}
+
+.balanceInfo,
+.summaryInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.currentBalance {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.totalCurrentBalance {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.totalBalance {
+    position: relative;
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.incomeAmount {
+    position: relative;
+    font-weight: bold;
+    color: green;
+    text-align: center;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.expensesAmount {
+    position: relative;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #ffffff;
+    margin: 8px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.cardAccountBalance {
+    min-height: calc(10vh - 140px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: #ffffff;
+    margin: 6px;
+    margin-top: 6px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 2px 2px 2px 2px;
+    justify-content: space-between;
+    flex-grow: 1;
+    font-size: 16px;
+    font-family: Noto Sans Hebrew, sans-serif;
+    font-weight: 300;
+}
+
+.card .ant-card-head {
+    border-bottom: none;
+    padding: 0 0 16px 0;
+}
+
+.card .ant-card-body {
+    padding: 0;
+    flex-grow: 1;
+}
+
+.card .ant-card-head-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.card .ant-card-body>* {
+    margin-bottom: 6px;
+
+}
+
+.card .ant-card-body>*:last-child {
+    margin-bottom: 0;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}

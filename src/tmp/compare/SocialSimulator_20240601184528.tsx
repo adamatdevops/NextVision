@@ -19,7 +19,7 @@ import { useGlobalState } from '../../GlobalStateProvider';
 const { Header, Content, Footer } = Layout;
 
 const SocialSimulator: React.FC = () => {
-    // const SocialSimulator: React.FC<SocialSimulatorProps> = () => {
+// const SocialSimulator: React.FC<SocialSimulatorProps> = () => {
     const { state, setFamilyStatus, setPartnerCommunityStatus } = useGlobalState();
 
     // const [familyStatus, setFamilyStatus] = useState<string | null>(null);

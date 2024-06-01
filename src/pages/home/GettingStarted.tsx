@@ -64,18 +64,6 @@ const GettingStarted: React.FC<LayoutComponentProps> = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-//     document.querySelector(`.${styles.layout}`)?.setAttribute(
-//         'style',
-//         `background-image: url(${bgImage}); background-size: cover; background-position: center;`
-//     );
-// };
-
-//    setBgImage();
-//    window.addEventListener('resize', setBgImage);
-
-//      return () => window.removeEventListener('resize', setBgImage);
-//      }, []);
-
     return (
         <Layout className={styles.layout} style={{ backgroundImage: `url(${backgroundImage})` }}>
             <Header className={styles.header}>ברוכים הבאים לאפליקציה שלנו</Header>
@@ -83,7 +71,7 @@ const GettingStarted: React.FC<LayoutComponentProps> = () => {
                 <Flex gap="small" vertical>
                     <Flex wrap gap="small">
                         {/* Your content goes here */}
-                        <Link to="/home/social-data">
+                        <Link to="/social-data">
                             <Button type="primary" size="large">
                                 בוא נתחיל
                             </Button>

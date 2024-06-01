@@ -1,0 +1,20 @@
+```tsx
+import React from 'react';
+import { Form, Select } from 'antd';
+
+const { Option } = Select;
+
+const PartnerCommunityStatus: React.FC = () => {
+    return (
+        <Form.Item label="סטטוס קהילתי של בן/בת הזוג">
+            <Select placeholder="בחר סטטוס קהילתי של בן/בת הזוג">
+                <Option value="community-member">חבר/ת קהילה</Option>
+                <Option value="not-community-member">לא חבר/ת קהילה</Option>
+                <Option value="no-partner">ללא בן/בת זוג</Option>
+            </Select>
+        </Form.Item>
+    );
+};
+
+export default PartnerCommunityStatus;
+```

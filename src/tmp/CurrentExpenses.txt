@@ -1,0 +1,86 @@
+/* ./src/pages/economicSim/CurrentExpenses.tsx */
+import React, { useState, useEffect } from 'react';
+import { Card, Typography, Form, InputNumber } from 'antd';
+import styles from './css/AccountBalance.module.css';
+
+const { Title } = Typography;
+
+interface CurrentExpensesProps {
+    setExpenses: (expenses: number[]) => void;
+}
+
+const CurrentExpenses: React.FC<CurrentExpensesProps> = ({ setExpenses }) => {
+    const [gas, setGas] = useState<number>(0);
+    const [electricity, setElectricity] = useState<number>(0);
+    const [houseMaintenance, setHouseMaintenance] = useState<number>(0);
+    const [gardening, setGardening] = useState<number>(0);
+    const [networking, setNetworking] = useState<number>(0);
+    const [internet, setInternet] = useState<number>(0);
+    const [vehicle, setVehicle] = useState<number>(0);
+    const [school, setSchool] = useState<number>(0);
+    const [personalLessons, setPersonalLessons] = useState<number>(0);
+    const [tuitions, setTuitions] = useState<number>(0);
+    const [otherEducation, setOtherEducation] = useState<number>(0);
+    const [dentist, setDentist] = useState<number>(0);
+    const [welfare, setWelfare] = useState<number>(0);
+    const [food, setFood] = useState<number>(0);
+    const [laundryExpenses, setLaundryExpenses] = useState<number>(0);
+    const [otherExpenses, setOtherExpenses] = useState<number>(0);
+
+    useEffect(() => {
+        setExpenses([
+            gas, electricity, houseMaintenance, gardening, networking, internet, vehicle,
+            school, personalLessons, tuitions, otherEducation, dentist, welfare, food,
+            laundryExpenses, otherExpenses
+        ]);
+    }, [gas, electricity, houseMaintenance, gardening, networking, internet, vehicle, school, personalLessons, tuitions, otherEducation, dentist, welfare, food, laundryExpenses, otherExpenses, setExpenses]);
+
+    return (
+        <Card className={styles.card}>
+            <Title level={4}>הוצאות</Title>
+            <ExpenseSection title="גז" value={gas} onChange={setGas} />
+            <ExpenseSection title="חשמל" value={electricity} onChange={setElectricity} />
+            <ExpenseSection title="תחזוקת בית" value={houseMaintenance} onChange={setHouseMaintenance} />
+            <ExpenseSection title="גננות" value={gardening} onChange={setGardening} />
+            <ExpenseSection title="רשת" value={networking} onChange={setNetworking} />
+            <ExpenseSection title="אינטרנט" value={internet} onChange={setInternet} />
+            <ExpenseSection title="רכב" value={vehicle} onChange={setVehicle} />
+            <ExpenseSection title="בית ספר" value={school} onChange={setSchool} />
+            <ExpenseSection title="שיעורים פרטיים" value={personalLessons} onChange={setPersonalLessons} />
+            <ExpenseSection title="שכר לימוד" value={tuitions} onChange={setTuitions} />
+            <ExpenseSection title="חינוך אחר" value={otherEducation} onChange={setOtherEducation} />
+            <ExpenseSection title="רופא שיניים" value={dentist} onChange={setDentist} />
+            <ExpenseSection title="רווחה" value={welfare} onChange={setWelfare} />
+            <ExpenseSection title="מזון" value={food} onChange={setFood} />
+            <ExpenseSection title="כביסה" value={laundryExpenses} onChange={setLaundryExpenses} />
+            <ExpenseSection title="אחר" value={otherExpenses} onChange={setOtherExpenses} />
+        </Card>
+    );
+};
+
+interface SectionProps {
+    title: string;
+    value: number;
+    onChange: (value: number) => void;
+}
+
+const ExpenseSection: React.FC<SectionProps> = ({ title, value, onChange }) => {
+    return (
+        <Card className={styles.sectionCard}>
+            <Title level={5}>{title}</Title>
+            <Form layout="vertical">
+                <Form.Item label="סכום">
+                    <InputNumber
+                        value={value}
+                        onChange={onChange}
+                        min={0}
+                        style={{ width: '100%' }}
+                        placeholder="הכנס סכום"
+                    />
+                </Form.Item>
+            </Form>
+        </Card>
+    );
+};
+
+export default CurrentExpenses;

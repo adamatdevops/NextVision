@@ -1,6 +1,6 @@
 /* ./src/pages/socialSim/SocialSimulator.tsx */
 import React, { useState } from 'react';
-import { Layout, Form } from 'antd';
+import { Layout, Form, Ca } from 'antd';
 import MemberStatus from '../../components/ui/select/MemberStatus'; // Add this import statement
 import PartnerCommunityStatus from '../../components/ui/select/PartnerCommunityStatus';
 import ChildrenSelect from '../../components/ui/select/ChildrenSelect';
@@ -19,7 +19,7 @@ import { useGlobalState } from '../../GlobalStateProvider';
 const { Header, Content, Footer } = Layout;
 
 const SocialSimulator: React.FC = () => {
-    // const SocialSimulator: React.FC<SocialSimulatorProps> = () => {
+// const SocialSimulator: React.FC<SocialSimulatorProps> = () => {
     const { state, setFamilyStatus, setPartnerCommunityStatus } = useGlobalState();
 
     // const [familyStatus, setFamilyStatus] = useState<string | null>(null);
@@ -47,6 +47,9 @@ const SocialSimulator: React.FC = () => {
         <Layout className={styles.layout}>
             <Header className={styles.header}>סימולטור מודל ההתחדשות</Header>
             <Content className={styles.content}>
+                <Card>
+
+                </Card>
                 <h1>מידע אישי</h1>
                 <Form layout="vertical" className={styles.form}>
                     <div className={styles.formRow}>

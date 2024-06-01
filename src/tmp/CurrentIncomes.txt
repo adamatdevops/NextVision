@@ -1,0 +1,110 @@
+/* ./src/pages/economicSim/CurrentIncomes.tsx */
+import React, { useState, useEffect } from 'react';
+import { Card, Typography, Form, InputNumber } from 'antd';
+import styles from './css/AccountBalance.module.css';
+
+const { Title } = Typography;
+
+interface CurrentIncomesProps {
+    setIncomes: (incomes: number[]) => void;
+}
+
+const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
+    const [personalBudget, setPersonalBudget] = useState(4954);
+    const [childrenAddition, setChildrenAddition] = useState<number>(0);
+    const [provisions, setProvisions] = useState<number>(0);
+    const [laundry, setLaundry] = useState<number>(0);
+    const [gas, setGas] = useState<number>(0);
+    const [hygiene, setHygiene] = useState<number>(0);
+    const [maintenance, setMaintenance] = useState<number>(0);
+    const [vehicle, setVehicle] = useState<number>(0);
+    const [energy, setEnergy] = useState<number>(0);
+    const [benefitForWork, setBenefitForWork] = useState<number>(0);
+    const [outsourcedFood, setOutsourcedFood] = useState<number>(0);
+    const [chronicleTreatment, setChronicleTreatment] = useState<number>(0);
+    const [otherIncome, setOtherIncome] = useState<number>(0);
+
+
+    useEffect(() => {
+        setIncomes([personalBudget, childrenAddition, provisions, laundry, gas, hygiene, maintenance, vehicle, energy, benefitForWork, outsourcedFood, childrenAddition, otherIncome]);
+    }, [personalBudget, childrenAddition, provisions, laundry, gas, hygiene, maintenance, vehicle, energy, benefitForWork, outsourcedFood, childrenAddition, otherIncome]);
+
+    return (
+        <Card className={styles.card}>
+            <Title level={4}>הכנסות</Title>
+            <Form layout="vertical">
+                <Form.Item label="תקציב אישי">
+                    <InputNumber
+                        value={personalBudget}
+                        disabled
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="תוספת ילדים" value={childrenAddition} onChange={setChildrenAddition} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="הספקה" value={provisions} onChange={setProvisions} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="כביסה" value={laundry} onChange={setLaundry} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="גז" value={gas} onChange={setGas} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="היגיינה" value={hygiene} onChange={setHygiene} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="תחזוקה" value={maintenance} onChange={setMaintenance} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="רכב" value={vehicle} onChange={setVehicle} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="אנרגיה" value={energy} onChange={setEnergy} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="הטבת עבודה" value={benefitForWork} onChange={setBenefitForWork} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="אוכל ממקור חיצוני" value={outsourcedFood} onChange={setOutsourcedFood} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="טיפול כרוני" value={chronicleTreatment} onChange={setChronicleTreatment} />
+                </Form.Item>
+                <Form.Item>
+                    <IncomeSection title="אחר" value={otherIncome} onChange={setOtherIncome} />
+                </Form.Item>
+            </Form>
+        </Card>
+    );
+};
+
+interface SectionProps {
+    title: string;
+    value: number;
+    onChange: (value: number) => void;
+}
+
+const IncomeSection: React.FC<SectionProps> = ({ title, value, onChange }) => {
+    return (
+        <Card className={styles.sectionCard}>
+            <Title level={5}>{title}</Title>
+            <Form layout="vertical">
+                <Form.Item label="סכום">
+                    <InputNumber
+                        value={value}
+                        onChange={onChange}
+                        min={0}
+                        style={{ width: '100%' }}
+                        placeholder="הכנס סכום"
+                    />
+                </Form.Item>
+            </Form>
+        </Card>
+    );
+};
+
+
+export default CurrentIncomes;

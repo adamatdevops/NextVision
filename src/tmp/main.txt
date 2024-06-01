@@ -18,26 +18,23 @@ import "@aws-amplify/ui-react/styles.css";
 // import router from './routes/routes';
 import App from "./App";
 import './main.css';
-import { GlobalStateProvider } from './GlobalStateProvider';
+// import { GlobalStateProvider } from "./context";
 
 Amplify.configure(awsconfig);
 Amplify.configure(amplifyconfig);
 
-// const root = createRoot(document.getElementById('root') as HTMLElement);
-// root.render(
-//     <GlobalStateProvider>
-//         <App />
-//     </GlobalStateProvider>
+const root = createRoot(document.getElementById('root') as HTMLElement);
+root.render(<App />);
 
+// ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+//     <React.StrictMode>
+//         <GlobalStateProvider>
+//             <ColorSchemeWrapper> {/* Wrap your app in the color scheme provider */}
+//                 <App/>
+//             </ColorSchemeWrapper>
+//         </GlobalStateProvider>
+//     </React.StrictMode>,
 // );
-
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
-        <GlobalStateProvider>
-            <App/>
-        </GlobalStateProvider>
-    </React.StrictMode>,
-);
 
 
 /* TODO: Add Web-Vitals on later stage

@@ -11,19 +11,13 @@ import Seniority from '../../components/ui/select/Seniority';
 import ApartmentSquareFootage from '../../components/ui/select/ApartmentSquareFootage';
 import styles from './css/SocialSimulator.module.css';
 
-import { useGlobalState } from '../../GlobalStateProvider';
-
-
-// interface SocialSimulatorProps {}
+interface SocialSimulatorProps { }
 
 const { Header, Content, Footer } = Layout;
 
-const SocialSimulator: React.FC = () => {
-    // const SocialSimulator: React.FC<SocialSimulatorProps> = () => {
-    const { state, setFamilyStatus, setPartnerCommunityStatus } = useGlobalState();
-
-    // const [familyStatus, setFamilyStatus] = useState<string | null>(null);
-    // const [partnerCommunityStatus, setPartnerCommunityStatus] = useState<string | null>(null);
+const SocialSimulator: React.FC<SocialSimulatorProps> = () => {
+    const [familyStatus, setFamilyStatus] = useState<string | null>(null);
+    const [partnerCommunityStatus, setPartnerCommunityStatus] = useState<string | null>(null);
     const [hasChildren, setHasChildren] = useState<string | null>(null);
     const [numberOfChildren, setNumberOfChildren] = useState<number | null>(null);
 
@@ -50,19 +44,33 @@ const SocialSimulator: React.FC = () => {
                 <h1>מידע אישי</h1>
                 <Form layout="vertical" className={styles.form}>
                     <div className={styles.formRow}>
-                        <MemberStatus status={state.familyStatus} onStatusChange={handleFamilyStatusChange} />
+                        <MemberStatus onStatusChange={handleFamilyStatusChange} />
+                    {/* {familyStatus === 'married' && <PartnerCommunityStatus />} */}
                         <Seniority onSeniorityChange={() => { }} label="ותק" />
                     </div>
-                    {state.familyStatus === 'married' && (
+                    {familyStatus === 'married' && (
                         <div className={styles.formRow}>
-                            <PartnerCommunityStatus status={state.partnerCommunityStatus} onStatusChange={handlePartnerCommunityStatusChange} />
-                            <div className={styles.partnerSeniorityWrapper}>
+                            <PartnerCommunityStatus onStatusChange={handlePartnerCommunityStatusChange} />
+                                <div className={styles.partnerSeniorityWrapper}>
+                                    <Seniority
+                                        onSeniorityChange={() => { }}
+                                        label="ותק של השותף"
+                                        disabled={partnerCommunityStatus !== 'community-member'}
+                                    />
+                            </div>
+                            {/* <PartnerCommunityStatus onStatusChange={handlePartnerCommunityStatusChange} /> */}
+                            {/* {partnerCommunityStatus === 'community-member' && (
                                 <Seniority
                                     onSeniorityChange={() => { }}
-                                    label="ותק של השותף"
-                                    disabled={state.partnerCommunityStatus !== 'community-member'}
+                                    label="ותק של בן/ת הזוג"
+                                    disabled={partnerCommunityStatus !== 'community-member'}
                                 />
-                            </div>
+                            )} */}
+                            {/* <Seniority
+                            onSeniorityChange={() => { }}
+                            label="ותק של בן/ת הזוג"
+                            disabled={partnerCommunityStatus !== 'community-member'} */}
+
                         </div>
                     )}
                     <div>
