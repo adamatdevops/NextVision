@@ -1,7 +1,9 @@
 /* ./src/pages/economicSim/CurrentIncomes.tsx */
-import React, { useState, useEffect } from 'react';
+/* ./src/pages/economicSim/CurrentIncomes.tsx */
+import React, { useEffect } from 'react';
 import { Card, Typography, Form, InputNumber } from 'antd';
 import styles from './css/AccountBalance.module.css';
+import { useGlobalState } from '../../GlobalStateProvider'; // Import the hook
 
 const { Title } = Typography;
 
@@ -10,24 +12,118 @@ interface CurrentIncomesProps {
 }
 
 const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
-    const [personalBudget, setPersonalBudget] = useState(4954);
-    const [childrenAddition, setChildrenAddition] = useState<number>(0);
-    const [provisions, setProvisions] = useState<number>(0);
-    const [laundry, setLaundry] = useState<number>(0);
-    const [gas, setGas] = useState<number>(0);
-    const [hygiene, setHygiene] = useState<number>(0);
-    const [maintenance, setMaintenance] = useState<number>(0);
-    const [vehicle, setVehicle] = useState<number>(0);
-    const [energy, setEnergy] = useState<number>(0);
-    const [benefitForWork, setBenefitForWork] = useState<number>(0);
-    const [outsourcedFood, setOutsourcedFood] = useState<number>(0);
-    const [chronicleTreatment, setChronicleTreatment] = useState<number>(0);
-    const [otherIncome, setOtherIncome] = useState<number>(0);
+    /* Use the useGlobalState hook to get context values and setters */
+    const {
+        state,
+        setPersonalBudget,
+        setChildrenAddition,
+        setProvisions,
+        setLaundry,
+        setGas,
+        setHygiene,
+        setMaintenance,
+        setVehicle,
+        setEnergy,
+        setBenefitForWork,
+        setOutsourcedFood,
+        setChronicleTreatment,
+        setOtherIncome,
+    } = useGlobalState();
 
+    const {
+        personalBudget,
+        childrenAddition,
+        provisions,
+        laundry,
+        gas,
+        hygiene,
+        maintenance,
+        vehicle,
+        energy,
+        benefitForWork,
+        outsourcedFood,
+        chronicleTreatment,
+        otherIncome,
+    } = state;
 
     useEffect(() => {
-        setIncomes([personalBudget, childrenAddition, provisions, laundry, gas, hygiene, maintenance, vehicle, energy, benefitForWork, outsourcedFood, childrenAddition, otherIncome]);
-    }, [personalBudget, childrenAddition, provisions, laundry, gas, hygiene, maintenance, vehicle, energy, benefitForWork, outsourcedFood, childrenAddition, otherIncome]);
+        if (state.familyStatus === 'married' && state.partnerCommunityStatus === 'community-member') {
+            // setPersonalBudget(9970);
+            setPersonalBudget(2 * 4985);
+            /* TODO: this is to set set according to the number of children */
+            setChildrenAddition(2 * 2);
+            setProvisions(2 * 3593);
+            setLaundry(2 * 305);
+            setGas(2 * 270);
+            /* TODO: this is to set set according to the number of family members */
+            setHygiene(2 * 44);
+            setMaintenance(2 * 94);
+            setVehicle(1094);
+            setEnergy(2* 286);
+            /* TODO: To be set by the user */
+            setBenefitForWork(0);
+            setOutsourcedFood(0);
+            setChronicleTreatment(0);
+            setOtherIncome(0);
+
+        }
+
+        if (hasChildren === 'yes') {
+            schoolExpenses = numberOfChildren * 500; // Example calculation
+            personalLessonsExpenses = numberOfChildren * 200; // Example calculation
+            dentistExpenses += numberOfChildren * 70; // Additional cost per child
+            foodExpenses += numberOfChildren * 1000; // Additional cost per child
+        }
+        if (state.hasChildren === 'yes') {
+            setHygiene(numberOfChildren* 44);
+        }
+        if (state.familyStatus === 'married' && state.partnerCommunityStatus !== 'community-member') {
+            // setPersonalBudget(9970);
+            setPersonalBudget(4985);
+            setChildrenAddition(2 * 2); /* TODO: this is to set set according to the number of children */
+            setProvisions(3593);
+            setLaundry(305);
+            setGas(270);
+            setHygiene(44); /* TODO: this is to set set according to the number of family members */
+            setMaintenance(94);
+            setVehicle(1094);
+            setEnergy(286);
+            setBenefitForWork(0); /* TODO: To be set by the user */
+            setOutsourcedFood(0); /* TODO: To be set by the user */
+            setChronicleTreatment(0); /* TODO: To be set by the user */
+            setOtherIncome(0); /* TODO: To be set by the user */
+        }
+
+        setIncomes([
+            personalBudget,
+            childrenAddition,
+            provisions,
+            laundry,
+            gas,
+            hygiene,
+            maintenance,
+            vehicle,
+            energy,
+            // benefitForWork,
+            // outsourcedFood,
+            chronicleTreatment,
+            otherIncome,
+        ]);
+    }, [
+        personalBudget,
+        childrenAddition,
+        provisions,
+        laundry,
+        gas,
+        hygiene,
+        maintenance,
+        vehicle,
+        energy,
+        benefitForWork,
+        outsourcedFood,
+        chronicleTreatment,
+        otherIncome,
+    ]);
 
     return (
         <Card className={styles.card}>
@@ -40,65 +136,86 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                         style={{ width: '100%' }}
                     />
                 </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="תוספת ילדים" value={childrenAddition} onChange={setChildrenAddition} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="הספקה" value={provisions} onChange={setProvisions} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="כביסה" value={laundry} onChange={setLaundry} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="גז" value={gas} onChange={setGas} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="היגיינה" value={hygiene} onChange={setHygiene} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="תחזוקה" value={maintenance} onChange={setMaintenance} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="רכב" value={vehicle} onChange={setVehicle} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="אנרגיה" value={energy} onChange={setEnergy} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="הטבת עבודה" value={benefitForWork} onChange={setBenefitForWork} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="אוכל ממקור חיצוני" value={outsourcedFood} onChange={setOutsourcedFood} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="טיפול כרוני" value={chronicleTreatment} onChange={setChronicleTreatment} />
-                </Form.Item>
-                <Form.Item>
-                    <IncomeSection title="אחר" value={otherIncome} onChange={setOtherIncome} />
-                </Form.Item>
-            </Form>
-        </Card>
-    );
-};
-
-interface SectionProps {
-    title: string;
-    value: number;
-    onChange: (value: number) => void;
-}
-
-const IncomeSection: React.FC<SectionProps> = ({ title, value, onChange }) => {
-    return (
-        <Card className={styles.sectionCard}>
-            <Title level={5}>{title}</Title>
-            <Form layout="vertical">
-                <Form.Item label="סכום">
+                <Form.Item label="תוספת ילדים" >
                     <InputNumber
-                        value={value}
-                        onChange={onChange}
-                        min={0}
+                        value={childrenAddition}
+                        disabled // Fixed value
                         style={{ width: '100%' }}
-                        placeholder="הכנס סכום"
+                    />
+                </Form.Item>
+                <Form.Item label="כלכלה" >
+                    <InputNumber
+                        value={provisions}
+                        disabled
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item label="כביסה">
+                    <InputNumber
+                        value={laundry}
+                        disabled
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item label="גז">
+                    <InputNumber
+                        value={gas}
+                        disabled
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item label="היגיינה">
+                    <InputNumber
+                        value={hygiene}
+                        disabled
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item >
+                <Form.Item label="תחזוקה">
+                    <InputNumber
+                        value={maintenance}
+                        disabled
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item label="רכב">
+                    <InputNumber
+                        value={vehicle}
+                        disabled
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item label="אנרגיה">
+                    <InputNumber
+                        value={energy}
+                        disabled
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item label="הטבת עבודה">
+                    <InputNumber
+                        value={benefitForWork}
+                        disabled
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item label="אש״ל עובד חוץ">
+                    <InputNumber
+                        value={outsourcedFood}
+                        disabled
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item label="טיפול כרוני">
+                    <InputNumber
+                        value={chronicleTreatment}
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item label="אחר">
+                    <InputNumber
+                        value={otherIncome}
+                        style={{ width: '100%' }}
                     />
                 </Form.Item>
             </Form>
@@ -106,5 +223,31 @@ const IncomeSection: React.FC<SectionProps> = ({ title, value, onChange }) => {
     );
 };
 
+// interface SectionProps {
+//     title: string;
+//     value: number;
+//     onChange: (value: number) => void;
+// }
+
+// const IncomeSection: React.FC<SectionProps> = ({ title, value, onChange }) => {
+//     return (
+//         <Card className={styles.sectionCard}>
+//             <Title level={5}>{title}</Title>
+//             <Form layout="vertical">
+//                 <Form.Item label="סכום">
+//                     <InputNumber
+//                         value={value}
+//                         onChange={(newValue: number | null) => onChange(newValue ?? 0)}
+//                         min={0}
+//                         style={{ width: '100%' }}
+//                         placeholder="הכנס סכום"
+//                     />
+//                 </Form.Item>
+//             </Form>
+//         </Card>
+//     );
+// };
+
 
 export default CurrentIncomes;
+

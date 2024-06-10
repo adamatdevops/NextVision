@@ -23,20 +23,17 @@ const CurrentBalance: React.FC<{ incomes: number[], expenses: number[] }> = ({ i
         <Row gutter={16} className={styles.totalCurrentBalance}>
             <Col span={8}>
                 <Card className={styles.incomeAmount}>
-                    <Title level={4}>סה"כ הכנסות</Title>
-                    <p>{incomeTotal} ש"ח</p>
+                    <p>סה״כ הכנסות: {incomeTotal} ש"ח</p>
                 </Card>
             </Col>
             <Col span={8}>
                 <Card className={styles.totalBalance}>
-                    <Title level={4}>סה"כ יתרה</Title>
-                    <p>{balanceTotal} ש"ח</p>
+                    <p>סה״כ יתרה: {balanceTotal} ש"ח</p>
                 </Card>
             </Col>
             <Col span={8}>
                 <Card className={styles.expensesAmount}>
-                    <Title level={4}>סה"כ הוצאות</Title>
-                    <p>{expenseTotal} ש"ח</p>
+                    <p>סה״כ הוצאות: {expenseTotal} ש"ח</p>
                 </Card>
             </Col>
         </Row>

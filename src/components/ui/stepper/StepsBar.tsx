@@ -14,7 +14,7 @@ const StepsBar: React.FC = () => {
         { title: 'מידע כללי', path: '/social-data', description: 'הזנת נתונים סוציאלים', icon: <UserOutlined /> },
         { title: 'מאזן', path: '/account-balance', description: 'תקציב נוכחי', icon: <BankOutlined /> },
         { title: 'תחזית', path: '/forecast', description: 'מודל התחדשות', icon: <RiseOutlined /> },
-        { title: 'סיום', path: '/review-and-logout', icon: <SmileOutlined /> }
+        { title: 'סיום', path: '/review-and-logout', description: 'סקירת נתונים ', icon: <SmileOutlined /> }
     ];
 
     const currentStep = steps.findIndex(step => step.path === location.pathname);

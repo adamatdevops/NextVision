@@ -26,50 +26,49 @@ const AccountBalance: React.FC = () => {
             <Content className={styles.content}>
                 <Row gutter={16}>
                     {/* Current Column */}
-                    {/* <Card title="מודל שיתופי"> */}
-                        <Col span={12}>
-                            <Row>
+                    <Col span={12}>
+                        <Row>
                             <Card className={styles.cardAccountBalance}>
                                     <p>מודל שיתופי</p>
-                                </Card>
-                            </Row>
-                            <Row>
-                                <Col span={12}>
-                                    <CurrentIncomes setIncomes={setIncomes} />
+                            </Card>
+                        </Row>
+                        <Row>
+                            <Col span={12} className={styles.columnGeneral}>
+                                <CurrentIncomes setIncomes={setIncomes} />
                                 </Col>
-                                <Col span={12}>
-                                    <CurrentExpenses setExpenses={setExpenses} />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col span={24}>
-                                    <CurrentBalance incomes={incomes} expenses={expenses} />
-                                </Col>
-                            </Row>
-                        </Col>
+                            <Col span={12} className={styles.columnGeneral}>
+                                <CurrentExpenses setExpenses={setExpenses} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span={24}>
+                                <CurrentBalance incomes={incomes} expenses={expenses} />
+                            </Col>
+                        </Row>
+                    </Col>
                     {/* </Card> */}
                     {/* <Card title="מודל מתחדש"> */}
                         {/* Future Column */}
-                        <Col span={12}>
+                    <Col span={12}>
                         <Row>
                             <Card className={styles.cardAccountBalance}>
                                 <p>מודל מתחדש</p>
                             </Card>
                         </Row>
-                            <Row>
-                                <Col span={12}>
-                                    <FutureIncomes setIncomes={setFutureIncomes} />
-                                </Col>
-                                <Col span={12}>
-                                    <FutureExpenses setExpenses={setFutureExpenses} />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col span={24}>
-                                    <FutureBalance incomes={futureIncomes} expenses={futureExpenses} />
-                                </Col>
-                            </Row>
-                        </Col>
+                        <Row>
+                            <Col span={12} className={styles.columnGeneral}>
+                                <FutureIncomes setIncomes={setFutureIncomes}/>
+                            </Col >
+                            <Col span={12} className={styles.columnGeneral}>
+                                <FutureExpenses setExpenses={setFutureExpenses} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col span={24}>
+                                <FutureBalance incomes={futureIncomes} expenses={futureExpenses} />
+                            </Col>
+                        </Row>
+                    </Col>
                     {/* </Card> */}
                 </Row>
             </Content>

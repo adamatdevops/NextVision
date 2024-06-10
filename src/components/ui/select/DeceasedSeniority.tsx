@@ -3,18 +3,18 @@ import { Form, Select } from 'antd';
 
 const { Option } = Select;
 
-interface SeniorityProps {
-    onSeniorityChange: (value: number) => void;
+interface DeceasedSeniorityProps {
+    onDeceasedSeniorityChange: (value: number) => void;
     label: string;
     disabled?: boolean; // Add the 'disabled' prop with an optional boolean type
 }
 
-const Seniority: React.FC<SeniorityProps> = ({ onSeniorityChange, label, disabled = false }) => { // Provide a default value for the 'disabled' prop
-    const options = Array.from({ length: 25 }, (_, i) => i + 1);
+const DeceasedSeniority: React.FC<DeceasedSeniorityProps> = ({ onDeceasedSeniorityChange, label, disabled = false }) => { // Provide a default value for the 'disabled' prop
+    const options = Array.from({ length: 20 }, (_, i) => i + 1);
 
     return (
         <Form.Item label={label}>
-            <Select placeholder="בחר ותק" onChange={onSeniorityChange} disabled={disabled}>
+            <Select placeholder="בחר ותק" onChange={onDeceasedSeniorityChange} disabled={disabled}>
                 {options.map((option) => (
                     <Option key={option} value={option}>
                         {option}
@@ -25,4 +25,4 @@ const Seniority: React.FC<SeniorityProps> = ({ onSeniorityChange, label, disable
     );
 };
 
-export default Seniority;
+export default DeceasedSeniority;

@@ -1,7 +1,7 @@
 // src/pages/home/GettingStarted.tsx
 import React, { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
-import { Layout, Flex, Button } from 'antd';
+import { Layout, Flex, Button, Card } from 'antd';
 import { Link } from 'react-router-dom';
 import styles from './css/GettingStarted.module.css';
 
@@ -68,19 +68,25 @@ const GettingStarted: React.FC<LayoutComponentProps> = () => {
         <Layout className={styles.layout} style={{ backgroundImage: `url(${backgroundImage})` }}>
             <Header className={styles.header}>ברוכים הבאים לאפליקציה שלנו</Header>
             <Content className={styles.content}>
-                <Flex gap="small" vertical>
-                    <Flex wrap gap="small">
-                        {/* Your content goes here */}
-                        <Link to="/social-data">
-                            <Button type="primary" size="large">
-                                בוא נתחיל
-                            </Button>
-                            <Button type="primary" size="large">
-                                מהו הסימולטור שלנו
-                            </Button>
-                        </Link>
+                <Card className={styles.card}>
+                    <Flex gap="small" vertical>
+                        <Flex wrap gap="small">
+                            {/* Your content goes here */}
+                            <div className={styles.buttonContainer}>
+                            <Link to="/social-data">
+                                <Button type="primary" size="large" className={styles.button}>
+                                    בוא נתחיל
+                                </Button>
+                            </Link>
+                            <Link to="/about">
+                                <Button type="primary" size="large" className={styles.button}>
+                                    מהו הסימולטור שלנו
+                                </Button>
+                            </Link>
+                            </div>
+                        </Flex>
                     </Flex>
-                </Flex>
+                </Card>
             </Content>
             <Footer className={styles.footer}>
                 ©2023 האפליקציה שלנו

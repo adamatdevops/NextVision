@@ -137,7 +137,11 @@ web_modules/
 .next
 out
 
-# vuepress v2.x temp and cache directory
+# temp and cache directory
+tmp/
+tmp/**/**/*
+tmp/**/*
+**/*/tmp
 .temp
 .tmp
 

@@ -28,7 +28,7 @@ const MemberStatus: React.FC<MemberStatusProps> = ({ status, onStatusChange }) =
                 <Option value="divorced">גרוש/גרושה</Option>
                 <Option value="widower">אלמן/אלמנה</Option>
                 <Option value="single">רווק/רווקה</Option>
-                <Option value="single-parent">יחידני</Option>
+                <Option value="single-parent">יחידני/ת</Option>
             </Select>
         </Form.Item>
     );

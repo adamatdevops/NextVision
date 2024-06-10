@@ -2,10 +2,25 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
 interface State {
+    /* Current Incomes
+    * IMPORTANT: NOT Everything Here IS Relevant
+    */
     familyStatus: string | null;
     partnerCommunityStatus: string | null;
+    apartmentSquareFootage: number;
+    hasChildren: string | null;
+    numberOfChildren: number;
+    memberAge: number | null;
+    memberPartnerAge: number | null;
+    memberRetired: string | null;
+    memberPartnerRetired: string | null;
+    educationSystem: string[];
+    educationSystemBudgets: number[];
+    educationSystemFees: number[];
+    educationTuitionFees: number[];
+    /* Current Incomes */
     personalBudget: number;
-    childrenAddition: number, // TODO: this is to bet set according to the number of children
+    childrenAddition: number; // TODO: this is to bet set according to the number of children
     provisions: number;
     laundry: number;
     gas: number;
@@ -13,19 +28,47 @@ interface State {
     maintenance: number;
     vehicle: number;
     energy: number;
-    benefitForWork: string | null; // TODO: this is to set to one benefit or two
-    outsourcedFood: string | null; // TODO: this is to set to one benefit or two
+    benefitForWork: number; // TODO: this is to set to one benefit or two
+    outsourcedFood: number; // TODO: this is to set to one benefit or two
     chronicleTreatment: number;
+    seniority: number | null;
+    partnerSeniority: number | null;
+    deceasedSeniority: number | null;
+    seniorityAddition: number;
+    partnerSeniorityAddition: number
+    deceasedSeniorityAddition: number;
     otherIncome: number;
-    /* Future Incomes
-    * IMPORTANT: NOT Everything Here IS Relevant
-    */
+    /* Current Expenses */
+    // gasExpenses: number;
+    electricityExpenses: number;
+    maintenanceServiceExpenses: number;
+    houseMaintenanceExpenses: number;
+    gardeningExpenses: number;
+    networkingExpenses: number;
+    internetExpenses: number;
+    vehicleExpenses: number;
+    schoolExpenses: number[];
+    highSchoolExpenses: number[];
+    personalLessonsExpenses: number;
+    teenageClassExpenses: number;
+    // tuitionsExpenses: number;
+    otherEducationExpenses: number;
+    dentistExpenses: number;
+    welfareExpenses: number;
+    foodExpenses: number;
+    laundryExpenses: number;
+    otherExpenses: number;
+    /* Future Incomes */
     // futurePersonalBudget: number;
     futureNetIncome: number;
-    futurePartnerNetIncome: number;
+    // futurePartnerNetIncome: number;
+    futureGrossIncome: number;
     futurePensionAllowance: number;
     futurePartnerPensionAllowance: number;
     futureNationalInsuranceAllowance: number;
+    futureNationalInsuranceAllowanceCommunity: number;
+    futureElderlyPension: number;
+    futurePartnerElderlyPension: number;
     futureRecoveryFee: number;
     futurePartnerRecoveryFee: number;
     futureEducationFund: number;
@@ -33,11 +76,11 @@ interface State {
     futureChildrenAddition: number;
     futureProvisions: number;
     futureLaundry: number;
-    futureGas: number;
+    // futureGas: number;
     futureHygiene: number;
     futureMaintenance: number;
     futureVehicle: number;
-    futureEnergy: number;
+    // futureEnergy: number;
     futureBenefitForWork: number;
     futureOutsourcedFood: number;
     futureChronicleTreatment: number;
@@ -49,16 +92,21 @@ interface State {
     futureExpenses: number[];
     futurePropertyTaxExpenses: number;
     futureWaterAndSewerExpenses: number;
-    futureGasExpenses: number;
-    futureElectricityExpenses: number;
+    // futureGasExpenses: number;
+    // futureElectricityExpenses: number;
+    futureEnergyExpenses: number;
     futureHouseMaintenanceExpenses: number;
     futureGardeningExpenses: number;
     futureNetworkingExpenses: number;
     futureInternetExpenses: number;
     futureVehicleExpenses: number;
-    futureSchoolExpenses: number;
+    futureEducationSystemExpenses: number;
+    futureSchoolExpenses: number[];
+    futureHighSchoolExpenses: number[];
     futurePersonalLessonsExpenses: number;
-    futureTuitionsExpenses: number;
+    futureTeenageClassExpenses: number;
+    futureEducationTransportationExpenses: number;
+    // futureTuitionsExpenses: number;
     futureSafetyNetExpenses: number;
     futureHealthInsuranceExpenses: number;
     futureDentistExpenses: number;
@@ -69,14 +117,27 @@ interface State {
     futureGrossTaxExpenses: number;
     futureAlimonyExpenses: number;
     futureCleaningExpenses: number;
-    futureDecorationsExpenses: number;
+    // futureDecorationsExpenses: number;
     futureOtherExpenses: number;
 }
 
 // Define action types as a union of string literals for better type safety
+// type ActionType =
 type ActionType =
     | 'SET_FAMILY_STATUS'
     | 'SET_PARTNER_COMMUNITY_STATUS'
+    | 'SET_APARTMENT_SQUARE_FOOTAGE'
+    | 'SET_HAS_CHILDREN'
+    | 'SET_NUMBER_OF_CHILDREN'
+    | 'SET_MEMBER_AGE'
+    | 'SET_MEMBER_PARTNER_AGE'
+    | 'SET_MEMBER_RETIRED'
+    | 'SET_MEMBER_PARTNER_RETIRED'
+    | 'SET_EDUCATION_SYSTEM'
+    | 'SET_EDUCATION_SYSTEM_BUDGETS'
+    | 'SET_EDUCATION_SYSTEM_FEES'
+    | 'SET_EDUCATION_TUITION_FEES'
+    /* Current Incomes */
     | 'SET_PERSONAL_BUDGET'
     | 'SET_CHILDREN_ADDITION'
     | 'SET_PROVISIONS'
@@ -89,11 +150,38 @@ type ActionType =
     | 'SET_BENEFIT_FOR_WORK'
     | 'SET_OUTSOURCED_FOOD'
     | 'SET_CHRONICLE_TREATMENT'
+    | 'SET_SENIORITY'
+    | 'SET_PARTNER_SENIORITY'
+    | 'SET_DECEASED_SENIORITY'
+    | 'SET_SENIORITY_ADDITION'
+    | 'SET_PARTNER_SENIORITY_ADDITION'
+    | 'SET_DECEASED_SENIORITY_ADDITION'
     | 'SET_OTHER_INCOME'
+    /* Current Expenses */
+    // | 'SET_GAS_EXPENSES'
+    | 'SET_ELECTRICITY_EXPENSES'
+    | 'SET_MAINTENANCE_SERVICE_EXPENSES'
+    | 'SET_HOUSE_MAINTENANCE_EXPENSES'
+    | 'SET_GARDENING_EXPENSES'
+    | 'SET_NETWORKING_EXPENSES'
+    | 'SET_INTERNET_EXPENSES'
+    | 'SET_VEHICLE_EXPENSES'
+    | 'SET_SCHOOL_EXPENSES'
+    | 'SET_HIGH_SCHOOL_EXPENSES'
+    | 'SET_PERSONAL_LESSONS_EXPENSES'
+    | 'SET_TEENAGE_CLASS_EXPENSES'
+    | 'SET_TUITIONS_EXPENSES'
+    | 'SET_OTHER_EDUCATION_EXPENSES'
+    | 'SET_DENTIST_EXPENSES'
+    | 'SET_WELFARE_EXPENSES'
+    | 'SET_FOOD_EXPENSES'
+    | 'SET_LAUNDRY_EXPENSES'
+    | 'SET_OTHER_EXPENSE'
     /* Future Incomes*/
     // | 'SET_FUTURE_PERSONAL_BUDGET'
     | 'SET_FUTURE_NET_INCOME'
-    | 'SET_FUTURE_PARTNER_NET_INCOME'
+    // | 'SET_FUTURE_PARTNER_NET_INCOME'
+    | 'SET_FUTURE_GROSS_INCOME'
     | 'SET_FUTURE_CHILDREN_ADDITION'
     | 'SET_FUTURE_PROVISIONS'
     | 'SET_FUTURE_LAUNDRY'
@@ -108,6 +196,9 @@ type ActionType =
     | 'SET_FUTURE_PENSION_ALLOWANCE'
     | 'SET_FUTURE_PARTNER_PENSION_ALLOWANCE'
     | 'SET_FUTURE_NATIONAL_INSURANCE_ALLOWANCE'
+    | 'SET_FUTURE_NATIONAL_INSURANCE_ALLOWANCE_COMMUNITY'
+    | 'SET_FUTURE_ELDERLY_PENSION'
+    | 'SET_FUTURE_PARTNER_ELDERLY_PENSION'
     | 'SET_FUTURE_RECOVERY_FEE'
     | 'SET_FUTURE_PARTNER_RECOVERY_FEE'
     | 'SET_FUTURE_EDUCATION_FUND'
@@ -117,16 +208,21 @@ type ActionType =
     | 'SET_FUTURE_EXPENSES'
     | 'SET_FUTURE_PROPERTY_TAX_EXPENSES'
     | 'SET_FUTURE_WATER_AND_SEWER_EXPENSES'
-    | 'SET_FUTURE_GAS_EXPENSES'
-    | 'SET_FUTURE_ELECTRICITY_EXPENSES'
+    // | 'SET_FUTURE_GAS_EXPENSES'
+    // | 'SET_FUTURE_ELECTRICITY_EXPENSES'
+    | 'SET_FUTURE_ENERGY_EXPENSES'
     | 'SET_FUTURE_HOUSE_MAINTENANCE_EXPENSES'
     | 'SET_FUTURE_GARDENING_EXPENSES'
     | 'SET_FUTURE_NETWORKING_EXPENSES'
     | 'SET_FUTURE_INTERNET_EXPENSES'
     | 'SET_FUTURE_VEHICLE_EXPENSES'
+    | 'SET_FUTURE_EDUCATION_SYSTEM_EXPENSES'
     | 'SET_FUTURE_SCHOOL_EXPENSES'
+    | 'SET_FUTURE_HIGH_SCHOOL_EXPENSES'
     | 'SET_FUTURE_PERSONAL_LESSONS_EXPENSES'
-    | 'SET_FUTURE_TUITIONS_EXPENSES'
+    | 'SET_FUTURE_TEENAGE_CLASS_EXPENSES'
+    | 'SET_FUTURE_EDUCATION_TRANSPORTATION_EXPENSES'
+    // | 'SET_FUTURE_TUITIONS_EXPENSES'
     | 'SET_FUTURE_SAFETY_NET_EXPENSES'
     | 'SET_FUTURE_HEALTH_INSURANCE_EXPENSES'
     | 'SET_FUTURE_DENTIST_EXPENSES'
@@ -148,26 +244,70 @@ interface Action {
 const initialState: State = {
     familyStatus: null,
     partnerCommunityStatus: null,
-    personalBudget: 4954,
+    apartmentSquareFootage: 0,
+    hasChildren: null,
+    numberOfChildren: 0,
+    memberAge: 0,
+    memberPartnerAge: 0,
+    memberRetired: null,
+    memberPartnerRetired: null,
+    educationSystem: [],
+    educationSystemBudgets: [],
+    educationSystemFees: [],
+    // childrenData: [],
+    /* Current Incomes */
+    personalBudget: 0,
     childrenAddition: 0, /* TODO: this is to set set according to the number of children */
-    provisions: 3593,
-    laundry: 305,
-    gas: 270,
-    hygiene: 44, /* TODO: this is to set set according to the number of family members */
-    maintenance: 94,
-    vehicle: 1094,
-    energy: 286,
-    benefitForWork: null, // TODO: this is to set to one benefit or two
-    outsourcedFood: null, // TODO: this is to set to one benefit or two
+    provisions: 0,
+    laundry: 0,
+    gas: 0,
+    hygiene: 0, /* TODO: this is to set set according to the number of family members */
+    maintenance: 0,
+    vehicle: 0,
+    energy: 0,
+    benefitForWork: 0, // TODO: this is to set to one benefit or two
+    outsourcedFood: 0, // TODO: this is to set to one benefit or two
     chronicleTreatment: 0,
+    seniority: 0,
+    partnerSeniority: 0,
+    deceasedSeniority: 0,
+    seniorityAddition: 0,
+    partnerSeniorityAddition: 0,
+    deceasedSeniorityAddition: 0,
     otherIncome: 0,
+    /* Current Expenses */
+    // gasExpenses: 0,
+    electricityExpenses: 0,
+    futureEnergyExpenses: 0,
+    maintenanceServiceExpenses: 0,
+    houseMaintenanceExpenses: 0,
+    gardeningExpenses: 0,
+    networkingExpenses: 0,
+    internetExpenses: 0,
+    vehicleExpenses: 0,
+    schoolExpenses: [],
+    highSchoolExpenses: [],
+    educationTuitionFees: [],
+    personalLessonsExpenses: 0,
+    teenageClassExpenses: 0,
+    // tuitionsExpenses: 0,
+    otherEducationExpenses: 0,
+    dentistExpenses: 0,
+    welfareExpenses: 0,
+    foodExpenses: 0,
+    laundryExpenses: 0,
+    otherExpenses: 0,
     /* Future Incomes*/
     // futurePersonalBudget: 4954,
     futureNetIncome: 0,
-    futurePartnerNetIncome: 0,
+    // futurePartnerNetIncome: 0,
+    futureGrossIncome: 0,
     futurePensionAllowance: 0,
     futurePartnerPensionAllowance: 0,
     futureNationalInsuranceAllowance: 0,
+    futureNationalInsuranceAllowanceCommunity: 0,
+    futureElderlyPension: 0,
+    futurePartnerElderlyPension: 0,
     futureRecoveryFee: 0,
     futurePartnerRecoveryFee: 0,
     futureEducationFund: 0,
@@ -175,11 +315,11 @@ const initialState: State = {
     futureChildrenAddition: 0,
     futureProvisions: 0,
     futureLaundry: 0,
-    futureGas: 0,
+    // futureGas: 0,
     futureHygiene: 0,
     futureMaintenance: 0,
     futureVehicle: 0,
-    futureEnergy: 0,
+    // futureEnergy: 0,
     futureBenefitForWork: 0,
     futureOutsourcedFood: 0,
     futureChronicleTreatment: 0,
@@ -188,16 +328,21 @@ const initialState: State = {
     futureExpenses: [],
     futurePropertyTaxExpenses: 0,
     futureWaterAndSewerExpenses: 0,
-    futureGasExpenses: 0,
-    futureElectricityExpenses: 0,
+    // futureGasExpenses: 0,
+    // futureElectricityExpenses: 0,
+    // futureEnergyExpenses: 0,
     futureHouseMaintenanceExpenses: 0,
     futureGardeningExpenses: 0,
     futureNetworkingExpenses: 0,
     futureInternetExpenses: 0,
     futureVehicleExpenses: 0,
-    futureSchoolExpenses: 0,
+    futureEducationSystemExpenses: 0,
+    futureSchoolExpenses: [],
+    futureHighSchoolExpenses: [],
     futurePersonalLessonsExpenses: 0,
-    futureTuitionsExpenses: 0,
+    futureTeenageClassExpenses: 0,
+    futureEducationTransportationExpenses: 0,
+    // futureTuitionsExpenses: 0,
     futureSafetyNetExpenses: 0,
     futureHealthInsuranceExpenses: 0,
     futureDentistExpenses: 0,
@@ -208,316 +353,542 @@ const initialState: State = {
     futureGrossTaxExpenses: 0,
     futureAlimonyExpenses: 0,
     futureCleaningExpenses: 0,
-    futureDecorationsExpenses: 0,
+    // futureDecorationsExpenses: 0,
     futureOtherExpenses: 0,
 };
 
 /* Define action creators for better readability and maintainability
 * IMPORTANT: NOTE the the "Future Incomes" and "Future Expenses" are still not included at the action creators
 */
-const setFamilyStatus = (newStatus: string | null): Action => ({
+export const setFamilyStatus = (newStatus: string | null): Action => ({
     type: 'SET_FAMILY_STATUS',
     payload: newStatus,
 });
 
-const setPartnerCommunityStatus = (newStatus: string | null): Action => ({
+export const setPartnerCommunityStatus = (newStatus: string | null): Action => ({
     type: 'SET_PARTNER_COMMUNITY_STATUS',
     payload: newStatus,
 });
 
-const setPersonalBudget = (newBudget: number ): Action => ({
+export const apartmentSquareFootage = (newApartmentSquareFootage: number | null ): Action => ({
+    type: 'SET_APARTMENT_SQUARE_FOOTAGE',
+    payload: newApartmentSquareFootage,
+});
+
+export const hasChildren = (newHasChildren: string | null): Action => ({
+    type: 'SET_HAS_CHILDREN',
+    payload: newHasChildren,
+});
+
+export const numberOfChildren = (newNumberOfChildren: number): Action => ({
+    type: 'SET_NUMBER_OF_CHILDREN',
+    payload: newNumberOfChildren,
+});
+
+export const memberAge = (newMemberAge: number | null): Action => ({
+    type: 'SET_MEMBER_AGE',
+    payload: newMemberAge,
+});
+
+export const memberPartnerAge = (newMemberPartnerAge: number | null): Action => ({
+    type: 'SET_MEMBER_PARTNER_AGE',
+    payload: newMemberPartnerAge,
+});
+
+export const memberRetired = (newMemberRetired: string | null): Action => ({
+    type: 'SET_MEMBER_RETIRED',
+    payload: newMemberRetired,
+});
+
+export const memberPartnerRetired = (newMemberPartnerRetired: string | null): Action => ({
+    type: 'SET_MEMBER_PARTNER_RETIRED',
+    payload: newMemberPartnerRetired,
+});
+
+export const educationSystem = (newEducationSystem: string[]): Action => ({
+    type: 'SET_EDUCATION_SYSTEM',
+    payload: newEducationSystem,
+});
+
+export const educationSystemBudgets = (newEducationSystemBudgets: number[]): Action => ({
+    type: 'SET_EDUCATION_SYSTEM_BUDGETS',
+    payload: newEducationSystemBudgets,
+});
+
+export const educationSystemFees = (newEducationSystemFees: number[]): Action => ({
+    type: 'SET_EDUCATION_SYSTEM_FEES',
+    payload: newEducationSystemFees,
+});
+
+/* Current Incomes */
+export const setPersonalBudget = (newBudget: number ): Action => ({
     type: 'SET_PERSONAL_BUDGET',
     payload: newBudget,
 });
 
-const setChildrenAddition = (newChildrenAddition: number): Action => ({
+export const setChildrenAddition = (newChildrenAddition: number): Action => ({
     type: 'SET_CHILDREN_ADDITION',
     payload: newChildrenAddition,
 });
 
-const setProvisions = ( newProvisions: number): Action => ({
+export const setProvisions = ( newProvisions: number): Action => ({
     type: 'SET_PROVISIONS',
     payload: newProvisions,
 });
 
-const setLaundry = (newLaundry: number): Action => ({
+export const setLaundry = (newLaundry: number): Action => ({
     type: 'SET_LAUNDRY',
     payload: newLaundry,
 });
 
-const setGas = (newGas: number): Action => ({
+export const setGas = (newGas: number): Action => ({
     type: 'SET_GAS',
     payload: newGas,
 });
 
-const setHygiene = (newHygiene: number): Action => ({
+export const setHygiene = (newHygiene: number): Action => ({
     type: 'SET_HYGIENE',
     payload: newHygiene,
 });
 
-const setMaintenance = ( newMaintenance: number): Action => ({
+export const setMaintenance = ( newMaintenance: number): Action => ({
     type: 'SET_MAINTENANCE',
     payload: newMaintenance,
 });
 
-const setVehicle = (newVehicle: number): Action => ({
+export const setVehicle = (newVehicle: number): Action => ({
     type: 'SET_VEHICLE',
     payload: newVehicle,
 });
 
-const setEnergy = (newEnergy: number): Action => ({
+export const setEnergy = (newEnergy: number): Action => ({
     type: 'SET_ENERGY',
     payload: newEnergy,
 });
 
-const setBenefitForWork = (newBenefitForWork: string | null): Action => ({
+export const setBenefitForWork = (newBenefitForWork: number): Action => ({
     type: 'SET_BENEFIT_FOR_WORK',
     payload: newBenefitForWork,
 });
 
-const setOutsourcedFood = (newOutsourcedFood: string | null): Action => ({
+export const setOutsourcedFood = (newOutsourcedFood: number): Action => ({
     type: 'SET_OUTSOURCED_FOOD',
     payload: newOutsourcedFood,
 });
 
-const setChronicleTreatment = ( newChronicleTreatment: number): Action => ({
+export const setChronicleTreatment = ( newChronicleTreatment: number): Action => ({
     type: 'SET_CHRONICLE_TREATMENT',
     payload: newChronicleTreatment,
 });
 
-const setOtherIncome = (newOtherIncome: number): Action => ({
+export const setSeniority = (newSeniority: number): Action => ({
+    type: 'SET_SENIORITY',
+    payload: newSeniority,
+});
+
+export const setPartnerSeniority = (newPartnerSeniority: number): Action => ({
+    type: 'SET_PARTNER_SENIORITY',
+    payload: newPartnerSeniority,
+});
+
+export const setDeceasedSeniority = (newDeceasedSeniority: number): Action => ({
+    type: 'SET_DECEASED_SENIORITY',
+    payload: newDeceasedSeniority,
+});
+export const setSeniorityAddition = ( newSeniorityAddition: number): Action => ({
+    type: 'SET_SENIORITY_ADDITION',
+    payload: newSeniorityAddition,
+});
+
+export const setPartnerSeniorityAddition = (newPartnerSeniorityAddition: number): Action => ({
+    type: 'SET_PARTNER_SENIORITY_ADDITION',
+    payload: newPartnerSeniorityAddition,
+});
+
+export const setDeceasedSeniorityAddition = (newDeceasedSeniorityAddition: number): Action => ({
+    type: 'SET_DECEASED_SENIORITY_ADDITION',
+    payload: newDeceasedSeniorityAddition,
+});
+
+export const setOtherIncome = (newOtherIncome: number): Action => ({
     type: 'SET_OTHER_INCOME',
     payload: newOtherIncome,
 });
-/* Future Incomes*/
-const setFutureNetIncome = (newNetIncome: number): Action => ({
-    type: 'SET_FUTURE_NET_INCOME',
-    payload: newNetIncome,
-});
+/* Current Incomes */
+// const setGasExpenses = (newGasExpenses: number): Action => ({
+//     type: 'SET_GAS_EXPENSES',
+//     payload: newGasExpenses,
+// });
 
-const setFuturePartnerNetIncome = (newPartnerNetIncome: number): Action => ({
-    type: 'SET_FUTURE_PARTNER_NET_INCOME',
-    payload: newPartnerNetIncome,
-});
-
-const setFuturePensionAllowance = (newPensionAllowance: number): Action => ({
-    type: 'SET_FUTURE_PENSION_ALLOWANCE',
-    payload: newPensionAllowance,
-});
-
-const setFuturePartnerPensionAllowance = (newPartnerPensionAllowance: number): Action => ({
-    type: 'SET_FUTURE_PARTNER_PENSION_ALLOWANCE',
-    payload: newPartnerPensionAllowance,
-});
-
-const setFutureNationalInsuranceAllowance = (newNationalInsuranceAllowance: number): Action => ({
-    type: 'SET_FUTURE_NATIONAL_INSURANCE_ALLOWANCE',
-    payload: newNationalInsuranceAllowance,
-});
-
-const setFutureRecoveryFee = (newRecoveryFee: number): Action => ({
-    type: 'SET_FUTURE_RECOVERY_FEE',
-    payload: newRecoveryFee,
-});
-
-const setFuturePartnerRecoveryFee = (newPartnerRecoveryFee: number): Action => ({
-    type: 'SET_FUTURE_PARTNER_RECOVERY_FEE',
-    payload: newPartnerRecoveryFee,
-});
-
-const setFutureEducationFund = (newEducationFund: number): Action => ({
-    type: 'SET_FUTURE_EDUCATION_FUND',
-    payload: newEducationFund,
-});
-
-const setFuturePartnerEducationFund = (newPartnerEducationFund: number): Action => ({
-    type: 'SET_FUTURE_PARTNER_EDUCATION_FUND',
-    payload: newPartnerEducationFund,
-});
-
-const setFutureChildrenAddition = (newAddition: number): Action => ({
-    type: 'SET_FUTURE_CHILDREN_ADDITION',
-    payload: newAddition,
-});
-
-const setFutureProvisions = (newProvisions: number): Action => ({
-    type: 'SET_FUTURE_PROVISIONS',
-    payload: newProvisions,
-});
-
-const setFutureLaundry = (newLaundry: number): Action => ({
-    type: 'SET_FUTURE_LAUNDRY',
-    payload: newLaundry,
-});
-
-const setFutureGas = (newGas: number): Action => ({
-    type: 'SET_FUTURE_GAS',
-    payload: newGas,
-});
-
-const setFutureHygiene = (newHygiene: number): Action => ({
-    type: 'SET_FUTURE_HYGIENE',
-    payload: newHygiene,
-});
-
-const setFutureMaintenance = (newMaintenance: number): Action => ({
-    type: 'SET_FUTURE_MAINTENANCE',
-    payload: newMaintenance,
-});
-
-const setFutureVehicle = (newVehicle: number): Action => ({
-    type: 'SET_FUTURE_VEHICLE',
-    payload: newVehicle,
-});
-
-const setFutureEnergy = (newEnergy: number): Action => ({
-    type: 'SET_FUTURE_ENERGY',
-    payload: newEnergy,
-});
-
-const setFutureBenefitForWork = (newBenefit: number): Action => ({
-    type: 'SET_FUTURE_BENEFIT_FOR_WORK',
-    payload: newBenefit,
-});
-
-const setFutureOutsourcedFood = (newFood: number): Action => ({
-    type: 'SET_FUTURE_OUTSOURCED_FOOD',
-    payload: newFood,
-});
-
-const setFutureChronicleTreatment = (newTreatment: number): Action => ({
-    type: 'SET_FUTURE_CHRONICLE_TREATMENT',
-    payload: newTreatment,
-});
-
-const setFutureOtherIncome = (newIncome: number): Action => ({
-    type: 'SET_FUTURE_OTHER_INCOME',
-    payload: newIncome,
-});
-/* Future Expenses*/
-const setFutureExpenses = (newExpenses: number[]): Action => ({
-    type: 'SET_FUTURE_EXPENSES',
-    payload: newExpenses,
-});
-
-const setFuturePropertyTaxExpenses = (newPropertyTaxExpenses: number): Action => ({
-    type: 'SET_FUTURE_PROPERTY_TAX_EXPENSES',
-    payload: newPropertyTaxExpenses,
-});
-
-const setFutureWaterAndSewerExpenses = (newWaterAndSewerExpenses: number): Action => ({
-    type: 'SET_FUTURE_WATER_AND_SEWER_EXPENSES',
-    payload: newWaterAndSewerExpenses,
-});
-
-const setFutureGasExpenses = (newGasExpenses: number): Action => ({
-    type: 'SET_FUTURE_GAS_EXPENSES',
-    payload: newGasExpenses,
-});
-
-const setFutureElectricityExpenses = (newElectricityExpenses: number): Action => ({
-    type: 'SET_FUTURE_ELECTRICITY_EXPENSES',
+export const setElectricityExpenses = (newElectricityExpenses: number): Action => ({
+    type: 'SET_ELECTRICITY_EXPENSES',
     payload: newElectricityExpenses,
 });
 
-const setFutureHouseMaintenanceExpenses = (newMaintenanceExpenses: number): Action => ({
-    type: 'SET_FUTURE_HOUSE_MAINTENANCE_EXPENSES',
-    payload: newMaintenanceExpenses,
+
+export const setMaintenanceServiceExpenses = (newMaintenanceServiceExpenses: number): Action => ({
+    type: 'SET_MAINTENANCE_SERVICE_EXPENSES',
+    payload: newMaintenanceServiceExpenses,
 });
 
-const setFutureGardeningExpenses = (newGardeningExpenses: number): Action => ({
-    type: 'SET_FUTURE_GARDENING_EXPENSES',
+export const setHouseMaintenanceExpenses = (newHouseMaintenanceExpenses: number): Action => ({
+    type: 'SET_HOUSE_MAINTENANCE_EXPENSES',
+    payload: newHouseMaintenanceExpenses,
+});
+
+export const setGardeningExpenses = (newGardeningExpenses: number): Action => ({
+    type: 'SET_GARDENING_EXPENSES',
     payload: newGardeningExpenses,
 });
 
-const setFutureNetworkingExpenses = (newNetworkingExpenses: number): Action => ({
-    type: 'SET_FUTURE_NETWORKING_EXPENSES',
+export const setNetworkingExpenses = (newNetworkingExpenses: number): Action => ({
+    type: 'SET_NETWORKING_EXPENSES',
     payload: newNetworkingExpenses,
 });
 
-const setFutureInternetExpenses = (newInternetExpenses: number): Action => ({
-    type: 'SET_FUTURE_INTERNET_EXPENSES',
+export const setInternetExpenses = (newInternetExpenses: number): Action => ({
+    type: 'SET_INTERNET_EXPENSES',
     payload: newInternetExpenses,
 });
 
-const setFutureVehicleExpenses = (newVehicleExpenses: number): Action => ({
-    type: 'SET_FUTURE_VEHICLE_EXPENSES',
+export const setVehicleExpenses = (newVehicleExpenses: number): Action => ({
+    type: 'SET_VEHICLE_EXPENSES',
     payload: newVehicleExpenses,
 });
 
-const setFutureSchoolExpenses = (newSchoolExpenses: number): Action => ({
-    type: 'SET_FUTURE_SCHOOL_EXPENSES',
+export const setSchoolExpenses = (newSchoolExpenses: number[]): Action => ({
+    type: 'SET_SCHOOL_EXPENSES',
     payload: newSchoolExpenses,
 });
 
-const setFuturePersonalLessonsExpenses = (newLessonsExpenses: number): Action => ({
-    type: 'SET_FUTURE_PERSONAL_LESSONS_EXPENSES',
-    payload: newLessonsExpenses,
+export const setHighSchoolExpenses = (newHighSchoolExpenses: number[]): Action => ({
+    type: 'SET_HIGH_SCHOOL_EXPENSES',
+    payload: newHighSchoolExpenses,
 });
 
-const setFutureTuitionsExpenses = (newTuitionsExpenses: number): Action => ({
-    type: 'SET_FUTURE_TUITIONS_EXPENSES',
-    payload: newTuitionsExpenses,
+export const setEducationTuitionFees = (newEducationTuitionFees: number[]): Action => ({
+    type: 'SET_EDUCATION_TUITION_FEES',
+    payload: newEducationTuitionFees,
 });
 
-const setFutureSafetyNetExpenses = (newSafetyNetExpenses: number): Action => ({
-    type: 'SET_FUTURE_SAFETY_NET_EXPENSES',
-    payload: newSafetyNetExpenses,
+export const setPersonalLessonsExpenses = (newPersonalLessonsExpenses: number): Action => ({
+    type: 'SET_PERSONAL_LESSONS_EXPENSES',
+    payload: newPersonalLessonsExpenses,
 });
 
-const setFutureHealthInsuranceExpenses = (newHealthInsuranceExpenses: number): Action => ({
-    type: 'SET_FUTURE_HEALTH_INSURANCE_EXPENSES',
-    payload: newHealthInsuranceExpenses,
+export const setTeenageClassExpenses = (newTeenageClassExpenses: number): Action => ({
+    type: 'SET_TEENAGE_CLASS_EXPENSES',
+    payload: newTeenageClassExpenses,
 });
 
-const setFutureDentistExpenses = (newDentistExpenses: number): Action => ({
-    type: 'SET_FUTURE_DENTIST_EXPENSES',
+// const setTuitionsExpenses = (newTuitionsExpenses: number): Action => ({
+//     type: 'SET_TUITIONS_EXPENSES',
+//     payload: newTuitionsExpenses,
+// });
+
+export const setOtherEducationExpenses = (newOtherEducationExpenses: number): Action => ({
+    type: 'SET_OTHER_EDUCATION_EXPENSES',
+    payload: newOtherEducationExpenses,
+});
+
+export const setDentistExpenses = (newDentistExpenses: number): Action => ({
+    type: 'SET_DENTIST_EXPENSES',
     payload: newDentistExpenses,
 });
 
-const setFutureWelfareExpenses = (newWelfareExpenses: number): Action => ({
-    type: 'SET_FUTURE_WELFARE_EXPENSES',
+export const setWelfareExpenses = (newWelfareExpenses: number): Action => ({
+    type: 'SET_WELFARE_EXPENSES',
     payload: newWelfareExpenses,
 });
 
-const setFutureFoodExpenses = (newFoodExpenses: number): Action => ({
-    type: 'SET_FUTURE_FOOD_EXPENSES',
+export const setFoodExpenses = (newFoodExpenses: number): Action => ({
+    type: 'SET_FOOD_EXPENSES',
     payload: newFoodExpenses,
 });
 
-const setFutureLaundryExpenses = (newLaundryExpenses: number): Action => ({
-    type: 'SET_FUTURE_LAUNDRY_EXPENSES',
+export const setLaundryExpenses = (newLaundryExpenses: number): Action => ({
+    type: 'SET_LAUNDRY_EXPENSES',
     payload: newLaundryExpenses,
 });
 
-const setFutureFlatTaxExpenses = (newFlatTaxExpenses: number): Action => ({
-    type: 'SET_FUTURE_FLAT_TAX_EXPENSES',
-    payload: newFlatTaxExpenses,
-});
-
-const setFutureGrossTaxExpenses = (newGrossTaxExpenses: number): Action => ({
-    type: 'SET_FUTURE_GROSS_TAX_EXPENSES',
-    payload: newGrossTaxExpenses,
-});
-
-const setFutureAlimonyExpenses = (newAlimonyExpenses: number): Action => ({
-    type: 'SET_FUTURE_ALIMONY_EXPENSES',
-    payload: newAlimonyExpenses,
-});
-
-const setFutureCleaningExpenses = (newCleaningExpenses: number): Action => ({
-    type: 'SET_FUTURE_CLEANING_EXPENSES',
-    payload: newCleaningExpenses,
-});
-
-const setFutureDecorationsExpenses = (newDecorationsExpenses: number): Action => ({
-    type: 'SET_FUTURE_DECORATIONS_EXPENSES',
-    payload: newDecorationsExpenses,
-});
-
-const setFutureOtherExpenses = (newOtherExpenses: number): Action => ({
-    type: 'SET_FUTURE_OTHER_EXPENSES',
+export const setOtherExpenses = (newOtherExpenses: number): Action => ({
+    type: 'SET_OTHER_EXPENSE',
     payload: newOtherExpenses,
+});
+/* Future Incomes*/
+export const setFutureNetIncome = (newFutureNetIncome: number): Action => ({
+    type: 'SET_FUTURE_NET_INCOME',
+    payload: newFutureNetIncome,
+});
+
+// const setFuturePartnerNetIncome = (newFuturePartnerNetIncome: number): Action => ({
+//     type: 'SET_FUTURE_PARTNER_NET_INCOME',
+//     payload: newFuturePartnerNetIncome,
+// });
+
+export const setFutureGrossIncome = (newFutureGrossIncome: number): Action => ({
+    type: 'SET_FUTURE_GROSS_INCOME',
+    payload: newFutureGrossIncome,
+});
+
+export const setFuturePensionAllowance = (newFuturePensionAllowance: number): Action => ({
+    type: 'SET_FUTURE_PENSION_ALLOWANCE',
+    payload: newFuturePensionAllowance,
+});
+
+export const setFuturePartnerPensionAllowance = (newFuturePartnerPensionAllowance: number): Action => ({
+    type: 'SET_FUTURE_PARTNER_PENSION_ALLOWANCE',
+    payload: newFuturePartnerPensionAllowance,
+});
+
+export const setFutureNationalInsuranceAllowance = (newFutureNationalInsuranceAllowance: number): Action => ({
+    type: 'SET_FUTURE_NATIONAL_INSURANCE_ALLOWANCE',
+    payload: newFutureNationalInsuranceAllowance,
+});
+
+export const setFutureNationalInsuranceAllowanceCommunity = (newFutureNationalInsuranceAllowanceCommunity: number): Action => ({
+    type: 'SET_FUTURE_NATIONAL_INSURANCE_ALLOWANCE_COMMUNITY',
+    payload: newFutureNationalInsuranceAllowanceCommunity,
+});
+
+export const setFutureElderlyPension = (newFutureElderlyPension: number): Action => ({
+    type: 'SET_FUTURE_ELDERLY_PENSION',
+    payload: newFutureElderlyPension,
+});
+
+export const setFuturePartnerElderlyPension = (newFuturePartnerElderlyPension: number): Action => ({
+    type: 'SET_FUTURE_PARTNER_ELDERLY_PENSION',
+    payload: newFuturePartnerElderlyPension,
+});
+
+export const setFutureRecoveryFee = (newFutureRecoveryFee: number): Action => ({
+    type: 'SET_FUTURE_RECOVERY_FEE',
+    payload: newFutureRecoveryFee,
+});
+
+export const setFuturePartnerRecoveryFee = (newFuturePartnerRecoveryFee: number): Action => ({
+    type: 'SET_FUTURE_PARTNER_RECOVERY_FEE',
+    payload: newFuturePartnerRecoveryFee,
+});
+
+export const setFutureEducationFund = (newFutureEducationFund: number): Action => ({
+    type: 'SET_FUTURE_EDUCATION_FUND',
+    payload: newFutureEducationFund,
+});
+
+export const setFuturePartnerEducationFund = (newFuturePartnerEducationFund: number): Action => ({
+    type: 'SET_FUTURE_PARTNER_EDUCATION_FUND',
+    payload: newFuturePartnerEducationFund,
+});
+
+export const setFutureChildrenAddition = (newFutureAddition: number): Action => ({
+    type: 'SET_FUTURE_CHILDREN_ADDITION',
+    payload: newFutureAddition,
+});
+
+export const setFutureProvisions = (newFutureProvisions: number): Action => ({
+    type: 'SET_FUTURE_PROVISIONS',
+    payload: newFutureProvisions,
+});
+
+export const setFutureLaundry = (newFutureLaundry: number): Action => ({
+    type: 'SET_FUTURE_LAUNDRY',
+    payload: newFutureLaundry,
+});
+
+// const setFutureGas = (newFutureGas: number): Action => ({
+//     type: 'SET_FUTURE_GAS',
+//     payload: newFutureGas,
+// });
+
+export const setFutureHygiene = (newFutureHygiene: number): Action => ({
+    type: 'SET_FUTURE_HYGIENE',
+    payload: newFutureHygiene,
+});
+
+export const setFutureMaintenance = (newFutureMaintenance: number): Action => ({
+    type: 'SET_FUTURE_MAINTENANCE',
+    payload: newFutureMaintenance,
+});
+
+export const setFutureVehicle = (newFutureVehicle: number): Action => ({
+    type: 'SET_FUTURE_VEHICLE',
+    payload: newFutureVehicle,
+});
+
+export const setFutureEnergy = (newFutureEnergy: number): Action => ({
+    type: 'SET_FUTURE_ENERGY',
+    payload: newFutureEnergy,
+});
+
+export const setFutureBenefitForWork = (newFutureBenefit: number): Action => ({
+    type: 'SET_FUTURE_BENEFIT_FOR_WORK',
+    payload: newFutureBenefit,
+});
+
+export const setFutureOutsourcedFood = (newFutureFood: number): Action => ({
+    type: 'SET_FUTURE_OUTSOURCED_FOOD',
+    payload: newFutureFood,
+});
+
+export const setFutureChronicleTreatment = (newFutureTreatment: number): Action => ({
+    type: 'SET_FUTURE_CHRONICLE_TREATMENT',
+    payload: newFutureTreatment,
+});
+
+export const setFutureOtherIncome = (newFutureIncome: number): Action => ({
+    type: 'SET_FUTURE_OTHER_INCOME',
+    payload: newFutureIncome,
+});
+/* Future Expenses*/
+export const setFutureExpenses = (newFutureExpenses: number[]): Action => ({
+    type: 'SET_FUTURE_EXPENSES',
+    payload: newFutureExpenses,
+});
+
+export const setFuturePropertyTaxExpenses = (newFuturePropertyTaxExpenses: number): Action => ({
+    type: 'SET_FUTURE_PROPERTY_TAX_EXPENSES',
+    payload: newFuturePropertyTaxExpenses,
+});
+
+export const setFutureWaterAndSewerExpenses = (newFutureWaterAndSewerExpenses: number): Action => ({
+    type: 'SET_FUTURE_WATER_AND_SEWER_EXPENSES',
+    payload: newFutureWaterAndSewerExpenses,
+});
+
+// const setFutureGasExpenses = (newFutureGasExpenses: number): Action => ({
+//     type: 'SET_FUTURE_GAS_EXPENSES',
+//     payload: newFutureGasExpenses,
+// });
+
+// const setFutureElectricityExpenses = (newFutureElectricityExpenses: number): Action => ({
+//     type: 'SET_FUTURE_ELECTRICITY_EXPENSES',
+//     payload: newFutureElectricityExpenses,
+// });
+
+export const setFutureEnergyExpenses = (newFutureEnergyExpenses: number): Action => ({
+    type: 'SET_FUTURE_ENERGY_EXPENSES',
+    payload: newFutureEnergyExpenses,
+});
+
+export const setFutureHouseMaintenanceExpenses = (newFutureMaintenanceExpenses: number): Action => ({
+    type: 'SET_FUTURE_HOUSE_MAINTENANCE_EXPENSES',
+    payload: newFutureMaintenanceExpenses,
+});
+
+export const setFutureGardeningExpenses = (newFutureGardeningExpenses: number): Action => ({
+    type: 'SET_FUTURE_GARDENING_EXPENSES',
+    payload: newFutureGardeningExpenses,
+});
+
+export const setFutureNetworkingExpenses = (newFutureNetworkingExpenses: number): Action => ({
+    type: 'SET_FUTURE_NETWORKING_EXPENSES',
+    payload: newFutureNetworkingExpenses,
+});
+
+export const setFutureInternetExpenses = (newFutureInternetExpenses: number): Action => ({
+    type: 'SET_FUTURE_INTERNET_EXPENSES',
+    payload: newFutureInternetExpenses,
+});
+
+export const setFutureVehicleExpenses = (newFutureVehicleExpenses: number): Action => ({
+    type: 'SET_FUTURE_VEHICLE_EXPENSES',
+    payload: newFutureVehicleExpenses,
+});
+
+export const setFutureEducationSystemExpenses = (newFutureEducationSystemExpenses: number): Action => ({
+    type: 'SET_FUTURE_EDUCATION_SYSTEM_EXPENSES',
+    payload: newFutureEducationSystemExpenses,
+});
+
+export const setFutureSchoolExpenses = (newFutureSchoolExpenses: number[]): Action => ({
+    type: 'SET_FUTURE_SCHOOL_EXPENSES',
+    payload: newFutureSchoolExpenses,
+});
+
+export const setFutureHighSchoolExpenses = (newFutureHighSchoolExpenses: number[]): Action => ({
+    type: 'SET_FUTURE_HIGH_SCHOOL_EXPENSES',
+    payload: newFutureHighSchoolExpenses,
+});
+
+export const setFuturePersonalLessonsExpenses = (newFutureLessonsExpenses: number): Action => ({
+    type: 'SET_FUTURE_PERSONAL_LESSONS_EXPENSES',
+    payload: newFutureLessonsExpenses,
+});
+
+export const setFutureTeenageClassExpenses = (newFutureTeenageClassExpenses: number): Action => ({
+    type: 'SET_FUTURE_TEENAGE_CLASS_EXPENSES',
+    payload: newFutureTeenageClassExpenses,
+});
+
+export const setFutureEducationTransportationExpenses = (newFutureTransportationExpenses: number): Action => ({
+    type: 'SET_FUTURE_EDUCATION_TRANSPORTATION_EXPENSES',
+    payload: newFutureTransportationExpenses,
+});
+
+// const setFutureTuitionsExpenses = (newTuitionsExpenses: number): Action => ({
+//     type: 'SET_FUTURE_TUITIONS_EXPENSES',
+//     payload: newTuitionsExpenses,
+// });
+
+export const setFutureSafetyNetExpenses = (newFutureSafetyNetExpenses: number): Action => ({
+    type: 'SET_FUTURE_SAFETY_NET_EXPENSES',
+    payload: newFutureSafetyNetExpenses,
+});
+
+export const setFutureHealthInsuranceExpenses = (newFutureHealthInsuranceExpenses: number): Action => ({
+    type: 'SET_FUTURE_HEALTH_INSURANCE_EXPENSES',
+    payload: newFutureHealthInsuranceExpenses,
+});
+
+export const setFutureDentistExpenses = (newFutureDentistExpenses: number): Action => ({
+    type: 'SET_FUTURE_DENTIST_EXPENSES',
+    payload: newFutureDentistExpenses,
+});
+
+export const setFutureWelfareExpenses = (newFutureWelfareExpenses: number): Action => ({
+    type: 'SET_FUTURE_WELFARE_EXPENSES',
+    payload: newFutureWelfareExpenses,
+});
+
+export const setFutureFoodExpenses = (newFutureFoodExpenses: number): Action => ({
+    type: 'SET_FUTURE_FOOD_EXPENSES',
+    payload: newFutureFoodExpenses,
+});
+
+export const setFutureLaundryExpenses = (newFutureLaundryExpenses: number): Action => ({
+    type: 'SET_FUTURE_LAUNDRY_EXPENSES',
+    payload: newFutureLaundryExpenses,
+});
+
+export const setFutureFlatTaxExpenses = (newFutureFlatTaxExpenses: number): Action => ({
+    type: 'SET_FUTURE_FLAT_TAX_EXPENSES',
+    payload: newFutureFlatTaxExpenses,
+});
+
+export const setFutureGrossTaxExpenses = (newFutureGrossTaxExpenses: number): Action => ({
+    type: 'SET_FUTURE_GROSS_TAX_EXPENSES',
+    payload: newFutureGrossTaxExpenses,
+});
+
+export const setFutureAlimonyExpenses = (newFutureAlimonyExpenses: number): Action => ({
+    type: 'SET_FUTURE_ALIMONY_EXPENSES',
+    payload: newFutureAlimonyExpenses,
+});
+
+export const setFutureCleaningExpenses = (newFutureCleaningExpenses: number): Action => ({
+    type: 'SET_FUTURE_CLEANING_EXPENSES',
+    payload: newFutureCleaningExpenses,
+});
+
+// const setFutureDecorationsExpenses = (newFutureDecorationsExpenses: number): Action => ({
+//     type: 'SET_FUTURE_DECORATIONS_EXPENSES',
+//     payload: newFutureDecorationsExpenses,
+// });
+
+export const setFutureOtherExpenses = (newFutureOtherExpenses: number): Action => ({
+    type: 'SET_FUTURE_OTHER_EXPENSES',
+    payload: newFutureOtherExpenses,
 });
 
 /* Define the reducer function that takes the current state and an action */
@@ -527,8 +898,33 @@ const reducer = (state: State, action: Action): State => {
             return { ...state, familyStatus: action.payload };
         case 'SET_PARTNER_COMMUNITY_STATUS':
             return { ...state, partnerCommunityStatus: action.payload };
-        case 'SET_PERSONAL_BUDGET':
+        case 'SET_APARTMENT_SQUARE_FOOTAGE':
+            return { ...state, apartmentSquareFootage: action.payload };
+        case 'SET_HAS_CHILDREN':
+            return { ...state, hasChildren: action.payload };
+        case 'SET_NUMBER_OF_CHILDREN':
+            return {
+                ...state, numberOfChildren: action.payload};  // Example calculationchildrenAddition: action.payload * 2000 };
+        case 'SET_MEMBER_AGE':
+            return { ...state, memberAge: action.payload };
+        case 'SET_MEMBER_PARTNER_AGE':
+            return { ...state, memberPartnerAge: action.payload };
+        case 'SET_MEMBER_RETIRED':
+            return { ...state, memberRetired: action.payload };
+        case 'SET_MEMBER_PARTNER_RETIRED':
+            return { ...state, memberPartnerRetired: action.payload };
+        case 'SET_EDUCATION_SYSTEM':
+            return { ...state, educationSystem: action.payload };
+        case 'SET_EDUCATION_SYSTEM_BUDGETS':
+            return { ...state, educationSystemBudgets: action.payload };
+        case 'SET_EDUCATION_SYSTEM_FEES':
+            return { ...state, educationSystemFees: action.payload };
+        /* Current Incomes */
+        // case 'SET_PERSONAL_BUDGET':
+        //     return { ...state, personalBudget: action.payload };
+        case 'SET_PERSONAL_BUDGET': {
             return { ...state, personalBudget: action.payload };
+        }
         case 'SET_CHILDREN_ADDITION':
             return { ...state, childrenAddition: action.payload };
         case 'SET_PROVISIONS':
@@ -551,19 +947,80 @@ const reducer = (state: State, action: Action): State => {
             return { ...state, outsourcedFood: action.payload };
         case 'SET_CHRONICLE_TREATMENT':
             return { ...state, chronicleTreatment: action.payload };
+        case 'SET_SENIORITY':
+            return { ...state, seniority: action.payload };
+        case 'SET_PARTNER_SENIORITY':
+            return { ...state, partnerSeniority: action.payload };
+        case 'SET_DECEASED_SENIORITY':
+            return { ...state, deceasedSeniority: action.payload };
+        case 'SET_SENIORITY_ADDITION':
+            return { ...state, seniorityAddition: action.payload };
+        case 'SET_PARTNER_SENIORITY_ADDITION':
+            return { ...state, partnerSeniorityAddition: action.payload };
+        case 'SET_DECEASED_SENIORITY_ADDITION':
+            return { ...state, deceasedSeniorityAddition: action.payload };
         case 'SET_OTHER_INCOME':
             return { ...state, otherIncome: action.payload };
+        /* Current Expenses */
+        // case 'SET_GAS_EXPENSES':
+        //     return { ...state, gasExpenses: action.payload };
+        case 'SET_ELECTRICITY_EXPENSES':
+            return { ...state, electricityExpenses: action.payload };
+        case 'SET_MAINTENANCE_SERVICE_EXPENSES':
+            return { ...state, maintenanceServiceExpenses: action.payload };
+        case 'SET_HOUSE_MAINTENANCE_EXPENSES':
+            return { ...state, houseMaintenanceExpenses: action.payload };
+        case 'SET_GARDENING_EXPENSES':
+            return { ...state, gardeningExpenses: action.payload };
+        case 'SET_NETWORKING_EXPENSES':
+            return { ...state, networkingExpenses: action.payload };
+        case 'SET_INTERNET_EXPENSES':
+            return { ...state, internetExpenses: action.payload };
+        case 'SET_VEHICLE_EXPENSES':
+            return { ...state, vehicleExpenses: action.payload };
+        case 'SET_SCHOOL_EXPENSES':
+            return { ...state, schoolExpenses: action.payload };
+        case 'SET_HIGH_SCHOOL_EXPENSES':
+            return { ...state, highSchoolExpenses: action.payload };
+        case 'SET_PERSONAL_LESSONS_EXPENSES':
+            return { ...state, personalLessonsExpenses: action.payload };
+        case 'SET_EDUCATION_TUITION_FEES':
+            return { ...state, educationTuitionFees: action.payload };
+        case 'SET_TEENAGE_CLASS_EXPENSES':
+            return { ...state, teenageClassExpenses: action.payload };
+        // case 'SET_TUITIONS_EXPENSES':
+        //     return { ...state, tuitionsExpenses: action.payload };
+        case 'SET_OTHER_EDUCATION_EXPENSES':
+            return { ...state, otherEducationExpenses: action.payload };
+        case 'SET_DENTIST_EXPENSES':
+            return { ...state, dentistExpenses: action.payload };
+        case 'SET_WELFARE_EXPENSES':
+            return { ...state, welfareExpenses: action.payload };
+        case 'SET_FOOD_EXPENSES':
+            return { ...state, foodExpenses: action.payload };
+        case 'SET_LAUNDRY_EXPENSES':
+            return { ...state, laundryExpenses: action.payload };
+        case 'SET_OTHER_EXPENSE':
+            return { ...state, otherExpenses: action.payload };
         /* Future Incomes*/
         // case 'SET_FUTURE_PERSONAL_BUDGET':
         //     return { ...state, futurePersonalBudget: action.payload };
         case 'SET_FUTURE_NET_INCOME':
             return { ...state, futureNetIncome: action.payload };
+        case 'SET_FUTURE_GROSS_INCOME':
+            return { ...state, futureGrossIncome: action.payload };
         case 'SET_FUTURE_PENSION_ALLOWANCE':
             return { ...state, futurePensionAllowance: action.payload };
         case 'SET_FUTURE_PARTNER_PENSION_ALLOWANCE':
             return { ...state, futurePartnerPensionAllowance: action.payload };
         case 'SET_FUTURE_NATIONAL_INSURANCE_ALLOWANCE':
             return { ...state, futureNationalInsuranceAllowance: action.payload };
+        case 'SET_FUTURE_NATIONAL_INSURANCE_ALLOWANCE_COMMUNITY':
+            return { ...state, futureNationalInsuranceAllowanceCommunity: action.payload };
+        case 'SET_FUTURE_ELDERLY_PENSION':
+            return { ...state, futureElderlyPension: action.payload };
+        case 'SET_FUTURE_PARTNER_ELDERLY_PENSION':
+            return { ...state, futurePartnerElderlyPension: action.payload };
         case 'SET_FUTURE_RECOVERY_FEE':
             return { ...state, futureRecoveryFee: action.payload };
         case 'SET_FUTURE_PARTNER_RECOVERY_FEE':
@@ -572,24 +1029,24 @@ const reducer = (state: State, action: Action): State => {
             return { ...state, futureEducationFund: action.payload };
         case 'SET_FUTURE_PARTNER_EDUCATION_FUND':
             return { ...state, futurePartnerEducationFund: action.payload };
-        case 'SET_FUTURE_PARTNER_NET_INCOME':
-            return { ...state, futurePartnerNetIncome: action.payload };
+        // case 'SET_FUTURE_PARTNER_NET_INCOME':
+        //     return { ...state, futurePartnerNetIncome: action.payload };
         case 'SET_FUTURE_CHILDREN_ADDITION':
             return { ...state, futureChildrenAddition: action.payload };
         case 'SET_FUTURE_PROVISIONS':
             return { ...state, futureProvisions: action.payload };
         case 'SET_FUTURE_LAUNDRY':
             return { ...state, futureLaundry: action.payload };
-        case 'SET_FUTURE_GAS':
-            return { ...state, futureGas: action.payload };
+        // case 'SET_FUTURE_GAS':
+        //     return { ...state, futureGas: action.payload };
         case 'SET_FUTURE_HYGIENE':
             return { ...state, futureHygiene: action.payload };
         case 'SET_FUTURE_MAINTENANCE':
             return { ...state, futureMaintenance: action.payload };
         case 'SET_FUTURE_VEHICLE':
             return { ...state, futureVehicle: action.payload };
-        case 'SET_FUTURE_ENERGY':
-            return { ...state, futureEnergy: action.payload };
+        // case 'SET_FUTURE_ENERGY':
+        //     return { ...state, futureEnergy: action.payload };
         case 'SET_FUTURE_BENEFIT_FOR_WORK':
             return { ...state, futureBenefitForWork: action.payload };
         case 'SET_FUTURE_OUTSOURCED_FOOD':
@@ -605,10 +1062,12 @@ const reducer = (state: State, action: Action): State => {
             return { ...state, futurePropertyTaxExpenses: action.payload };
         case 'SET_FUTURE_WATER_AND_SEWER_EXPENSES':
             return { ...state, futureWaterAndSewerExpenses: action.payload };
-        case 'SET_FUTURE_GAS_EXPENSES':
-            return { ...state, futureGasExpenses: action.payload };
-        case 'SET_FUTURE_ELECTRICITY_EXPENSES':
-            return { ...state, futureElectricityExpenses: action.payload };
+        // case 'SET_FUTURE_GAS_EXPENSES':
+        //     return { ...state, futureGasExpenses: action.payload };
+        // case 'SET_FUTURE_ELECTRICITY_EXPENSES':
+        //     return { ...state, futureElectricityExpenses: action.payload };
+        case 'SET_FUTURE_ENERGY_EXPENSES':
+            return { ...state, futureEnergyExpenses: action.payload };
         case 'SET_FUTURE_HOUSE_MAINTENANCE_EXPENSES':
             return { ...state, futureHouseMaintenanceExpenses: action.payload };
         case 'SET_FUTURE_GARDENING_EXPENSES':
@@ -619,12 +1078,20 @@ const reducer = (state: State, action: Action): State => {
             return { ...state, futureInternetExpenses: action.payload };
         case 'SET_FUTURE_VEHICLE_EXPENSES':
             return { ...state, futureVehicleExpenses: action.payload };
+        case 'SET_FUTURE_EDUCATION_SYSTEM_EXPENSES':
+            return { ...state, futureEducationSystemExpenses: action.payload };
         case 'SET_FUTURE_SCHOOL_EXPENSES':
             return { ...state, futureSchoolExpenses: action.payload };
+        case 'SET_FUTURE_HIGH_SCHOOL_EXPENSES':
+            return { ...state, futureHighSchoolExpenses: action.payload };
         case 'SET_FUTURE_PERSONAL_LESSONS_EXPENSES':
             return { ...state, futurePersonalLessonsExpenses: action.payload };
-        case 'SET_FUTURE_TUITIONS_EXPENSES':
-            return { ...state, futureTuitionsExpenses: action.payload };
+        case 'SET_FUTURE_TEENAGE_CLASS_EXPENSES':
+            return { ...state, futureTeenageClassExpenses: action.payload };
+        case 'SET_FUTURE_EDUCATION_TRANSPORTATION_EXPENSES':
+            return { ...state, futureEducationTransportationExpenses: action.payload };
+        // case 'SET_FUTURE_TUITIONS_EXPENSES':
+        //     return { ...state, futureTuitionsExpenses: action.payload };
         case 'SET_FUTURE_SAFETY_NET_EXPENSES':
             return { ...state, futureSafetyNetExpenses: action.payload };
         case 'SET_FUTURE_HEALTH_INSURANCE_EXPENSES':
@@ -645,8 +1112,8 @@ const reducer = (state: State, action: Action): State => {
             return { ...state, futureAlimonyExpenses: action.payload };
         case 'SET_FUTURE_CLEANING_EXPENSES':
             return { ...state, futureCleaningExpenses: action.payload };
-        case 'SET_FUTURE_DECORATIONS_EXPENSES':
-            return { ...state, futureDecorationsExpenses: action.payload };
+        // case 'SET_FUTURE_DECORATIONS_EXPENSES':
+        //     return { ...state, futureDecorationsExpenses: action.payload };
         case 'SET_FUTURE_OTHER_EXPENSES':
             return { ...state, futureOtherExpenses: action.payload };
         default:
@@ -659,6 +1126,17 @@ const GlobalStateContext = createContext<{
     dispatch: React.Dispatch<Action>;
     setFamilyStatus: (newStatus: string | null) => void;
     setPartnerCommunityStatus: (newStatus: string | null) => void;
+    setApartmentSquareFootage: (newApartmentSquareFootage: number | null) => void;
+    setHasChildren: (newHasChildren: string | null) => void;
+    setNumberOfChildren: (newNumberOfChildren: number) => void;
+    setMemberAge: (newMemberAge: number | null) => void;
+    setMemberPartnerAge: (newMemberPartnerAge: number | null) => void;
+    setMemberRetired: (newMemberRetired: string | null) => void;
+    setMemberPartnerRetired: (newMemberPartnerRetired: string | null) => void;
+    setEducationSystem: (newEducationSystem: string[]) => void;
+    setEducationSystemBudgets: (newEducationSystemBudgets: number[]) => void;
+    setEducationSystemFees: (newEducationSystemFees: number[]) => void;
+    /* Current Incomes */
     setPersonalBudget: (newBudget: number) => void;
     setChildrenAddition: (newChildrenAddition: number) => void;
     setProvisions: (newProvisions: number) => void;
@@ -671,62 +1149,109 @@ const GlobalStateContext = createContext<{
     setBenefitForWork: (newBenefitForWork: number) => void;
     setOutsourcedFood: (newOutsourcedFood: number) => void;
     setChronicleTreatment: (newChronicleTreatment: number) => void;
+    setSeniority: (newSeniority: number) => void;
+    setPartnerSeniority: (newPartnerSeniority: number) => void;
+    setDeceasedSeniority: (newDeceasedSeniority: number) => void;
+    setSeniorityAddition: (newSeniorityAddition: number) => void;
+    setPartnerSeniorityAddition: (newPartnerSeniorityAddition: number) => void;
+    setDeceasedSeniorityAddition: (newDeceasedSeniorityAddition: number) => void;
     setOtherIncome: (newOtherIncome: number) => void;
+    /* Current Expenses */
+    // setGasExpenses: (newGasExpenses: number) => void;
+    setElectricityExpenses: (newElectricityExpenses: number) => void;
+    setMaintenanceServiceExpenses: (newMaintenanceServiceExpenses: number) => void;
+    setHouseMaintenanceExpenses: (newHouseMaintenanceExpenses: number) => void;
+    setGardeningExpenses: (newGardeningExpenses: number) => void;
+    setNetworkingExpenses: (newNetworkingExpenses: number) => void;
+    setInternetExpenses: (newInternetExpenses: number) => void;
+    setVehicleExpenses: (newVehicleExpenses: number) => void;
+    setSchoolExpenses: (newSchoolExpenses: number[]) => void;
+    setHighSchoolExpenses: (newHighSchoolExpenses: number[]) => void;
+    setEducationTuitionFees: (newEducationTuitionFees: number[]) => void;
+    setPersonalLessonsExpenses: (newPersonalLessonsExpenses: number) => void;
+    setTeenageClassExpenses: (newTeenageClassExpenses: number) => void;
+    // setTuitionsExpenses: (newTuitionsExpenses: number) => void;
+    setOtherEducationExpenses: (newOtherEducationExpenses: number) => void;
+    setDentistExpenses: (newDentistExpenses: number) => void;
+    setWelfareExpenses: (newWelfareExpenses: number) => void;
+    setFoodExpenses: (newFoodExpenses: number) => void;
+    setLaundryExpenses: (newLaundryExpenses: number) => void;
+    setOtherExpenses: (newOtherExpenses: number) => void;
     /* Future Incomes*/
     // setFuturePersonalBudget: (newBudget: number) => void;
-    setFutureNetIncome: (newNetIncome: number) => void;
-    setFuturePartnerNetIncome: (newPartnerNetIncome: number) => void;
-    setFuturePensionAllowance: (newPensionAllowance: number) => void;
-    setFuturePartnerPensionAllowance: (newPartnerPensionAllowance: number) => void;
-    setFutureNationalInsuranceAllowance: (newNationalInsuranceAllowance: number) => void;
-    setFutureRecoveryFee: (newRecoveryFee: number) => void;
-    setFuturePartnerRecoveryFee: (newPartnerRecoveryFee: number) => void;
-    setFutureEducationFund: (newEducationFund: number) => void;
-    setFuturePartnerEducationFund: (newPartnerEducationFund: number) => void;
-    setFutureChildrenAddition: (newAddition: number) => void;
-    setFutureProvisions: (newProvisions: number) => void;
-    setFutureLaundry: (newLaundry: number) => void;
-    setFutureGas: (newGas: number) => void;
-    setFutureHygiene: (newHygiene: number) => void;
-    setFutureMaintenance: (newMaintenance: number) => void;
-    setFutureVehicle: (newVehicle: number) => void;
-    setFutureEnergy: (newEnergy: number) => void;
-    setFutureBenefitForWork: (newBenefit: number) => void;
-    setFutureOutsourcedFood: (newFood: number) => void;
-    setFutureChronicleTreatment: (newTreatment: number) => void;
-    setFutureOtherIncome: (newIncome: number) => void;
+    setFutureNetIncome: (newFutureNetIncome: number) => void;
+    // setFuturePartnerNetIncome: (newPartnerNetIncome: number) => void;
+    setFutureGrossIncome: (newFutureGrossIncome: number) => void;
+    setFuturePensionAllowance: (newFuturePensionAllowance: number) => void;
+    setFuturePartnerPensionAllowance: (newFuturePartnerPensionAllowance: number) => void;
+    setFutureNationalInsuranceAllowance: (newFutureNationalInsuranceAllowance: number) => void;
+    setFutureNationalInsuranceAllowanceCommunity: (newFutureNationalInsuranceAllowanceCommunity: number) => void;
+    setFutureElderlyPension: (newFutureElderlyPension: number) => void;
+    setFuturePartnerElderlyPension: (newFuturePartnerElderlyPension: number) => void;
+    setFutureRecoveryFee: (newFutureRecoveryFee: number) => void;
+    setFuturePartnerRecoveryFee: (newFuturePartnerRecoveryFee: number) => void;
+    setFutureEducationFund: (newFutureEducationFund: number) => void;
+    setFuturePartnerEducationFund: (newFuturePartnerEducationFund: number) => void;
+    setFutureChildrenAddition: (newFutureAddition: number) => void;
+    setFutureProvisions: (newFutureProvisions: number) => void;
+    setFutureLaundry: (newFutureLaundry: number) => void;
+    // setFutureGas: (newGas: number) => void;
+    setFutureHygiene: (newFutureHygiene: number) => void;
+    setFutureMaintenance: (newFutureMaintenance: number) => void;
+    setFutureVehicle: (newFutureVehicle: number) => void;
+    // setFutureEnergy: (newEnergy: number) => void;
+    setFutureBenefitForWork: (newFutureBenefit: number) => void;
+    setFutureOutsourcedFood: (newFutureFood: number) => void;
+    setFutureChronicleTreatment: (newFutureTreatment: number) => void;
+    setFutureOtherIncome: (newFutureIncome: number) => void;
     /* Future Expenses */
-    setFutureExpenses: (newExpenses: number[]) => void;
-    setFuturePropertyTaxExpenses: (newPropertyTaxExpenses: number) => void;
-    setFutureWaterAndSewerExpenses: (newWaterAndSewerExpenses: number) => void;
-    setFutureGasExpenses: (newGasExpenses: number) => void;
-    setFutureElectricityExpenses: (newElectricityExpenses: number) => void;
-    setFutureHouseMaintenanceExpenses: (newMaintenanceExpenses: number) => void;
-    setFutureGardeningExpenses: (newGardeningExpenses: number) => void;
-    setFutureNetworkingExpenses: (newNetworkingExpenses: number) => void;
-    setFutureInternetExpenses: (newInternetExpenses: number) => void;
-    setFutureVehicleExpenses: (newVehicleExpenses: number) => void;
-    setFutureSchoolExpenses: (newSchoolExpenses: number) => void;
-    setFuturePersonalLessonsExpenses: (newLessonsExpenses: number) => void;
-    setFutureTuitionsExpenses: (newTuitionsExpenses: number) => void;
-    setFutureSafetyNetExpenses: (newSafetyNetExpenses: number) => void;
-    setFutureHealthInsuranceExpenses: (newHealthInsuranceExpenses: number) => void;
-    setFutureDentistExpenses: (newDentistExpenses: number) => void;
-    setFutureWelfareExpenses: (newWelfareExpenses: number) => void;
-    setFutureFoodExpenses: (newFoodExpenses: number) => void;
-    setFutureLaundryExpenses: (newLaundryExpenses: number) => void;
-    setFutureFlatTaxExpenses: (newFlatTaxExpenses: number) => void;
-    setFutureGrossTaxExpenses: (newGrossTaxExpenses: number) => void;
-    setFutureAlimonyExpenses: (newAlimonyExpenses: number) => void;
-    setFutureCleaningExpenses: (newCleaningExpenses: number) => void;
-    setFutureDecorationsExpenses: (newDecorationsExpenses: number) => void;
-    setFutureOtherExpenses: (newOtherExpenses: number) => void;
+    setFutureExpenses: (newFutureExpenses: number[]) => void;
+    setFuturePropertyTaxExpenses: (newFuturePropertyTaxExpenses: number) => void;
+    setFutureWaterAndSewerExpenses: (newFutureWaterAndSewerExpenses: number) => void;
+    // setFutureGasExpenses: (newFutureGasExpenses: number) => void;
+    // setFutureElectricityExpenses: (newFutureElectricityExpenses: number) => void;
+    setFutureEnergyExpenses: (newFutureEnergyExpenses: number) => void;
+    setFutureHouseMaintenanceExpenses: (newFutureMaintenanceExpenses: number) => void;
+    setFutureGardeningExpenses: (newFutureGardeningExpenses: number) => void;
+    setFutureNetworkingExpenses: (newFutureNetworkingExpenses: number) => void;
+    setFutureInternetExpenses: (newFutureInternetExpenses: number) => void;
+    setFutureVehicleExpenses: (newVFutureVehicleExpenses: number) => void;
+    setFutureEducationSystemExpenses: (newFutureEducationSystemExpenses: number) => void;
+    setFutureSchoolExpenses: (newFutureSchoolExpenses: number[]) => void;
+    setFutureHighSchoolExpenses: (newFutureHighSchoolExpenses: number[]) => void;
+    setFuturePersonalLessonsExpenses: (newFutureLessonsExpenses: number) => void;
+    setFutureTeenageClassExpenses: (newFutureTeenageClassExpenses: number) => void;
+    setFutureEducationTransportationExpenses: (newFutureTransportationExpenses: number) => void;
+    // setFutureTuitionsExpenses: (newFutureTuitionsExpenses: number) => void;
+    setFutureSafetyNetExpenses: (newFutureSafetyNetExpenses: number) => void;
+    setFutureHealthInsuranceExpenses: (newFutureHealthInsuranceExpenses: number) => void;
+    setFutureDentistExpenses: (newFutureDentistExpenses: number) => void;
+    setFutureWelfareExpenses: (newFutureWelfareExpenses: number) => void;
+    setFutureFoodExpenses: (newFutureFoodExpenses: number) => void;
+    setFutureLaundryExpenses: (newFutureLaundryExpenses: number) => void;
+    setFutureFlatTaxExpenses: (newFutureFlatTaxExpenses: number) => void;
+    setFutureGrossTaxExpenses: (newFutureGrossTaxExpenses: number) => void;
+    setFutureAlimonyExpenses: (newFutureAlimonyExpenses: number) => void;
+    setFutureCleaningExpenses: (newFutureCleaningExpenses: number) => void;
+    // setFutureDecorationsExpenses: (newFutureDecorationsExpenses: number) => void;
+    setFutureOtherExpenses: (newFutureOtherExpenses: number) => void;
 
 }>({
     state: initialState,
     dispatch: () => null,
     setFamilyStatus: () => null,
     setPartnerCommunityStatus: () => null,
+    setApartmentSquareFootage: () => null,
+    setHasChildren: () => null,
+    setNumberOfChildren: () => null,
+    setMemberAge: () => null,
+    setMemberPartnerAge: () => null,
+    setMemberRetired: () => null,
+    setMemberPartnerRetired: () => null,
+    setEducationSystem: () => null,
+    setEducationSystemBudgets: () => null,
+    setEducationSystemFees: () => null,
+    /* Current Incomes */
     setPersonalBudget: () => null,
     setChildrenAddition: () => null,
     setProvisions: () => null,
@@ -739,14 +1264,45 @@ const GlobalStateContext = createContext<{
     setBenefitForWork: () => null,
     setOutsourcedFood: () => null,
     setChronicleTreatment: () => null,
+    setSeniority: () => null,
+    setPartnerSeniority: () => null,
+    setDeceasedSeniority: () => null,
+    setSeniorityAddition: () => null,
+    setPartnerSeniorityAddition: () => null,
+    setDeceasedSeniorityAddition: () => null,
     setOtherIncome: () => null,
+    /* Current Expenses */
+    // setGasExpenses: () => null,
+    setElectricityExpenses: () => null,
+    setMaintenanceServiceExpenses: () => null,
+    setHouseMaintenanceExpenses: () => null,
+    setGardeningExpenses: () => null,
+    setNetworkingExpenses: () => null,
+    setInternetExpenses: () => null,
+    setVehicleExpenses: () => null,
+    setSchoolExpenses: () => null,
+    setHighSchoolExpenses: () => null,
+    setEducationTuitionFees: () => null,
+    setPersonalLessonsExpenses: () => null,
+    setTeenageClassExpenses: () => null,
+    // setTuitionsExpenses: () => null,
+    setOtherEducationExpenses: () => null,
+    setDentistExpenses: () => null,
+    setWelfareExpenses: () => null,
+    setFoodExpenses: () => null,
+    setLaundryExpenses: () => null,
+    setOtherExpenses: () => null,
     /* Future Incomes*/
     // setFuturePersonalBudget: () => null,
     setFutureNetIncome: () => null,
-    setFuturePartnerNetIncome: () => null,
+    // setFuturePartnerNetIncome: () => null,
+    setFutureGrossIncome: () => null,
     setFuturePensionAllowance: () => null,
     setFuturePartnerPensionAllowance: () => null,
     setFutureNationalInsuranceAllowance: () => null,
+    setFutureNationalInsuranceAllowanceCommunity: () => null,
+    setFutureElderlyPension: () => null,
+    setFuturePartnerElderlyPension: () => null,
     setFutureRecoveryFee: () => null,
     setFuturePartnerRecoveryFee: () => null,
     setFutureEducationFund: () => null,
@@ -754,11 +1310,11 @@ const GlobalStateContext = createContext<{
     setFutureChildrenAddition: () => null,
     setFutureProvisions: () => null,
     setFutureLaundry: () => null,
-    setFutureGas: () => null,
+    // setFutureGas: () => null,
     setFutureHygiene: () => null,
     setFutureMaintenance: () => null,
     setFutureVehicle: () => null,
-    setFutureEnergy: () => null,
+    // setFutureEnergy: () => null,
     setFutureBenefitForWork: () => null,
     setFutureOutsourcedFood: () => null,
     setFutureChronicleTreatment: () => null,
@@ -767,16 +1323,21 @@ const GlobalStateContext = createContext<{
     setFutureExpenses: () => null,
     setFuturePropertyTaxExpenses: () => null,
     setFutureWaterAndSewerExpenses: () => null,
-    setFutureGasExpenses: () => null,
-    setFutureElectricityExpenses: () => null,
+    // setFutureGasExpenses: () => null,
+    // setFutureElectricityExpenses: () => null,
+    setFutureEnergyExpenses: () => null,
     setFutureHouseMaintenanceExpenses: () => null,
     setFutureGardeningExpenses: () => null,
     setFutureNetworkingExpenses: () => null,
     setFutureInternetExpenses: () => null,
     setFutureVehicleExpenses: () => null,
+    setFutureEducationSystemExpenses: () => null,
     setFutureSchoolExpenses: () => null,
+    setFutureHighSchoolExpenses: () => null,
     setFuturePersonalLessonsExpenses: () => null,
-    setFutureTuitionsExpenses: () => null,
+    setFutureTeenageClassExpenses: () => null,
+    setFutureEducationTransportationExpenses: () => null,
+    // setFutureTuitionsExpenses: () => null,
     setFutureSafetyNetExpenses: () => null,
     setFutureHealthInsuranceExpenses: () => null,
     setFutureDentistExpenses: () => null,
@@ -787,7 +1348,7 @@ const GlobalStateContext = createContext<{
     setFutureGrossTaxExpenses: () => null,
     setFutureAlimonyExpenses: () => null,
     setFutureCleaningExpenses: () => null,
-    setFutureDecorationsExpenses: () => null,
+    // setFutureDecorationsExpenses: () => null,
     setFutureOtherExpenses: () => null,
 });
 
@@ -813,8 +1374,19 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
             value={{
                 state,
                 dispatch,
-                setFamilyStatus: (newStatus) => dispatch(setFamilyStatus(newStatus)),
-                setPartnerCommunityStatus: (newStatus) => dispatch(setPartnerCommunityStatus(newStatus)),
+                setFamilyStatus: (newStatus) => dispatch({type:'SET_FAMILY_STATUS', payload: newStatus}),
+                setPartnerCommunityStatus: (newStatus) => dispatch({type: 'SET_PARTNER_COMMUNITY_STATUS', payload: newStatus}),
+                setApartmentSquareFootage: (newApartmentSquareFootage) => dispatch({type: 'SET_APARTMENT_SQUARE_FOOTAGE', payload: newApartmentSquareFootage}),
+                setHasChildren: (newHasChildren) => dispatch({type: 'SET_HAS_CHILDREN', payload: newHasChildren}),
+                setNumberOfChildren: (newNumberOfChildren: number) => dispatch({ type: 'SET_NUMBER_OF_CHILDREN', payload: newNumberOfChildren}),
+                setMemberAge: (newMemberAge) => dispatch({ type: 'SET_MEMBER_AGE', payload: newMemberAge}),
+                setMemberPartnerAge: (newMemberPartnerAge) => dispatch({ type: 'SET_MEMBER_PARTNER_AGE', payload: newMemberPartnerAge}),
+                setMemberRetired: (newMemberRetired) => dispatch({ type: 'SET_MEMBER_RETIRED', payload: newMemberRetired}),
+                setMemberPartnerRetired: (newMemberPartnerRetired) => dispatch({ type: 'SET_MEMBER_PARTNER_RETIRED', payload: newMemberPartnerRetired}),
+                setEducationSystem: (newEducationSystem) => dispatch({ type: 'SET_EDUCATION_SYSTEM', payload: newEducationSystem}),
+                setEducationSystemBudgets: (newEducationSystemBudgets) => dispatch({ type: 'SET_EDUCATION_SYSTEM_BUDGETS', payload: newEducationSystemBudgets }),
+                setEducationSystemFees: (newEducationSystemFees) => dispatch({ type: 'SET_EDUCATION_SYSTEM_FEES', payload: newEducationSystemFees }),
+                /* Current Incomes */
                 setPersonalBudget: (newBudget) => dispatch(setPersonalBudget(newBudget)),
                 setChildrenAddition: (newChildrenAddition) => dispatch(setChildrenAddition(newChildrenAddition)),
                 setProvisions: (newProvisions) => dispatch(setProvisions(newProvisions)),
@@ -829,75 +1401,118 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
                 /* TODO: this is to set to one benefit or two */
                 setOutsourcedFood: (newOutsourcedFood) => dispatch(setOutsourcedFood(newOutsourcedFood)),
                 setChronicleTreatment: (newChronicleTreatment) => dispatch(setChronicleTreatment(newChronicleTreatment)),
+                setSeniority: (newSeniority) => dispatch(setSeniority(newSeniority)),
+                setPartnerSeniority: (newPartnerSeniority) => dispatch(setPartnerSeniority(newPartnerSeniority)),
+                setDeceasedSeniority: (newDeceasedSeniority) => dispatch(setDeceasedSeniority(newDeceasedSeniority)),
+                setSeniorityAddition: (newSeniorityAddition) => dispatch(setSeniorityAddition(newSeniorityAddition)),
+                setPartnerSeniorityAddition: (newPartnerSeniorityAddition) => dispatch(setPartnerSeniorityAddition(newPartnerSeniorityAddition)),
+                setDeceasedSeniorityAddition: (newDeceasedSeniorityAddition) => dispatch(setDeceasedSeniorityAddition(newDeceasedSeniorityAddition)),
                 setOtherIncome: (newOtherIncome) => dispatch(setOtherIncome(newOtherIncome)),
+                /* Current Expenses */
+                // setGasExpenses: (newGasExpenses) => dispatch(setGasExpenses(newGasExpenses)),
+                setElectricityExpenses: (newElectricityExpenses) => dispatch(setElectricityExpenses(newElectricityExpenses)),
+                setMaintenanceServiceExpenses: (newMaintenanceServiceExpenses) =>
+                    dispatch(setMaintenanceServiceExpenses(newMaintenanceServiceExpenses)),
+                setHouseMaintenanceExpenses: (newHouseMaintenanceExpenses) =>
+                    dispatch(setHouseMaintenanceExpenses(newHouseMaintenanceExpenses)),
+                setGardeningExpenses: (newGardeningExpenses) => dispatch(setGardeningExpenses(newGardeningExpenses)),
+                setNetworkingExpenses: (newNetworkingExpenses) => dispatch(setNetworkingExpenses(newNetworkingExpenses)),
+                setInternetExpenses: (newInternetExpenses) => dispatch(setInternetExpenses(newInternetExpenses)),
+                setVehicleExpenses: (newVehicleExpenses) => dispatch(setVehicleExpenses(newVehicleExpenses)),
+                setSchoolExpenses: (newSchoolExpenses) => dispatch({ type: 'SET_SCHOOL_EXPENSES', payload: newSchoolExpenses}),
+                setHighSchoolExpenses: (newHighSchoolExpenses) => dispatch({ type: 'SET_HIGH_SCHOOL_EXPENSES', payload: newHighSchoolExpenses}),
+                setEducationTuitionFees: (newEducationTuitionFees) => dispatch({ type: 'SET_EDUCATION_TUITION_FEES', payload: newEducationTuitionFees}),
+                setPersonalLessonsExpenses: (newPersonalLessonsExpenses) =>
+                    dispatch(setPersonalLessonsExpenses(newPersonalLessonsExpenses)),
+                setTeenageClassExpenses: (newTeenageClassExpenses) => dispatch(setTeenageClassExpenses(newTeenageClassExpenses)),
+                // setTuitionsExpenses: (newTuitionsExpenses) => dispatch(setTuitionsExpenses(newTuitionsExpenses)),
+                setOtherEducationExpenses: (newOtherEducationExpenses) =>
+                    dispatch(setOtherEducationExpenses(newOtherEducationExpenses)),
+                setDentistExpenses: (newDentistExpenses) => dispatch(setDentistExpenses(newDentistExpenses)),
+                setWelfareExpenses: (newWelfareExpenses) => dispatch(setWelfareExpenses(newWelfareExpenses)),
+                setFoodExpenses: (newFoodExpenses) => dispatch(setFoodExpenses(newFoodExpenses)),
+                setLaundryExpenses: (newLaundryExpenses) => dispatch(setLaundryExpenses(newLaundryExpenses)),
+                setOtherExpenses: (newOtherExpenses) => dispatch(setOtherExpenses(newOtherExpenses)),
                 /* Future Incomes*/
                 // setFuturePersonalBudget: (newBudget) =>
-                //     dispatch({ type: 'SET_FUTURE_PERSONAL_BUDGET', payload: newBudget }),
-                setFutureNetIncome: (newNetIncome) =>
-                    dispatch({ type: 'SET_FUTURE_NET_INCOME', payload: newNetIncome }),
-                setFuturePartnerNetIncome: (newPartnerNetIncome) =>
-                    dispatch({ type: 'SET_FUTURE_PARTNER_NET_INCOME', payload: newPartnerNetIncome }),
-                setFuturePensionAllowance: (newPensionAllowance) =>
-                    dispatch({ type: 'SET_FUTURE_PENSION_ALLOWANCE', payload: newPensionAllowance }),
-                setFuturePartnerPensionAllowance: (newPartnerPensionAllowance) =>
-                    dispatch({ type: 'SET_FUTURE_PARTNER_PENSION_ALLOWANCE', payload: newPartnerPensionAllowance }),
-                setFutureNationalInsuranceAllowance: (newNationalInsuranceAllowance) =>
-                    dispatch({ type: 'SET_FUTURE_NATIONAL_INSURANCE_ALLOWANCE', payload: newNationalInsuranceAllowance }),
-                setFutureRecoveryFee: (newRecoveryFee) =>
-                    dispatch({ type: 'SET_FUTURE_RECOVERY_FEE', payload: newRecoveryFee }),
-                setFuturePartnerRecoveryFee: (newPartnerRecoveryFee) =>
-                    dispatch({ type: 'SET_FUTURE_PARTNER_RECOVERY_FEE', payload: newPartnerRecoveryFee }),
-                setFutureEducationFund: (newEducationFund) =>
-                    dispatch({ type: 'SET_FUTURE_EDUCATION_FUND', payload: newEducationFund }),
-                setFuturePartnerEducationFund: (newPartnerEducationFund) =>
-                    dispatch({ type: 'SET_FUTURE_PARTNER_EDUCATION_FUND', payload: newPartnerEducationFund }),
-                setFutureChildrenAddition: (newAddition) =>
-                    dispatch({ type: 'SET_FUTURE_CHILDREN_ADDITION', payload: newAddition }),
-                setFutureProvisions: (newProvisions) => dispatch({ type: 'SET_FUTURE_PROVISIONS', payload: newProvisions }),
-                setFutureLaundry: (newLaundry) => dispatch({ type: 'SET_FUTURE_LAUNDRY', payload: newLaundry }),
-                setFutureGas: (newGas) => dispatch({ type: 'SET_FUTURE_GAS', payload: newGas }),
-                setFutureHygiene: (newHygiene) => dispatch({ type: 'SET_FUTURE_HYGIENE', payload: newHygiene }),
-                setFutureMaintenance: (newMaintenance) =>
-                    dispatch({ type: 'SET_FUTURE_MAINTENANCE', payload: newMaintenance }),
-                setFutureVehicle: (newVehicle) => dispatch({ type: 'SET_FUTURE_VEHICLE', payload: newVehicle }),
-                setFutureEnergy: (newEnergy) => dispatch({ type: 'SET_FUTURE_ENERGY', payload: newEnergy }),
-                setFutureBenefitForWork: (newBenefit) => dispatch({ type: 'SET_FUTURE_BENEFIT_FOR_WORK', payload: newBenefit }),
-                setFutureOutsourcedFood: (newFood) => dispatch({ type: 'SET_FUTURE_OUTSOURCED_FOOD', payload: newFood }),
-                setFutureChronicleTreatment: (newTreatment) =>
-                    dispatch({ type: 'SET_FUTURE_CHRONICLE_TREATMENT', payload: newTreatment }),
-                setFutureOtherIncome: (newIncome) => dispatch({ type: 'SET_FUTURE_OTHER_INCOME', payload: newIncome }),
+                //     dispatch({ type: 'SET_FUTURE_PERSONAL_BUDGET', payload: newFutureBudget }),
+                setFutureNetIncome: (newFutureNetIncome) =>
+                    dispatch({ type: 'SET_FUTURE_NET_INCOME', payload: newFutureNetIncome }),
+                setFutureGrossIncome: (newFutureGrossIncome) =>
+                    dispatch({ type: 'SET_FUTURE_GROSS_INCOME', payload: newFutureGrossIncome }),
+                setFuturePensionAllowance: (newFuturePensionAllowance) =>
+                    dispatch({ type: 'SET_FUTURE_PENSION_ALLOWANCE', payload: newFuturePensionAllowance }),
+                setFuturePartnerPensionAllowance: (newFuturePartnerPensionAllowance) =>
+                    dispatch({ type: 'SET_FUTURE_PARTNER_PENSION_ALLOWANCE', payload: newFuturePartnerPensionAllowance }),
+                setFutureElderlyPension: (newFutureElderlyPension) =>
+                    dispatch({ type: 'SET_FUTURE_ELDERLY_PENSION', payload: newFutureElderlyPension }),
+                setFuturePartnerElderlyPension: (newFuturePartnerElderlyPension) =>
+                    dispatch ({ type: 'SET_FUTURE_PARTNER_ELDERLY_PENSION', payload: newFuturePartnerElderlyPension }),
+                setFutureNationalInsuranceAllowance: (newFutureNationalInsuranceAllowance) =>
+                    dispatch({ type: 'SET_FUTURE_NATIONAL_INSURANCE_ALLOWANCE', payload: newFutureNationalInsuranceAllowance }),
+                setFutureNationalInsuranceAllowanceCommunity: (newFutureNationalInsuranceAllowanceCommunity) =>
+                    dispatch({ type: 'SET_FUTURE_NATIONAL_INSURANCE_ALLOWANCE_COMMUNITY', payload: newFutureNationalInsuranceAllowanceCommunity }),
+                setFutureRecoveryFee: (newFutureRecoveryFee) =>
+                    dispatch({ type: 'SET_FUTURE_RECOVERY_FEE', payload: newFutureRecoveryFee }),
+                setFuturePartnerRecoveryFee: (newFuturePartnerRecoveryFee) =>
+                    dispatch({ type: 'SET_FUTURE_PARTNER_RECOVERY_FEE', payload: newFuturePartnerRecoveryFee }),
+                setFutureEducationFund: (newFutureEducationFund) =>
+                    dispatch({ type: 'SET_FUTURE_EDUCATION_FUND', payload: newFutureEducationFund }),
+                setFuturePartnerEducationFund: (newFuturePartnerEducationFund) =>
+                    dispatch({ type: 'SET_FUTURE_PARTNER_EDUCATION_FUND', payload: newFuturePartnerEducationFund }),
+                setFutureChildrenAddition: (newFutureAddition) =>
+                    dispatch({ type: 'SET_FUTURE_CHILDREN_ADDITION', payload: newFutureAddition }),
+                setFutureProvisions: (newFutureProvisions) => dispatch({ type: 'SET_FUTURE_PROVISIONS', payload: newFutureProvisions }),
+                setFutureLaundry: (newFutureLaundry) => dispatch({ type: 'SET_FUTURE_LAUNDRY', payload: newFutureLaundry }),
+                // setFutureGas: (newFutureGas) => dispatch({ type: 'SET_FUTURE_GAS', payload: newFutureGas }),
+                setFutureHygiene: (newFutureHygiene) => dispatch({ type: 'SET_FUTURE_HYGIENE', payload: newFutureHygiene }),
+                setFutureMaintenance: (newFutureMaintenance) =>
+                    dispatch({ type: 'SET_FUTURE_MAINTENANCE', payload: newFutureMaintenance }),
+                setFutureVehicle: (newFutureVehicle) => dispatch({ type: 'SET_FUTURE_VEHICLE', payload: newFutureVehicle }),
+                // setFutureEnergy: (newFutureEnergy) => dispatch({ type: 'SET_FUTURE_ENERGY', payload: newFutureEnergy }),
+                setFutureBenefitForWork: (newFutureBenefit) => dispatch({ type: 'SET_FUTURE_BENEFIT_FOR_WORK', payload: newFutureBenefit }),
+                setFutureOutsourcedFood: (newFutureFood) => dispatch({ type: 'SET_FUTURE_OUTSOURCED_FOOD', payload: newFutureFood }),
+                setFutureChronicleTreatment: (newFutureTreatment) =>
+                    dispatch({ type: 'SET_FUTURE_CHRONICLE_TREATMENT', payload: newFutureTreatment }),
+                setFutureOtherIncome: (newFutureIncome) => dispatch({ type: 'SET_FUTURE_OTHER_INCOME', payload: newFutureIncome }),
                 /* Future Expenses*/
-                setFutureExpenses: (newExpenses) => dispatch({ type: 'SET_FUTURE_EXPENSES', payload: newExpenses }),
-                setFuturePropertyTaxExpenses: (newPropertyTaxExpenses) =>
-                    dispatch({ type: 'SET_FUTURE_PROPERTY_TAX_EXPENSES', payload: newPropertyTaxExpenses }),
-                setFutureGasExpenses: (newGasExpenses) => dispatch({ type: 'SET_FUTURE_GAS_EXPENSES', payload: newGasExpenses }),
-                setFutureWaterAndSewerExpenses: (newWaterAndSewerExpenses) =>
-                    dispatch({ type: 'SET_FUTURE_WATER_AND_SEWER_EXPENSES', payload: newWaterAndSewerExpenses }),
-                setFutureElectricityExpenses: (newElectricityExpenses) => dispatch({ type: 'SET_FUTURE_ELECTRICITY_EXPENSES', payload: newElectricityExpenses }),
-                setFutureHouseMaintenanceExpenses: (newMaintenanceExpenses) =>
-                    dispatch({ type: 'SET_FUTURE_HOUSE_MAINTENANCE_EXPENSES', payload: newMaintenanceExpenses }),
-                setFutureGardeningExpenses: (newGardeningExpenses) => dispatch({ type: 'SET_FUTURE_GARDENING_EXPENSES', payload: newGardeningExpenses }),
-                setFutureNetworkingExpenses: (newNetworkingExpenses) => dispatch({ type: 'SET_FUTURE_NETWORKING_EXPENSES', payload: newNetworkingExpenses }),
-                setFutureInternetExpenses: (newInternetExpenses) => dispatch({ type: 'SET_FUTURE_INTERNET_EXPENSES', payload: newInternetExpenses }),
-                setFutureVehicleExpenses: (newVehicleExpenses) => dispatch({ type: 'SET_FUTURE_VEHICLE_EXPENSES', payload: newVehicleExpenses }),
-                setFutureSchoolExpenses: (newSchoolExpenses) => dispatch({ type: 'SET_FUTURE_SCHOOL_EXPENSES', payload: newSchoolExpenses }),
-                setFuturePersonalLessonsExpenses: (newLessonsExpenses) =>
-                    dispatch({ type: 'SET_FUTURE_PERSONAL_LESSONS_EXPENSES', payload: newLessonsExpenses }),
-                setFutureTuitionsExpenses: (newTuitionsExpenses) => dispatch({ type: 'SET_FUTURE_TUITIONS_EXPENSES', payload: newTuitionsExpenses }),
-                setFutureSafetyNetExpenses: (newSafetyNetExpenses) =>
-                    dispatch({ type: 'SET_FUTURE_SAFETY_NET_EXPENSES', payload: newSafetyNetExpenses }),
-                setFutureHealthInsuranceExpenses: (newHealthInsuranceExpenses) =>
-                    dispatch({ type: 'SET_FUTURE_HEALTH_INSURANCE_EXPENSES', payload: newHealthInsuranceExpenses }),
-                setFutureDentistExpenses: (newDentistExpenses) => dispatch({ type: 'SET_FUTURE_DENTIST_EXPENSES', payload: newDentistExpenses }),
-                setFutureWelfareExpenses: (newWelfareExpenses) => dispatch({ type: 'SET_FUTURE_WELFARE_EXPENSES', payload: newWelfareExpenses }),
-                setFutureFoodExpenses: (newFoodExpenses) => dispatch({ type: 'SET_FUTURE_FOOD_EXPENSES', payload: newFoodExpenses }),
-                setFutureLaundryExpenses: (newLaundryExpenses) => dispatch({ type: 'SET_FUTURE_LAUNDRY_EXPENSES', payload: newLaundryExpenses }),
-                setFutureFlatTaxExpenses: (newFlatTaxExpenses) => dispatch({ type: 'SET_FUTURE_FLAT_TAX_EXPENSES', payload: newFlatTaxExpenses }),
-                setFutureGrossTaxExpenses: (newGrossTaxExpenses) => dispatch({ type: 'SET_FUTURE_GROSS_TAX_EXPENSES', payload: newGrossTaxExpenses }),
-                setFutureAlimonyExpenses: (newAlimonyExpenses) => dispatch({ type: 'SET_FUTURE_ALIMONY_EXPENSES', payload: newAlimonyExpenses }),
-                setFutureCleaningExpenses: (newCleaningExpenses) => dispatch({ type: 'SET_FUTURE_CLEANING_EXPENSES', payload: newCleaningExpenses }),
-                setFutureDecorationsExpenses: (newDecorationsExpenses) => dispatch({ type: 'SET_FUTURE_DECORATIONS_EXPENSES', payload: newDecorationsExpenses }),
-                setFutureOtherExpenses: (newOtherExpenses) => dispatch({ type: 'SET_FUTURE_OTHER_EXPENSES', payload: newOtherExpenses }),
+                setFutureExpenses: (newFutureExpenses) => dispatch({ type: 'SET_FUTURE_EXPENSES', payload: newFutureExpenses }),
+                setFuturePropertyTaxExpenses: (newFuturePropertyTaxExpenses) =>
+                    dispatch({ type: 'SET_FUTURE_PROPERTY_TAX_EXPENSES', payload: newFuturePropertyTaxExpenses }),
+                // setFutureGasExpenses: (newFutureGasExpenses) => dispatch({ type: 'SET_FUTURE_GAS_EXPENSES', payload: newFutureGasExpenses }),
+                // setFutureElectricityExpenses: (newFutureElectricityExpenses) => dispatch({ type: 'SET_FUTURE_ELECTRICITY_EXPENSES', payload: newFutureElectricityExpenses }),
+                setFutureEnergyExpenses: (newFutureEnergyExpenses) => dispatch({ type: 'SET_FUTURE_ENERGY_EXPENSES', payload: newFutureEnergyExpenses }),
+                setFutureWaterAndSewerExpenses: (newFutureWaterAndSewerExpenses) =>
+                    dispatch({ type: 'SET_FUTURE_WATER_AND_SEWER_EXPENSES', payload: newFutureWaterAndSewerExpenses }),
+                setFutureHouseMaintenanceExpenses: (newFutureMaintenanceExpenses) =>
+                    dispatch({ type: 'SET_FUTURE_HOUSE_MAINTENANCE_EXPENSES', payload: newFutureMaintenanceExpenses }),
+                setFutureGardeningExpenses: (newFutureGardeningExpenses) => dispatch({ type: 'SET_FUTURE_GARDENING_EXPENSES', payload: newFutureGardeningExpenses }),
+                setFutureNetworkingExpenses: (newFutureNetworkingExpenses) => dispatch({ type: 'SET_FUTURE_NETWORKING_EXPENSES', payload: newFutureNetworkingExpenses }),
+                setFutureInternetExpenses: (newFutureInternetExpenses) => dispatch({ type: 'SET_FUTURE_INTERNET_EXPENSES', payload: newFutureInternetExpenses }),
+                setFutureVehicleExpenses: (newFutureVehicleExpenses) => dispatch({ type: 'SET_FUTURE_VEHICLE_EXPENSES', payload: newFutureVehicleExpenses }),
+                setFutureEducationSystemExpenses: (newFutureEducationSystemExpenses) =>
+                    dispatch({ type: 'SET_FUTURE_EDUCATION_SYSTEM_EXPENSES', payload: newFutureEducationSystemExpenses }),
+                setFutureSchoolExpenses: (newFutureSchoolExpenses) => dispatch({ type: 'SET_FUTURE_SCHOOL_EXPENSES', payload: newFutureSchoolExpenses }),
+                setFutureHighSchoolExpenses: (newFutureHighSchoolExpenses) => dispatch({ type: 'SET_FUTURE_HIGH_SCHOOL_EXPENSES', payload: newFutureHighSchoolExpenses }),
+                setFuturePersonalLessonsExpenses: (newFutureLessonsExpenses) =>
+                    dispatch({ type: 'SET_FUTURE_PERSONAL_LESSONS_EXPENSES', payload: newFutureLessonsExpenses }),
+                setFutureTeenageClassExpenses: (newFutureTeenageClassExpenses) => dispatch({ type: 'SET_FUTURE_TEENAGE_CLASS_EXPENSES', payload: newFutureTeenageClassExpenses }),
+                setFutureEducationTransportationExpenses: (newFutureTransportationExpenses) => dispatch({ type: 'SET_FUTURE_EDUCATION_TRANSPORTATION_EXPENSES', payload: newFutureTransportationExpenses }),
+                // setFutureTuitionsExpenses: (newFutureTuitionsExpenses) => dispatch({ type: 'SET_FUTURE_TUITIONS_EXPENSES', payload: newFutureTuitionsExpenses }),
+                setFutureSafetyNetExpenses: (newFutureSafetyNetExpenses) =>
+                    dispatch({ type: 'SET_FUTURE_SAFETY_NET_EXPENSES', payload: newFutureSafetyNetExpenses }),
+                setFutureHealthInsuranceExpenses: (newFutureHealthInsuranceExpenses) =>
+                    dispatch({ type: 'SET_FUTURE_HEALTH_INSURANCE_EXPENSES', payload: newFutureHealthInsuranceExpenses }),
+                setFutureDentistExpenses: (newFutureDentistExpenses) => dispatch({ type: 'SET_FUTURE_DENTIST_EXPENSES', payload: newFutureDentistExpenses }),
+                setFutureWelfareExpenses: (newFutureWelfareExpenses) => dispatch({ type: 'SET_FUTURE_WELFARE_EXPENSES', payload: newFutureWelfareExpenses }),
+                setFutureFoodExpenses: (newFutureFoodExpenses) => dispatch({ type: 'SET_FUTURE_FOOD_EXPENSES', payload: newFutureFoodExpenses }),
+                setFutureLaundryExpenses: (newFutureLaundryExpenses) => dispatch({ type: 'SET_FUTURE_LAUNDRY_EXPENSES', payload: newFutureLaundryExpenses }),
+                setFutureFlatTaxExpenses: (newFutureFlatTaxExpenses) => dispatch({ type: 'SET_FUTURE_FLAT_TAX_EXPENSES', payload: newFutureFlatTaxExpenses }),
+                setFutureGrossTaxExpenses: (newFutureGrossTaxExpenses) => dispatch({ type: 'SET_FUTURE_GROSS_TAX_EXPENSES', payload: newFutureGrossTaxExpenses }),
+                setFutureAlimonyExpenses: (newFutureAlimonyExpenses) => dispatch({ type: 'SET_FUTURE_ALIMONY_EXPENSES', payload: newFutureAlimonyExpenses }),
+                setFutureCleaningExpenses: (newFutureCleaningExpenses) => dispatch({ type: 'SET_FUTURE_CLEANING_EXPENSES', payload: newFutureCleaningExpenses }),
+                // setFutureDecorationsExpenses: (newFutureDecorationsExpenses) => dispatch({ type: 'SET_FUTURE_DECORATIONS_EXPENSES', payload: newFutureDecorationsExpenses }),
+                setFutureOtherExpenses: (newFutureOtherExpenses) => dispatch({ type: 'SET_FUTURE_OTHER_EXPENSES', payload: newFutureOtherExpenses }),
             }}
         >
         {children}
