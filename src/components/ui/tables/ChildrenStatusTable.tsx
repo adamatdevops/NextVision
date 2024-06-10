@@ -85,7 +85,7 @@ const ChildrenStatusTable: React.FC<ChildrenStatusTableProps> = ({ numberOfChild
         setEducationSystem(updatedSystems);
     };
 
-    
+
     const handleEducationLevelChange = (value: string, index: number) => {
         const updatedTuitionFees = [...state.educationTuitionFees];
         updatedTuitionFees[index] = educationTuitionFeesMap[value];
@@ -108,13 +108,13 @@ const ChildrenStatusTable: React.FC<ChildrenStatusTableProps> = ({ numberOfChild
             title: 'שם',
             dataIndex: 'name',
             key: 'name',
-            render: () => <Input placeholder="הכנס שם" />,
+            render: (value: any) => <Input placeholder="הכנס שם" />,
         },
         {
             title: 'גיל',
             dataIndex: 'age',
             key: 'age',
-            render: () => (
+            render: (value: any) => (
                 <Select placeholder="בחר גיל" className={styles.select}>
                     {ageOptions.map((option) => (
                         <Option key={option} value={option}>
@@ -128,8 +128,9 @@ const ChildrenStatusTable: React.FC<ChildrenStatusTableProps> = ({ numberOfChild
             title: 'השכלה',
             dataIndex: 'educationLevel',
             key: 'educationLevel',
-            render: (text: string, _: any, record: any, index: number) => (
-                <Select 
+            render: (value: any, text: any, record: any, index: number) => (
+            // render: (text: string, _: any, record: any, index: number) => ( Was working
+                <Select
                     placeholder="בחר רמת השכלה"
                     className={styles.select}
                     value={record.educationLevel}
@@ -161,7 +162,8 @@ const ChildrenStatusTable: React.FC<ChildrenStatusTableProps> = ({ numberOfChild
             title: 'מערכת חינוך',
             dataIndex: 'educationSystem',
             key: 'educationSystem',
-            render: (text: string, _: any, record: any, index: number) => ( /* IMPORTANT: Do not change this line */
+            render: (value: number, record: any, index: number) => (
+            // render: (text: string, _: any, record: any, index: number) => ( /* IMPORTANT: Do not change this line */
                 <Select
                     placeholder="בחר מערכת חינוך"
                     className={styles.select}
@@ -202,7 +204,7 @@ const ChildrenStatusTable: React.FC<ChildrenStatusTableProps> = ({ numberOfChild
             title: 'שיעורים פרטיים',
             dataIndex: 'educationPrivateLesson',
             key: 'educationPrivateLesson',
-            render: () => (
+            render: (value: any) => (
                 <Select placeholder="בחר מספר" className={styles.select}>
                     {educationPrivateLessonOptions.map((option) => (
                         <Option key={option} value={option}>
@@ -216,7 +218,7 @@ const ChildrenStatusTable: React.FC<ChildrenStatusTableProps> = ({ numberOfChild
             title: 'חוג העשרה',
             dataIndex: 'educationPrivateClasses',
             key: 'educationPrivateClasses',
-            render: () => (
+            render: (value: any) => (
                 <Select placeholder="בחר חוגי העשרה" className={styles.select}>
                     {educationPrivateClassesOptions.map((option, index) => (
                         <Option key={index} value={option}>
@@ -230,7 +232,7 @@ const ChildrenStatusTable: React.FC<ChildrenStatusTableProps> = ({ numberOfChild
             title: 'הסעות',
             dataIndex: 'educationTransportation',
             key: 'educationTransportation',
-            render: () => (
+            render: (value: any) => (
                 <Select placeholder="בחר סוג" className={styles.select}>
                     {educationTransportationOptions.map((option) => (
                         <Option key={option} value={option}>
@@ -244,13 +246,13 @@ const ChildrenStatusTable: React.FC<ChildrenStatusTableProps> = ({ numberOfChild
             title: 'טיפול אישי',
             dataIndex: 'educationPersonalCare',
             key: 'educationPersonalCare',
-            render: () => <InputNumber min={0} max={200} placeholder="שעות שבועיות" />,
+            render: (value: any) => <InputNumber min={0} max={200} placeholder="שעות שבועיות" />,
         },
         {
             title: 'צהרון',
             dataIndex: 'educationDayCare',
             key: 'educationDayCare',
-            render: () => <InputNumber min={0} max={30} placeholder="שעות שבועיות" />,
+            render: (value: any) => <InputNumber min={0} max={30} placeholder="שעות שבועיות" />,
         },
     ];
 
