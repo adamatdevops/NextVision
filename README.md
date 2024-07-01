@@ -93,6 +93,8 @@ index.html: Entry point.
 vite.config.ts: Vite configuration.
 
 **Current Working Project Structure (Active):**
+
+```sh
 .
 ├── .DS_Store
 ├── .browserslistrc
@@ -278,7 +280,7 @@ vite.config.ts: Vite configuration.
 ├── tsconfig.node.json
 ├── tsconfig.tsbuildinfo
 └── vite.config.ts
-
+```
 
 #### Step 1: Initial Setup
 
