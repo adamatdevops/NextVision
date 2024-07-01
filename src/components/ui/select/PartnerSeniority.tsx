@@ -10,7 +10,7 @@ interface PartnerSeniorityProps {
 }
 
 const PartnerSeniority: React.FC<PartnerSeniorityProps> = ({ onPartnerSeniorityChange, label, disabled = false }) => { // Provide a default value for the 'disabled' prop
-    const options = Array.from({ length: 25 }, (_, i) => i + 1);
+    const options = Array.from({ length: 20 }, (_, i) => i + 1);
 
     return (
         <Form.Item label={label}>

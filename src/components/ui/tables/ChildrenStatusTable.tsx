@@ -1,8 +1,9 @@
 /* src/components/ui/tables/ChildrenStatusTable.tsx */
-import React from 'react';
-import { Table, Select, Input, InputNumber } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Select, InputNumber, Card } from 'antd';
+import { setFutureChildrenSafetyNet, useGlobalState } from '../../../GlobalStateProvider';
+// import type { ChildData } from '../../../GlobalStateProvider';
 import styles from './css/ChildrenStatusTable.module.css';
-import { useGlobalState } from '../../../GlobalStateProvider';
 
 const { Option } = Select;
 
@@ -10,11 +11,27 @@ interface ChildrenStatusTableProps {
     numberOfChildren: number;
 }
 
-// const educationLevelFeesMap: { [key: string]: number } = {
-//     'גיל הרך': 100,
-//     'יסודי': 200,
-//     'תיכון': 400,
-// };
+export interface ChildData {
+    id: number, // Unique identifier
+    key: number;
+    name: string;
+    age: number | null;
+    educationLevel: string | null;
+    educationSystem: string | null;
+    educationTeenageClasses: number;
+    teenageClassFees: number[];
+    educationPrivateLessons: number;
+    privateLessonFees: number[];
+    futureKindergartenExpenses: number; // Added
+    futureSchoolExpenses: number; // Added
+    futureHighSchoolExpenses: number; // Added
+    //educationTuitionFees: number | null;
+    class: string | null;
+    educationTransportation: string | null;
+    educationPersonalCare: string | null;
+    educationDayCare: string | null;
+    customTuition: number;
+}
 
 export const educationSystemBudgetsMap: { [key: string]: number } = {
     'מיץ פטל': 794,
@@ -26,8 +43,8 @@ export const educationSystemBudgetsMap: { [key: string]: number } = {
     'דובדבן': 921,
     'אורנים': 1072,
     'נעורים': 1146,
-    'חינוך מיוחד': 0, // TODO: Update this to fill by member
-    'אחר': 0, // TODO: Update this to fill by member
+    'חינוך מיוחד': 0,
+    'אחר': 0,
 };
 
 export const educationSystemFeesMap: { [key: string]: number } = {
@@ -44,233 +61,351 @@ export const educationSystemFeesMap: { [key: string]: number } = {
     'אחר': 0,  // TODO: Update this to fill by member
 };
 
+export const childrenSafetyNetMap: { [key: string]: number } = {
+    'מיץ פטל': 1767,
+    'תות': 1767,
+    'סביון': 1392,
+    'פשוש': 1392,
+    'רימון': 1392,
+    'פעמון': 1392,
+    'דובדבן': 1392,
+    'אורנים': 1392,
+    'נעורים': 1392,
+};
+
 export const educationTuitionFeesMap: { [key: string]: number } = {
-    'יסודי': 300, // TODO: Update this to be filled as whole number, And if there's a gap thats bigger than the above amounts it will be paid by the member
-    'תיכון': 500,
-    // 'חינוך מיוחד': 0, // TODO: Update this to fill by member
-    // 'אחר': 0,  // TODO: Update this to fill by member
+    'גיל הרך': 0,
+    'יסודי': 0,
+    'תיכון': 0,
 };
 
 const ChildrenStatusTable: React.FC<ChildrenStatusTableProps> = ({ numberOfChildren }) => {
-    const { state, setEducationSystemBudgets, setEducationSystem, setEducationSystemFees, setEducationTuitionFees, setSchoolExpenses, setHighSchoolExpenses  } = useGlobalState();
+    const { state, dispatch, setEducationSystemBudgets, setEducationSystem, setEducationSystemFees, setFutureKindergartenExpenses, setFutureSchoolExpenses, setFutureHighSchoolExpenses, setFutureTeenageClassExpenses, setTeenageClassExpenses, setFuturePrivateLessonExpenses, setPrivateLessonExpenses } = useGlobalState();
 
-    // const handleEducationLevelChange = (value: string, index: number) => {
-    //     const updatedFees = [...state.educationLevelFees];
-    //     updatedFees[index] = educationLevelFeesMap[value];
-    //     setEducationLevelFees(updatedFees);
-    // };
-
-    const ageOptions = Array.from({ length: 17 }, (_, i) => i + 1);
+    const ageOptions = Array.from({ length: 18 }, (_, i) => i + 0);
     const educationLevelOptions = ['גיל הרך', 'יסודי', 'תיכון'];
     const educationSystemOptions = [
         'מיץ פטל', 'תות', 'סביון', 'פשוש', 'רימון', 'פעמון', 'דובדבן', 'אורנים', 'נעורים', 'חינוך מיוחד', 'אחר'
     ];
-    const educationPrivateLessonOptions = Array.from({ length: 4 }, (_, i) => i); /* TODO: Trigger an opening input option both on current and future columns */
-    const educationPrivateClassesOptions = Array.from({ length: 3 }, (_, i) => i + 0); /* TODO: Trigger an opening input option both on current and future columns */
-    // const educationDayCareOptions = ; /* TODO: Trigger an opening input option both on current and future columns */
-    // const educationPersonalCareOptions = ; /* TODO: Trigger an opening input option both on current and future columns */
+    const educationPrivateLessonsOptions = Array.from({ length: 4 }, (_, i) => i + 0);
+    const educationTeenageClassesOptions = Array.from({ length: 3 }, (_, i) => i + 0);
+    const educationDayCareOptions = ['כן', 'לא'];
+    const educationPersonalCareOptions = ['כן', 'לא'];
     const educationTransportationOptions = ['מועצה', 'הסעות פרטיות', 'הורים', 'אחר']; /* TODO: Trigger an opening input option both on current and future columns */
 
-    const handleEducationSystemChange = (value: string, index: number) => {
-        const updatedBudgets = [...state.educationSystemBudgets];
-        updatedBudgets[index] = educationSystemBudgetsMap[value];
-        setEducationSystemBudgets(updatedBudgets);
+    // Ensure childrenData is of type ChildData[]
+    const [childrenData, setChildrenData] = useState<ChildData[]>(
+        Array.from({ length: numberOfChildren }, (_, i) => ({
+            id: i + 1,
+            key: i,
+            name: '',
+            age: null,
+            educationLevel: null,
+            educationSystem: null,
+            educationTeenageClasses: 0,
+            teenageClassFees: [],
+            educationPrivateLessons: 0,
+            futureKindergartenExpenses: 0,
+            futureSchoolExpenses: 0,
+            futureHighSchoolExpenses: 0,
+            //educationTuitionFees: null,
+            privateLessonFees: [],
+            class: '',
+            educationTransportation: null,
+            educationPersonalCare: null,
+            educationDayCare: null,
+            customTuition: 0,
+        }))
+    );
 
-        const updatedFees = [...state.educationSystemFees];
-        updatedFees[index] = educationSystemFeesMap[value];
-        setEducationSystemFees(updatedFees);
 
-        const updatedSystems = [...state.educationSystem];
-        updatedSystems[index] = value;
-        setEducationSystem(updatedSystems);
-    };
+    // Update useEffect to use the correct state data
+    useEffect(() => {
+        // console.log('Updating children data from global state:', state.childrenData); // Turn for logging
+        setChildrenData(
+            Array.from({ length: numberOfChildren }, (_, i) => ({
+                id: i + 1,
+                key: i,
+                name: state.childrenData[i]?.name || '',
+                age: state.childrenData[i]?.age || null,
+                educationLevel: state.childrenData[i]?.educationLevel || null,
+                educationSystem: state.childrenData[i]?.educationSystem || null,
+                educationTeenageClasses: state.childrenData[i]?.educationTeenageClasses || 0,
+                teenageClassFees: state.childrenData[i]?.teenageClassFees || [],
+                educationPrivateLessons: state.childrenData[i]?.educationPrivateLessons || 0,
+                futureKindergartenExpenses: state.childrenData[i]?.futureKindergartenExpenses || 0,
+                futureSchoolExpenses: state.childrenData[i]?.futureSchoolExpenses || 0,
+                futureHighSchoolExpenses: state.childrenData[i]?.futureHighSchoolExpenses || 0,
+                //educationTuitionFees: state.childrenData[i]?.educationTuitionFees || null,
+                privateLessonFees: state.childrenData[i]?.privateLessonFees || [],
+                class: '',
+                educationTransportation: state.childrenData[i]?.educationTransportation || null,
+                educationPersonalCare: state.childrenData[i]?.educationPersonalCare || null,
+                educationDayCare: state.childrenData[i]?.educationDayCare || null,
+                customTuition: state.childrenData[i]?.customTuition || 0,
+            }))
+        );
+    }, [numberOfChildren, state.childrenData]);
+
+    const handleInputChange = (index: number, field: string, value: any) => {
+        console.log(`Updating field: ${field}, value: ${value} for index: ${index}`);
+        const updatedData = [...childrenData];
+        if (field === 'teenageClassFees' || field === 'privateLessonFees') {
+            updatedData[index][field][value.lessonIndex] = value.fee;
+        } else {
+            updatedData[index][field] = value;
+        }
+        setChildrenData(updatedData);
+
+        // console.log('Updated Data:', updatedData); // Debugging line to verify the state update // Turn for logging
+
+        // Update global state for education system budgets and fees
+        if (field === 'educationSystem') {
+            const updatedBudgets = [...state.educationSystemBudgets];
+            if (value !== null) {
+                updatedBudgets[index] = educationSystemBudgetsMap[value];
+            }
+            setEducationSystemBudgets(updatedBudgets);
 
 
-    const handleEducationLevelChange = (value: string, index: number) => {
-        const updatedTuitionFees = [...state.educationTuitionFees];
-        updatedTuitionFees[index] = educationTuitionFeesMap[value];
-        setEducationTuitionFees(updatedTuitionFees);
+            const updatedFees = [...state.educationSystemFees];
+            if (value !== null) {
+                updatedFees[index] = educationSystemFeesMap[value];
+            }
+            setEducationSystemFees(updatedFees);
 
-        // Update school and high school expenses based on education level
-        const updatedSchoolExpenses = [...state.schoolExpenses];
-        const updatedHighSchoolExpenses = [...state.highSchoolExpenses];
-        if (value === 'יסודי') {
-            updatedSchoolExpenses[index] = educationTuitionFeesMap[value];
-            setSchoolExpenses(updatedSchoolExpenses);
-        } else if (value === 'תיכון') {
-            updatedHighSchoolExpenses[index] = educationTuitionFeesMap[value];
-            setHighSchoolExpenses(updatedHighSchoolExpenses);
+            const updatedSystems = [...state.educationSystem];
+            if (value !== null) {
+                updatedSystems[index] = value;
+            }
+            setEducationSystem(updatedSystems);
+
+        }
+
+        if (field === 'teenageClassFees') {
+            const updatedTeenageClassExpenses = [...state.teenageClassExpenses];
+            const updatedFutureTeenageClassExpenses = [...state.futureTeenageClassExpenses];
+            const educationTeenageClasses = childrenData[index].educationTeenageClasses;
+
+            if (educationTeenageClasses) {
+                updatedTeenageClassExpenses[index] = value;
+                updatedFutureTeenageClassExpenses[index] = value;
+                setTeenageClassExpenses(updatedTeenageClassExpenses);
+                setFutureTeenageClassExpenses(updatedFutureTeenageClassExpenses);
+            }
+        }
+
+        if (field === 'privateLessonFees') {
+            const updatedPrivateLessonExpenses = [...state.privateLessonExpenses];
+            const updatedFuturePrivateLessonExpenses = [...state.futurePrivateLessonExpenses];
+            const educationPrivateLessons = childrenData[index].educationPrivateLessons;
+
+            if (educationPrivateLessons) {
+                updatedPrivateLessonExpenses[index] = value;
+                updatedFuturePrivateLessonExpenses[index] = value;
+                setPrivateLessonExpenses(updatedPrivateLessonExpenses);
+                setFuturePrivateLessonExpenses(updatedFuturePrivateLessonExpenses);
+            }
+        }
+
+        if (field === 'educationLevel') {
+            // console.log(`Setting future expenses for ${value}`); // Turn for logging
+
+            if (value === 'גיל הרך') {
+                // const updatedEducationLevel = childrenData[index].educationLevel;
+                // updatedEducationLevel === 'גיל הרך';
+                setFutureKindergartenExpenses(index, 0); // Initialize with 0
+            } else if (value === 'יסודי') {
+                // const updatedEducationLevel = childrenData[index].educationLevel;
+                // updatedEducationLevel === 'גיל הרך';
+                setFutureSchoolExpenses(index, 0); // Initialize with 0
+            } else if (value === 'תיכון') {
+                // const updatedEducationLevel = childrenData[index].educationLevel;
+                // updatedEducationLevel === 'גיל הרך';
+                setFutureHighSchoolExpenses(index, 0); // Initialize with 0
+            }
+
+            // Ensure the global state is updated
+            // Here we ensure that the global state is updated accordingly
+            if (field === 'educationLevel') {
+                const updatedChildrenData = state.childrenData.map((child, i) =>
+                    i === index ? { ...child, educationLevel: value } : child
+                );
+                dispatch({ type: 'SET_CHILDREN_DATA', payload: updatedChildrenData });
+            }
         }
     };
 
-    const columns = [
-        {
-            title: 'שם',
-            dataIndex: 'name',
-            key: 'name',
-            render: (value: any) => <Input placeholder="הכנס שם" />,
-        },
-        {
-            title: 'גיל',
-            dataIndex: 'age',
-            key: 'age',
-            render: (value: any) => (
-                <Select placeholder="בחר גיל" className={styles.select}>
-                    {ageOptions.map((option) => (
-                        <Option key={option} value={option}>
-                            {option}
-                        </Option>
-                    ))}
-                </Select>
-            ),
-        },
-        {
-            title: 'השכלה',
-            dataIndex: 'educationLevel',
-            key: 'educationLevel',
-            render: (value: any, text: any, record: any, index: number) => (
-            // render: (text: string, _: any, record: any, index: number) => ( Was working
-                <Select
-                    placeholder="בחר רמת השכלה"
-                    className={styles.select}
-                    value={record.educationLevel}
-                    onChange={(value) => handleEducationLevelChange(value, index)}
-                >
-                    {educationLevelOptions.map((option, index) => (
-                        <Option key={index} value={option}>
-                            {option}
-                        </Option>
-                    ))}
-                </Select>
-            ),
-        },
-        // {
-        //     title: 'שכר לימוד',
-        //     dataIndex: 'educationTuitionFees',
-        //     key: 'educationTuitionFees',
-        //     render: (text: string, _: any, record: any, index: number) => (
-        //         <InputNumber
-        //             min={0}
-        //             max={1200}
-        //             placeholder="תשלום חודשי"
-        //             value={record.educationTuition}
-        //             onChange={(value) => handleEducationTuitionChange(value, index, 'educationTuitionFees' )}
-        //         />
-        //     ),
-        // },
-        {
-            title: 'מערכת חינוך',
-            dataIndex: 'educationSystem',
-            key: 'educationSystem',
-            render: (value: number, record: any, index: number) => (
-            // render: (text: string, _: any, record: any, index: number) => ( /* IMPORTANT: Do not change this line */
-                <Select
-                    placeholder="בחר מערכת חינוך"
-                    className={styles.select}
-                    onChange={(value: string) => handleEducationSystemChange(value, index)}
-                    // onChange={(value: string) => {
-                    //     const updatedSystems = [...state.educationSystem];
-                    //     updatedSystems[index] = value;
-                    //     setEducationSystem(updatedSystems);
-                    // }}
-                >
-                    {educationSystemOptions.map((option, index) => (
-                        <Option key={index} value={option}>
-                            {option}
-                        </Option>
-                    ))}
-                </Select>
-            ),
-        },
-        // {
-        //     title: 'מערכת חינוך',
-        //     dataIndex: 'educationSystem',
-        //     key: 'educationSystem',
-        //     render: (text: string, record: any, index: number) => (
-        //         <Select
-        //             placeholder="בחר מערכת חינוך"
-        //             className={styles.select}
-        //             onChange={(value: string) => handleEducationSystemChange(value, index)}
-        //             >
-        //             {educationSystemOptions.map((option, index) => (
-        //                 <Option key={index} value={option}>
-        //                     {option}
-        //                 </Option>
-        //             ))}
-        //         </Select>
-        //     ),
-        // },
-        {
-            title: 'שיעורים פרטיים',
-            dataIndex: 'educationPrivateLesson',
-            key: 'educationPrivateLesson',
-            render: (value: any) => (
-                <Select placeholder="בחר מספר" className={styles.select}>
-                    {educationPrivateLessonOptions.map((option) => (
-                        <Option key={option} value={option}>
-                            {option}
-                        </Option>
-                    ))}
-                </Select>
-            ),
-        },
-        {
-            title: 'חוג העשרה',
-            dataIndex: 'educationPrivateClasses',
-            key: 'educationPrivateClasses',
-            render: (value: any) => (
-                <Select placeholder="בחר חוגי העשרה" className={styles.select}>
-                    {educationPrivateClassesOptions.map((option, index) => (
-                        <Option key={index} value={option}>
-                            {option}
-                        </Option>
-                    ))}
-                </Select>
-            ),
-        },
-        {
-            title: 'הסעות',
-            dataIndex: 'educationTransportation',
-            key: 'educationTransportation',
-            render: (value: any) => (
-                <Select placeholder="בחר סוג" className={styles.select}>
-                    {educationTransportationOptions.map((option) => (
-                        <Option key={option} value={option}>
-                            {option}
-                        </Option>
-                    ))}
-                </Select>
-            ),
-        },
-        {
-            title: 'טיפול אישי',
-            dataIndex: 'educationPersonalCare',
-            key: 'educationPersonalCare',
-            render: (value: any) => <InputNumber min={0} max={200} placeholder="שעות שבועיות" />,
-        },
-        {
-            title: 'צהרון',
-            dataIndex: 'educationDayCare',
-            key: 'educationDayCare',
-            render: (value: any) => <InputNumber min={0} max={30} placeholder="שעות שבועיות" />,
-        },
-    ];
+    // useEffect(() => { // Turn for logging
+    //     console.log('Children Data Updated:', childrenData); // Debugging line to verify re-render
+    // }, [childrenData]);
 
-    const data = Array.from({ length: numberOfChildren }, (_, i) => ({
-        key: i,
-        name: '',
-        age: null,
-        educationLevel: null,
-        educationSystem: null,
-        educationPrivateLesson: null,
-        class: '',
-        educationTransportation: null,
-        educationPersonalCare: null,
-        educationDayCare: null,
-    }));
 
-    return <Table columns={columns} dataSource={data} pagination={false}  />;
+    return (
+        <Form className={styles.form}>
+            {childrenData.map((child, index) => (
+                <Card key={child.key} className={styles.childCard}>
+                    <Form.Item label="שם" className={styles.childField}>
+                        <Input
+                            placeholder="הכנס שם"
+                            value={child.name}
+                            onChange={(e) => handleInputChange(index, 'name', e.target.value)}
+                        />
+                    </Form.Item>
+                    <Form.Item label="גיל" className={styles.childField}>
+                        <Select
+                            placeholder="בחר גיל"
+                            className={styles.select}
+                            value={child.age}
+                            onChange={(value) => handleInputChange(index, 'age', value)}
+                        >
+                            {ageOptions.map((option) => (
+                                <Option key={option} value={option}>
+                                    {option}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item label="השכלה" className={styles.childField}>
+                        <Select
+                            placeholder="בחר רמת השכלה"
+                            className={styles.select}
+                            value={child.educationLevel}
+                            onChange={(value) => handleInputChange(index, 'educationLevel', value)}
+                        >
+                            {educationLevelOptions.map((option) => (
+                                <Option key={option} value={option}>
+                                    {option}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item label="מערכת חינוך" className={styles.childField}>
+                        <Select
+                            placeholder="בחר מערכת חינוך"
+                            className={styles.select}
+                            value={child.educationSystem}
+                            onChange={(value) => handleInputChange(index, 'educationSystem', value)}
+                        >
+                            {educationSystemOptions.map((option, index) => (
+                                <Option key={index} value={option}>
+                                    {option}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {/* <Form.Item label="שכר לימוד " className={styles.childField}>
+                        <InputNumber
+                            min={0}
+                            placeholder="שכר לימוד"
+                            value={child.customTuition}
+                            onChange={(value) => handleInputChange(index, 'customTuition', value)}
+                            className={styles.select}
+                        />
+                    </Form.Item> */}
+                    <Form.Item label="שיעורים פרטיים" className={styles.childField}>
+                        <Select
+                            placeholder="בחר מספר"
+                            className={styles.select}
+                            value={child.educationPrivateLessons}
+                            onChange={(value) => handleInputChange(index, 'educationPrivateLessons', value)}
+                        >
+                            {educationPrivateLessonsOptions.map((option) => (
+                                <Option key={option} value={option}>
+                                    {option}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {Array.from({ length: child.educationPrivateLessons }).map((_, lessonIndex) => (
+                        <Form.Item
+                            key={`child-${index}-private-lesson-${lessonIndex}-fee`}
+                            label={`עלות שיעור ${lessonIndex + 1}`}
+                        >
+                            <InputNumber
+                                min={0}
+                                value={child.privateLessonFees[lessonIndex]}
+                                onChange={(value) =>
+                                    handleInputChange(index, 'privateLessonFees', { lessonIndex, fee: value || 0 })
+                                }
+                            />
+                        </Form.Item>
+                    ))}
+                    <Form.Item label="חוג העשרה" className={styles.childField}>
+                        <Select
+                            placeholder="בחר חוגי העשרה"
+                            className={styles.select}
+                            value={child.educationTeenageClasses}
+                            onChange={(value) => handleInputChange(index, 'educationTeenageClasses', value)}
+                        >
+                            {educationTeenageClassesOptions.map((option) => (
+                                <Option key={option} value={option}>
+                                    {option}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {/* Dynamically render input fields for fees */}
+                    {Array.from({ length: child.educationTeenageClasses }).map((_, lessonIndex) => (
+                        <Form.Item
+                            key={`child-${index}-teenage-class-${lessonIndex}-fee`}
+                            label={`עלות חוג ${lessonIndex + 1}`}
+                        >
+                            <InputNumber
+                                min={0}
+                                value={child.teenageClassFees[lessonIndex]}
+                                onChange={(value) =>
+                                    handleInputChange(index, 'teenageClassFees', { lessonIndex, fee: value || 0 })
+                                }
+                            />
+                        </Form.Item>
+                    ))}
+                    <Form.Item label="הסעות" className={styles.childField}>
+                        <Select
+                            placeholder="בחר סוג"
+                            className={styles.select}
+                            value={child.educationTransportation}
+                            onChange={(value) => handleInputChange(index, 'educationTransportation', value)}
+                        >
+                            {educationTransportationOptions.map((option) => (
+                                <Option key={option} value={option}>
+                                    {option}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item label="טיפול אישי" className={styles.childField}>
+                        <Select
+                            placeholder="בחר"
+                            className={styles.select}
+                            value={child.educationPersonalCare}
+                            onChange={(value) => handleInputChange(index, 'educationPersonalCare', value)}
+                        >
+                        {educationPersonalCareOptions.map((option) => (
+                                <Option key={option} value={option}>
+                                    {option}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item label="צהרון" className={styles.childField}>
+                        <Select
+                                placeholder="בחר"
+                                className={styles.select}
+                                value={child.educationDayCare}
+                                onChange={(value) => handleInputChange(index, 'educationDayCare', value)}
+                            >
+                            {educationDayCareOptions.map((option) => (
+                                <Option key={option} value={option}>
+                                    {option}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                </Card>
+            ))}
+        </Form>
+    );
 };
 
 export default ChildrenStatusTable;
-

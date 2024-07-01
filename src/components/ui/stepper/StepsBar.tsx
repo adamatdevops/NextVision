@@ -1,3 +1,4 @@
+/* src/components/ui/stepper/StepBar.tsx */
 import React from 'react';
 import { Steps, Button } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -11,9 +12,10 @@ const StepsBar: React.FC = () => {
     const navigate = useNavigate();
 
     const steps = [
+        { title: 'כניסה', path: '/', description: 'עמוד הבית', icon: <UserOutlined /> },
         { title: 'מידע כללי', path: '/social-data', description: 'הזנת נתונים סוציאלים', icon: <UserOutlined /> },
         { title: 'מאזן', path: '/account-balance', description: 'תקציב נוכחי', icon: <BankOutlined /> },
-        { title: 'תחזית', path: '/forecast', description: 'מודל התחדשות', icon: <RiseOutlined /> },
+        // { title: 'תחזית', path: '/forecast', description: 'מודל התחדשות', icon: <RiseOutlined /> },
         { title: 'סיום', path: '/review-and-logout', description: 'סקירת נתונים ', icon: <SmileOutlined /> }
     ];
 
@@ -40,7 +42,7 @@ const StepsBar: React.FC = () => {
             </Steps>
             <div className={styles.stepsAction}>
                 {currentStep > 0 && (
-                    <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+                    <Button style={{ margin: '0 20px' }} onClick={() => prev()}>
                         הקודם
                     </Button>
                 )}

@@ -1,0 +1,134 @@
+/* DynamicBackgroundLayout.module.css */
+.layout {
+    min-height: 100vh; /* Cover the full viewport height */
+    background-image: url('../assets/img/vibrant/background-01-3840x4000.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* overflow: hidden; */
+    /* position: absolute; or relative */
+    direction: rtl;
+    padding: 8px 0px 8px;
+}
+
+.header {
+    background: transparent;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 1rem;
+}
+
+.footer {
+    text-align: center;
+    padding: 2px;
+    background: #001529;
+    color: #fff;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    font-size: 14px;
+}
+.content {
+    background: rgba(0, 0, 0, 0.5);
+    flex: 1; /* Allow content to take up available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    /* Optional: add a semi-transparent background */
+    /* padding: 50px; */
+}
+
+/* Media Queries for Responsiveness */
+@media (min-width: 375px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-375.jpeg') !important;
+        /* background-size: contain; */
+        /* Small background */
+    }
+}
+
+@media (min-width: 390px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-390.jpeg') !important;
+        /* background-size: contain; */
+        /* Small background */
+    }
+}
+
+@media (min-width: 414px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-414.jpeg') !important;
+        /* background-size: contain; */
+        /* Small background */
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-576.jpeg') !important;
+        /* background-size: contain; */
+        /* Medium background */
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-768.jpeg') !important;
+        /* background-size: cover; */
+        /* Large background */
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-1024.jpeg') !important;
+        /* background-size: cover; */
+        /* Extra Large background */
+    }
+}
+
+@media (min-width: 1366px) and (max-width: 1420px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-1366x900.jpeg') !important;
+        /* background-size: cover; */
+        /* Extra Large background */
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 1800px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-1440x960.jpeg') !important;
+        /* background-size: cover; */
+        /* Extra Large background */
+    }
+}
+
+@media (min-width: 1920px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-1920x1280.jpeg') !important;
+        /* background-size: cover; */
+        /* Extra Large background */
+    }
+}
+
+@media (min-width: 2560px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-2560x1770.jpeg') !important;
+        /* background-size: cover; */
+        /* Extra Large background */
+    }
+}
+
+@media (min-width: 3840px) {
+    .layout {
+        background-image: url('../assets/img/vibrant/background-01-3840x2560.jpeg') !important;
+        /* background-size: cover; */
+        /* Extra Large background */
+    }
+}

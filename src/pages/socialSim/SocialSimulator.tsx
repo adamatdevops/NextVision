@@ -15,19 +15,25 @@ import MemberAge from '../../components/ui/input/MemberAge';
 import MemberPartnerAge from '../../components/ui/input/MemberPartnerAge';
 import MemberRetired from '../../components/ui/input/MemberRetired';
 import MemberPartnerRetired from '../../components/ui/input/MemberPartnerRetired';
+import MemberGoldenAge from '../../components/ui/select/MemberGoldenAge';
+import MemberPartnerGoldenAge from '../../components/ui/select/MemberPartnerGoldenAge';
+import FamilyNationalInsurance from '../../components/ui/select/FamilyNationalInsurance';
+import MemberPositionScope from '../../components/ui/select/MemberPositionScope';
+import MemberPartnerPositionScope from '../../components/ui/select/MemberPartnerPositionScope';
+import DynamicLayout from '../../components/ui/layouts/DynamicBackgroundLayout';
 import styles from './css/SocialSimulator.module.css';
 
 import { useGlobalState } from '../../GlobalStateProvider';
 
 // interface SocialSimulatorProps {}
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 const { Title } = Typography;
 const { Option } = Select;
 
 const SocialSimulator: React.FC = () => {
     // const SocialSimulator: React.FC<SocialSimulatorProps> = () => {
-    const { state, setFamilyStatus, setPartnerCommunityStatus, setNumberOfChildren, setMemberAge, setMemberPartnerAge, setMemberRetired, setMemberPartnerRetired, setSeniority, setPartnerSeniority, setDeceasedSeniority } = useGlobalState();
+    const { state, setFamilyStatus, setPartnerCommunityStatus, setNumberOfChildren, setMemberAge, setMemberPartnerAge, setMemberRetired, setMemberPartnerRetired, setSeniority, setPartnerSeniority, setDeceasedSeniority, setApartmentSquareFootage, setMemberGoldenAge, setMemberPartnerGoldenAge } = useGlobalState();
 
     // const [familyStatus] = useState<string | null>(null);
     // const [partnerCommunityStatus] = useState<string | null>(null);
@@ -69,6 +75,19 @@ const SocialSimulator: React.FC = () => {
     const handleDeceasedSeniorityChange = (value: number) => {
         setDeceasedSeniority(value);
     }
+
+    const handleApartmentSquareFootageChange = (value: number) => {
+        setApartmentSquareFootage(value);
+    }
+
+    const handleMemberGoldenAgeChange = (value: string) => {
+        setMemberGoldenAge(value);
+    };
+
+    const handleMemberPartnerGoldenAgeChange = (value: string) => {
+        setMemberPartnerGoldenAge(value);
+    };
+
     // const handleMemberAgeChange = (value: number) => {
     //     setMemberAge(value);
     // }
@@ -77,69 +96,69 @@ const SocialSimulator: React.FC = () => {
     //     setMemberPartnerAge(value);
     // }
 
-    console.log('familyStatus:', state.familyStatus);
-    console.log('memberAge:', state.memberAge);
 
     return (
-        <Layout className={styles.layout}>
+        <DynamicLayout>
             <Header className={styles.header}>
                 סימולטור מודל ההתחדשות
             </Header>
-            <h1>מידע אישי</h1>
+            {/* <h1>מידע אישי</h1> */}
             <Content className={styles.content}>
                 <div className={styles.cardsContainer}>
                     <Card className={styles.card} title="מידע אישי">
-                        <Form layout="vertical" className={styles.form}>
+                        <Form layout="horizontal" className={styles.form}>
                             <div className={styles.formRow}>
                                 <MemberStatus status={state.familyStatus} onStatusChange={handleFamilyStatusChange} />
                                 <MemberAge age={state.memberAge} onAgeChange={setMemberAge} />
-                                <Seniority onSeniorityChange={handleSeniorityChange} label="ותק" />
-                                <MemberRetired onMemberRetiredChange={handleMemberRetiredChange} />
                             </div>
-                            {state.familyStatus !== 'widower' && (
-                                <div className={styles.formRow}>
-                                    <PartnerCommunityStatus status={state.partnerCommunityStatus} onStatusChange={handlePartnerCommunityStatusChange} />
-                                    <MemberPartnerAge age={state.memberPartnerAge} onAgeChange={setMemberPartnerAge} />
-                                    <div className={styles.partnerSeniorityWrapper}>
-                                        <PartnerSeniority
-                                            onPartnerSeniorityChange={handlePartnerSeniorityChange}
-                                            label="ותק של בן/ת הזוג"
-                                            disabled={state.partnerCommunityStatus !== 'community-member'}
-                                        />
-                                    </div>
-                                    <MemberPartnerRetired
-                                        onMemberPartnerRetiredChange={handleMemberPartnerRetiredChange}
-                                    />
-                                </div>
-                            )}
+                            <div className={styles.formRow}>
+                                <Seniority onSeniorityChange={handleSeniorityChange} label="ותק" />
+                                <MemberPositionScope />
+                            </div>
+                            <div className={styles.formRow}>
+                                <MemberRetired onMemberRetiredChange={handleMemberRetiredChange} />
+                                <MemberGoldenAge/>
+                            </div>
+                        </Form>
+                        <Form layout="horizontal" className={styles.form}>
+                            <div className={styles.formRow}>
+                                <PartnerCommunityStatus status={state.partnerCommunityStatus} onStatusChange={handlePartnerCommunityStatusChange} />
+                                <MemberPartnerAge age={state.memberPartnerAge} onAgeChange={setMemberPartnerAge} />
+                            </div>
+                            <div className={styles.formRow}>
+                                <PartnerSeniority
+                                    onPartnerSeniorityChange={handlePartnerSeniorityChange}
+                                    label="ותק של בן/ת הזוג"
+                                    disabled={state.partnerCommunityStatus !== 'community-member'}
+                                />
+                                <MemberPartnerPositionScope />
+                            </div>
+                            <div className={styles.formRow}>
+                                <MemberPartnerRetired onMemberPartnerRetiredChange={handleMemberPartnerRetiredChange} />
+                                <MemberPartnerGoldenAge />
+                            </div>
+                            <div className={styles.formRow}>
+                                <Form.Item>
+                                    <ApartmentSquareFootage onApartmentSquareFootageChange={handleApartmentSquareFootageChange}/>
+                                </Form.Item>
+                                <Form.Item  label="מספר בני משפחה המוכרים בביטוח לאומי">
+                                    <FamilyNationalInsurance />
+                                </Form.Item>
+                            </div>
                             {state.familyStatus === 'widower' && (
                                 <div className={styles.formRow}>
-                                    <PartnerCommunityStatus status={state.partnerCommunityStatus} onStatusChange={handlePartnerCommunityStatusChange} />
-                                    <MemberPartnerAge age={state.memberPartnerAge} onAgeChange={setMemberPartnerAge} />
-                                    <div className={styles.partnerSeniorityWrapper}>
-                                        <PartnerSeniority
-                                            onPartnerSeniorityChange={handlePartnerSeniorityChange}
-                                            label="ותק של בן/ת הזוג"
-                                            disabled={state.partnerCommunityStatus !== 'community-member'}
-                                        />
-                                    </div>
-                                    <div className={styles.partnerSeniorityWrapper}>
-                                        <DeceasedSeniority
-                                            onDeceasedSeniorityChange={handleDeceasedSeniorityChange}
-                                            label="ותק של הנפטר/ת"
-                                            // disabled={state.partnerCommunityStatus !== 'community-member'}
-                                        />
-                                    </div>
-                                    <MemberPartnerRetired onMemberPartnerRetiredChange={handleMemberPartnerRetiredChange} />
+                                    <DeceasedSeniority
+                                        onDeceasedSeniorityChange={handleDeceasedSeniorityChange}
+                                        label="ותק של הנפטר/ת"
+                                        // disabled={state.partnerCommunityStatus !== 'community-member'}
+                                    />
+                                    {/* TODO: Need to make this row wider */}
                                 </div>
                             )}
-                            <div>
-                                <ApartmentSquareFootage onSquareFootageChange={(value: number) => setApartmentSquareFootage(value)} />
-                            </div>
                         </Form>
                     </Card>
                     <Card className={styles.card} title="נתוני משפחה">
-                        <Form layout="vertical">
+                        <Form layout="horizontal">
                             <div>
                                 <ChildrenSelect onChildrenChange={handleChildrenChange} />
                                 {/* Render ChildrenStatusTable when either hasChildren is 'yes' OR numberOfChildren is not null */}
@@ -155,10 +174,7 @@ const SocialSimulator: React.FC = () => {
                 </div>
             </Content>
             <StepsBar />
-            <Footer className={styles.footer}>
-                NextVision©2024 v2.3.341
-            </Footer>
-        </Layout>
+        </DynamicLayout>
     );
 };
 

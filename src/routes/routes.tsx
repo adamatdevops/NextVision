@@ -8,7 +8,6 @@ import { BuilderPage } from "@builder.io/react";
 // import Root from "./routes/routes.tsx";
 // import Home from '../pages/home/Home';
 import GettingStarted from '../pages/home/GettingStarted';
-import EconomicForecast from '../pages/economicSim/AccountForecast';
 import SocialSimulator from "../pages/socialSim/SocialSimulator";
 import AccountBalance from "../pages/economicSim/AccountBalance";
 import ReviewAndLogout from "../pages/logout/ReviewAndLogout";
@@ -37,19 +36,6 @@ const router = createBrowserRouter(
                 element={<BuilderPage />}
                 errorElement={<ErrorPage />}
             />
-            {/* Home */}
-            {/* <Route
-                path="/Home"
-                element={<SocialSimulator />}
-                errorElement={<ErrorPage />}
-            > */}
-                {/* SocialSimulator */}
-                {/* Phase One: Provides the current/present social data */}
-                {/* TODO: User feeds basic social details about himself or his family status that will be taken into account during the simulation */}
-                {/* <Route
-                    index element={<Navigate to="/home/social-data" replace />}
-                    errorElement={<Error404 />}
-                /> */}
             <Route
                 path="/social-data"
                 element={<SocialSimulator />}
@@ -62,20 +48,13 @@ const router = createBrowserRouter(
                 path="/account-balance"
                 element={
                     <AccountBalance
-                        initialBalance={0}
-                        initialIncome={0}
-                        initialExpenses={0} />}
+                        // initialBalance={0}
+                        // initialIncome={0}
+                        // initialExpenses={0}
+                    />}
                         errorElement={<Error404
                     />
                 }
-            />
-            {/* </Route> */}
-            {/* EconomicSimulator */}
-            {/* Phase Two: Provides a forecast of the economic data */}
-            <Route
-                path="/forecast"
-                element={<EconomicForecast />}
-                errorElement={<Error404 />}
             />
             <Route
                 path="/review-and-logout"

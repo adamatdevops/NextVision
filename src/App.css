@@ -13,7 +13,7 @@ body {
     max-width: 3840px;
     max-height: 2160px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1rem;
     text-align: center;
 }
 
@@ -27,13 +27,13 @@ body {
 }
 
 .logo:hover {
-    -webkit-filter: drop-shadow(0 0 2em #646cffaa);
-            filter: drop-shadow(0 0 2em #646cffaa);
+    -webkit-filter: drop-shadow(0 0 2em #646cffd6);
+            filter: drop-shadow(0 0 2em #646cffcb);
 }
 
 .logo.react:hover {
-    -webkit-filter: drop-shadow(0 0 2em #61dafbaa);
-            filter: drop-shadow(0 0 2em #61dafbaa);
+    -webkit-filter: drop-shadow(0 0 2em #4cd0f4bf);
+            filter: drop-shadow(0 0 2em #61dafbc4);
 }
 
 @-webkit-keyframes logo-spin {

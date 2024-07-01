@@ -1,14 +1,25 @@
 /* ./src/pages/economicSim/CurrentIncomes.tsx */
-import React, { useEffect } from 'react';
-import { Card, Typography, Form, InputNumber } from 'antd';
+import React, { useEffect, useState} from 'react';
+import { Card, Typography, Form, InputNumber, Tooltip, Button } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import InfoDrawer from '../../components/ui/drawer/InfoDrawer';
+import { drawerContent } from '../../components/ui/drawer/drawerContent';
 import styles from './css/AccountBalance.module.css';
-import { useGlobalState } from '../../GlobalStateProvider'; // Import the hook
+import { useCurrentIncomesState } from '../../context/CurrentIncomesGSP'; // Import the hook
+// import { useGlobalState } from '../../GlobalStateProvider'; // Import the hook
+// import type { ChildData } from '../../GlobalStateProvider';
 
 const { Title } = Typography;
 
 interface CurrentIncomesProps {
     setIncomes: (incomes: number[]) => void;
 }
+
+
+export const educationTuitionFeesMap: { [key: string]: number } = {
+    'יסודי': 300,
+    'תיכון': 500,
+};
 
 const calculateChildrenCount = (numberOfChildren): number => {
     let childrenCount = numberOfChildren + 0;
@@ -39,6 +50,20 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
     // Calculate the total education fees
     // const totalEducationFees = state.educationLevelFees.reduce((acc, fee) => acc + fee, 0);
 
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [drawerContentKey, setDrawerContentKey] = useState<keyof typeof drawerContent | null>(null);
+
+    const showDrawer = (key: keyof typeof drawerContent) => {
+        //setDrawerContent(content);
+        setDrawerContentKey(key);
+        setDrawerOpen(true);
+    };
+
+    const closeDrawer = () => {
+        setDrawerOpen(false);
+        setDrawerContentKey(null);
+    };
+
     const {
         state,
         setEducationSystemBudgets,
@@ -55,10 +80,14 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
         setOutsourcedFood,
         setChronicleTreatment,
         setSeniorityAddition,
+        setWelfare,
         // setPartnerSeniorityAddition,
         // setDeceasedSeniorityAddition,
+        setMemberGoldenAge,
+        setMemberPartnerGoldenAge,
+        setGoldenAgeAmount,
         setOtherIncome,
-    } = useGlobalState();
+    } = useCurrentIncomesState();
 
     const {
         personalBudget,
@@ -75,8 +104,12 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
         outsourcedFood,
         chronicleTreatment,
         seniorityAddition,
+        welfare,
         // partnerSeniorityAddition,
         // deceasedSeniorityAddition,
+        memberGoldenAge,
+        memberPartnerGoldenAge,
+        goldenAgeAmount,
         otherIncome,
     } = state;
 
@@ -87,19 +120,16 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
         // Calculate the total education budgets
         const totalEducationSystemBudgets = state.educationSystemBudgets.reduce((acc, budget) => acc + budget, 0);
         // Calculate seniority additions (30 NIS per year)
-        const seniorityAdditionAmount = state.seniority ? state.seniority * 30 - 30: 0;
-        const partnerSeniorityAdditionAmount = state.partnerSeniority ? state.partnerSeniority * 30 + 30: 0;
-        const deceasedSeniorityAdditionAmount = state.deceasedSeniority ? state.deceasedSeniority * 30 - 30: 0;
-        // setPartnerSeniorityAddition(partnerSeniorityAdditionAmount);
-        // setDeceasedSeniorityAddition(deceasedSeniorityAdditionAmount);
-        // setSeniorityAddition(seniorityAdditionAmount);
+        const seniorityAdditionAmount = state.seniority ? state.seniority * 41 - 41: 0;
+        const partnerSeniorityAdditionAmount = state.partnerSeniority ? state.partnerSeniority * 41 + 41: 0;
+        // const deceasedSeniorityAdditionAmount = state.deceasedSeniority ? state.deceasedSeniority * 41 - 41: 0;
+
         // Calculate total seniority addition
         const totalSeniorityAddition =
-            seniorityAdditionAmount + partnerSeniorityAdditionAmount + deceasedSeniorityAdditionAmount;
+            seniorityAdditionAmount + partnerSeniorityAdditionAmount;
 
         setSeniorityAddition(totalSeniorityAddition);
         setChildrenAddition(totalEducationSystemBudgets);
-
 
         if (state.familyStatus === 'married' && state.partnerCommunityStatus === 'community-member') {
             setPersonalBudget(4954);
@@ -117,6 +147,7 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
             setOutsourcedFood( outsourcedFood || 0);
             setChronicleTreatment( chronicleTreatment || 0);
             setSeniorityAddition(totalSeniorityAddition || 0);
+            setWelfare(state.welfareExpenses * 0.30 || 0),
             // setPartnerSeniorityAddition(partnerSeniorityAdditionAmount || 0),
             // setDeceasedSeniorityAddition(deceasedSeniorityAdditionAmount || 0),
             setOtherIncome(otherIncome || 0);
@@ -139,9 +170,18 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
             setOutsourcedFood(outsourcedFood || 0);
             setChronicleTreatment(chronicleTreatment || 0);
             setSeniorityAddition(totalSeniorityAddition || 0);
+            setWelfare(state.welfareExpenses * 0.30 || 0),
             // setPartnerSeniorityAddition(partnerSeniorityAdditionAmount || 0),
             // setDeceasedSeniorityAddition(deceasedSeniorityAdditionAmount || 0),
             setOtherIncome(otherIncome || 0);
+        }
+
+        if (state.memberGoldenAge === 'yes') {
+            setGoldenAgeAmount(1000);
+        }
+
+        if (state.memberPartnerGoldenAge === 'yes') {
+            setGoldenAgeAmount(1000);
         }
 
         setIncomes([
@@ -158,8 +198,10 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
             // outsourcedFood,
             chronicleTreatment,
             seniorityAddition,
+            welfare,
             // partnerSeniorityAddition,
             // deceasedSeniorityAddition,
+            goldenAgeAmount,
             otherIncome,
         ]);
     }, [
@@ -177,8 +219,10 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
         outsourcedFood,
         chronicleTreatment,
         seniorityAddition,
+        welfare,
         // partnerSeniorityAddition,
         // deceasedSeniorityAddition,
+        goldenAgeAmount,
         otherIncome,
     ]);
 
@@ -197,8 +241,16 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                     <InputNumber
                         value={state.personalBudget}
                         disabled
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    {/* <InfoCircleOutlined className={styles.infoIcon} onClick={() => showDrawer('Details about salary')} /> */}
+                    <Tooltip title="מידע על תקציב אישי">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="תוספת ילדים"
@@ -208,8 +260,15 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                     <InputNumber
                         value={state.childrenAddition || 0}
                         disabled // Fixed value
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על תקציב ילדים">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('childrenAddition')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="כלכלה"
@@ -219,8 +278,15 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                     <InputNumber
                         value={state.provisions}
                         disabled
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על תקציב כלכלה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('provisions')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="כביסה"
@@ -230,8 +296,15 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                     <InputNumber
                         value={laundry}
                         disabled
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על תקציב כביסה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('laundry')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="גז"
@@ -241,8 +314,15 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                     <InputNumber
                         value={gas}
                         disabled
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על תקציב גז">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('gas')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="היגיינה"
@@ -252,19 +332,33 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                     <InputNumber
                         value={hygiene}
                         disabled
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על תקציב היגיינה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('hygiene')}
+                        />
+                    </Tooltip>
                 </Form.Item >
                 <Form.Item
-                    label="תחזוקה"
+                    label="אחזקה"
                     labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
                     wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
                 >
                     <InputNumber
                         value={maintenance}
                         disabled
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על תקציב אחזקה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('maintenance')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="רכב"
@@ -274,8 +368,15 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                     <InputNumber
                         value={vehicle}
                         disabled
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על תקציב רכב">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('vehicle')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="חשמל"
@@ -285,8 +386,15 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                     <InputNumber
                         value={energy}
                         disabled
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על תקציב חשמל">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('energy')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="הטבה בגין עבודה"
@@ -295,11 +403,18 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                 >
                     <InputNumber
                         value={benefitForWork}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                         min={0}
-                        max={1000}
+                        max={3000}
                         onChange={(value) => setBenefitForWork(value || 0)}
                     />
+                    <Tooltip title="מידע על הטבה בגין עבודה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="אש״ל עובד חוץ"
@@ -308,10 +423,17 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                 >
                     <InputNumber
                         value={outsourcedFood}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                         min={0}
                         onChange={(value) => setOutsourcedFood(value || 0)}
                     />
+                    <Tooltip title="מידע על תקציב אש״ל עובדי חוץ">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('outsourcedFood')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="טיפול כרוני"
@@ -320,23 +442,98 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                 >
                     <InputNumber
                         value={chronicleTreatment}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                         min={0}
                         onChange={(value) => setChronicleTreatment(value || 0)}
                     />
+                    <Tooltip title="מידע על תקציב טיפולים כרוניים">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
-                label="תוספת ותק"
-                labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
-                wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                    label="תוספת ותק"
+                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
                 >
                     <InputNumber
                         value={seniorityAddition}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                         min={0}
                         onChange={(value) => setSeniorityAddition(value || 0)}
                     />
+                    <Tooltip title="מידע על תוספת ותק">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('seniorityAddition')}
+                        />
+                    </Tooltip>
                 </Form.Item>
+                <Form.Item
+                    label="רווחה (זיכוי)"
+                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                >
+                    <InputNumber
+                        value={welfare}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
+                        min={0}
+                        onChange={(value) => setWelfare(value || 0)}
+                    />
+                    <Tooltip title="מידע על זיכוי רווחה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('welfare')}
+                        />
+                    </Tooltip>
+                </Form.Item>
+                {state.memberGoldenAge === "yes" && (
+                    <Form.Item
+                        label="קרן גיל הזהב - חבר/ה"
+                        labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                        wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                    >
+                        <InputNumber
+                            value={goldenAgeAmount}
+                            style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
+                            // min={0}
+                            onChange={(value) => setGoldenAgeAmount(value || 1000)}
+                        />
+                        <Tooltip title="מידע על קרן גיל הזהב">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
+                    </Form.Item>
+                )}
+                {state.memberPartnerGoldenAge === "yes" && (
+                    <Form.Item
+                        label="קרן גיל הזהב - בן/ת זוג"
+                        labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                        wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                    >
+                        <InputNumber
+                            value={goldenAgeAmount}
+                            style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
+                            // min={0}
+                            onChange={(value) => setGoldenAgeAmount(value || 1000)}
+                        />
+                        <Tooltip title="מידע על קרן גיל הזהב">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
+                    </Form.Item>
+                )}
                 <Form.Item
                     label="אחר"
                     labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
@@ -344,11 +541,27 @@ const CurrentIncomes: React.FC<CurrentIncomesProps> = ({ setIncomes }) => {
                 >
                     <InputNumber
                         value={otherIncome}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                         min={0}
                         onChange={(value) => setOtherIncome(value || 0)}
                     />
+                    <Tooltip title="מידע על הוצאות אחרות">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
+                {drawerContentKey && (
+                <InfoDrawer
+                    title="מידע"
+                    //content={drawerContent}
+                    open={drawerOpen}
+                    onClose={closeDrawer}
+                    contentKey={drawerContentKey}
+                />
+                )}
             </Form>
         </Card>
     );

@@ -21,9 +21,9 @@ const PartnerCommunityStatus: React.FC<PartnerCommunityStatusProps> = ({ status,
     // };
 
     return (
-        <Form.Item label="סטטוס קהילתי של בן/בת הזוג">
+        <Form.Item label="סטטוס של בן/בת הזוג">
             <Select
-                placeholder="בחר סטטוס קהילתי של בן/בת הזוג"
+                placeholder="בחר סטטוס של בן/בת הזוג"
                 value={status}
                 onChange={onStatusChange}
             >

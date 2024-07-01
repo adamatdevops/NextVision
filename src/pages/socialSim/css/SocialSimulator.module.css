@@ -11,17 +11,20 @@
 }
 
 .header {
-    background: #1890ff;
+    background: transparent;
     color: white;
     text-align: center;
     padding: 1rem;
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    font-size: 28px;
+    font-weight: 400;
 }
 
 .footer {
     text-align: center;
     padding: 1rem;
     background: #001529;
-    color: white;
+    color: transparent;
     position: relative;
     bottom: 0;
     width: 100%;
@@ -29,7 +32,7 @@
 
 .content {
     flex: 1;
-    background: white;
+    background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,12 +47,19 @@
     max-height: -moz-fit-content;
     max-height: -webkit-fit-content;
     max-height: fit-content;
+    background: rgba(255, 255, 255, 0.2);
     margin-bottom: 1rem;
-    border-radius: 18px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    border-radius: 28px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Blur effect for Safari */
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
     padding: 20px;
+    margin: 10px; /* Margin around the card */
     flex-grow: 1; /* Allow cards to grow and take up space */
     /* overflow-x: auto; */
+    color: #ffffff; /* White text color */
+    box-sizing: border-box;
 }
 
 .personalInfoCard {
@@ -68,12 +78,14 @@
 .cardsContainer {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     gap: 2rem;
     max-width: 100%;
-    max-height: 100%;
     /* max-width: 1800px; */
-    flex-grow: 1;
+    max-height: 100%;
     /* Allow cards to grow and take up space */
+    flex-grow: 1;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -82,7 +94,7 @@ h1 {
 }
 
 p {
-    color: #595959;
+    color: rgba(255, 255, 255);
     font-size: 18px;
 }
 

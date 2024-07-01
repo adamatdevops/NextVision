@@ -1,7 +1,13 @@
 /* ./src/pages/economicSim/FutureExpenses.tsx */
-import React, { useEffect } from 'react';
-import { Card, Typography, Form, InputNumber } from 'antd';
-import { useGlobalState } from '../../GlobalStateProvider';
+import React, { useEffect, useState } from 'react';
+import { Card, Typography, Form, InputNumber ,Tooltip, Button } from 'antd';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import InfoDrawer from '../../components/ui/drawer/InfoDrawer';
+import { drawerContent } from '../../components/ui/drawer/drawerContent';
+import { childrenData, useFutureExpensesState } from '../../context/FutureExpensesGSP'; // Import the hook
+//import { childrenData, useGlobalState } from '../../GlobalStateProvider'; // Import the hook
+import type { ChildData } from '../../GlobalStateProvider';
+
 import styles from './css/AccountBalance.module.css';
 
 const { Title } = Typography;
@@ -71,9 +77,29 @@ const calculateFamilyMemberCount = (familyStatus, partnerCommunityStatus, childr
 // }
 
 const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
+    /* Use the useCurrentExpenses hook to get context values and setters */
+    // const { state } = useGlobalState();
+    const { state } = useFutureExpensesState();
+
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    // const [drawerContent, setDrawerContent] = useState('');
+    const [drawerContentKey, setDrawerContentKey] = useState<keyof typeof drawerContent | null>(null);
+
+    //const showDrawer = (content: string) => {
+    const showDrawer = (key: keyof typeof drawerContent) => {
+        //setDrawerContent(content);
+        setDrawerContentKey(key);
+        setDrawerOpen(true);
+    };
+
+    const closeDrawer = () => {
+        setDrawerOpen(false);
+        setDrawerContentKey(null);
+    };
+
     const {
-        state,
-        setEducationSystemFees,
+        // state,
+        //setEducationSystemFees,
         setFuturePropertyTaxExpenses,
         setFutureWaterAndSewerExpenses,
         // setFutureGasExpenses,
@@ -85,17 +111,23 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
         setFutureInternetExpenses,
         setFutureVehicleExpenses,
         setFutureEducationSystemExpenses,
+        setFutureKindergartenExpenses,
         setFutureSchoolExpenses,
         setFutureHighSchoolExpenses,
-        setFuturePersonalLessonsExpenses,
+        // setEducationTuitionFees,
+        setFuturePrivateLessonExpenses,
         setFutureTeenageClassExpenses,
         setFutureEducationTransportationExpenses,
-        // setFutureTuitionsExpenses,
-        setFutureSafetyNetExpenses,
+        setFutureEducationPersonalCareExpenses,
+        setFutureEducationDayCareExpenses,
+        //setFutureSafetyNetExpenses,
         setFutureHealthInsuranceExpenses,
         setFutureDentistExpenses,
+        setFuturePartnerDentistExpenses,
+        setFutureChildrenDentistExpenses,
         setFutureWelfareExpenses,
         setFutureFoodExpenses,
+        setFutureDiningRoomExpenses,
         setFutureLaundryExpenses,
         setFutureFlatTaxExpenses,
         setFutureGrossTaxExpenses,
@@ -103,10 +135,44 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
         setFutureCleaningExpenses,
         // setFutureDecorationsExpenses,
         setFutureOtherExpenses,
-    } = useGlobalState();
+    } = useFutureExpensesState();
+
+    const handleFutureTeenageClassExpenseChange = (childIndex: number, classIndex: number, value: number) => {
+        const updatedFutureTeenageClassFees = [...state.futureTeenageClassExpenses];
+        updatedFutureTeenageClassFees[childIndex][classIndex] = value;
+        setFutureTeenageClassExpenses(updatedFutureTeenageClassFees);
+    };
+
+    const handleFuturePrivateLessonExpenseChange = (childIndex: number, lessonIndex: number, value: number) => {
+        const updatedFuturePrivateLessonFees = [...state.futurePrivateLessonExpenses];
+        updatedFuturePrivateLessonFees[childIndex][lessonIndex] = value;
+        setFuturePrivateLessonExpenses(updatedFuturePrivateLessonFees);
+    };
+
+
+    const handleFutureKindergartenExpensesChange = (index: number, value: number | null) => {
+        setFutureKindergartenExpenses(index, value ?? 0);
+    };
+
+    const handleFutureSchoolExpensesChange = (index: number, value: number | null) => {
+        setFutureSchoolExpenses(index, value ?? 0);
+    };
+
+    const handleFutureHighSchoolExpensesChange = (index: number, value: number | null) => {
+        setFutureHighSchoolExpenses(index, value ?? 0);
+    };
+
+    const handleFutureEducationPersonalCareExpenseChange = (index: number, value: number | null) => {
+        setFutureEducationPersonalCareExpenses(index, value ?? 0);
+    };
+
+    const handleFutureEducationDayCareExpenseChange = (index: number, value: number | null) => {
+        setFutureEducationDayCareExpenses(index, value ?? 0);
+    };
+
 
     const {
-        educationSystemFees,
+        // childrenData, // Added
         futurePropertyTaxExpenses,
         futureWaterAndSewerExpenses,
         // futureGasExpenses,
@@ -118,17 +184,24 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
         futureInternetExpenses,
         futureVehicleExpenses,
         futureEducationSystemExpenses,
+        futureKindergartenExpenses,
         futureSchoolExpenses,
         futureHighSchoolExpenses,
-        futurePersonalLessonsExpenses,
+        // educationTuitionFees,
+        futurePrivateLessonExpenses,
         futureTeenageClassExpenses,
         futureEducationTransportationExpenses,
+        futureEducationPersonalCareExpenses,
+        futureEducationDayCareExpenses,
         // futureTuitionsExpenses,
-        futureSafetyNetExpenses,
+        //futureSafetyNetExpenses,
         futureHealthInsuranceExpenses,
         futureDentistExpenses,
+        futurePartnerDentistExpenses,
+        futureChildrenDentistExpenses,
         futureWelfareExpenses,
         futureFoodExpenses,
+        futureDiningRoomExpenses,
         futureLaundryExpenses,
         futureFlatTaxExpenses,
         futureGrossTaxExpenses,
@@ -138,8 +211,8 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
         futureOtherExpenses,
     } = state;
 
-    useEffect(() => {
 
+    useEffect(() => {
         let childrenCount = state.numberOfChildren || 0;
         let familyMemberCount = calculateFamilyMemberCount(state.familyStatus, state.partnerCommunityStatus, childrenCount);
         // Calculate the total education fees
@@ -151,7 +224,7 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
 
 
         if (state.familyStatus === 'married' && state.partnerCommunityStatus === 'community-member') {
-            setEducationSystemFees([]);
+            //setEducationSystemFees([]);
             setFuturePropertyTaxExpenses(apartmentSquareFootageTax);
             setFutureWaterAndSewerExpenses(familyMemberCount * 85);
             // setFutureGasExpenses(0);
@@ -164,16 +237,20 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
             setFutureInternetExpenses(futureInternetExpenses || 0);
             setFutureVehicleExpenses(futureVehicleExpenses || 0);
             setFutureEducationSystemExpenses(totalEducationSystemFees || 0);
-            setFutureSchoolExpenses(futureSchoolExpenses || 0);
-            setFutureHighSchoolExpenses(futureHighSchoolExpenses || 0);
-            setFuturePersonalLessonsExpenses(futurePersonalLessonsExpenses || 0);
-            setFutureTeenageClassExpenses(futureTeenageClassExpenses || 0);
-            // setFutureTuitionsExpenses(futureTuitionsExpenses || 0);
-            setFutureSafetyNetExpenses(futureSafetyNetExpenses || 0);
+            //setFutureKindergartenExpenses(futureKindergartenExpenses);
+            //setFutureSchoolExpenses(futureSchoolExpenses);
+            // setFutureHighSchoolExpenses(futureHighSchoolExpenses || 0);
+            //setFuturePrivateLessonExpenses(futurePrivateLessonExpenses);
+            //setFutureTeenageClassExpenses(futureTeenageClassExpenses);
+            //setFutureTuitionsExpenses(futureTuitionsExpenses || 0);
+            //setFutureSafetyNetExpenses(futureSafetyNetExpenses || 0);
             setFutureHealthInsuranceExpenses(futureChildrenHealthInsuranceExpenses + 452 || 0);
             setFutureDentistExpenses(futureDentistExpenses || 0);
-            setFutureWelfareExpenses(familyMemberCount * 71);
+            setFuturePartnerDentistExpenses(futurePartnerDentistExpenses || 0);
+            setFutureChildrenDentistExpenses(futureChildrenDentistExpenses || 0);
+            setFutureWelfareExpenses(futureWelfareExpenses || 0);
             setFutureFoodExpenses(futureFoodExpenses || 0);
+            setFutureDiningRoomExpenses(futureDiningRoomExpenses || 0);
             setFutureLaundryExpenses(futureLaundryExpenses || 0);
             setFutureFlatTaxExpenses(1500);
             setFutureGrossTaxExpenses(state.futureGrossIncome * 0.06);
@@ -191,23 +268,29 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
             // setFutureElectricityExpenses(0);
             setFutureEnergyExpenses(familyMemberCount * 177);
             setFutureHouseMaintenanceExpenses(250);
-            setFutureGardeningExpenses(futureAlimonyExpenses || 0);
+            setFutureGardeningExpenses(futureGardeningExpenses || 0);
             setFutureNetworkingExpenses(100);
             setFutureInternetExpenses(futureInternetExpenses || 0);
             setFutureVehicleExpenses(futureVehicleExpenses || 0);
             setFutureEducationSystemExpenses(totalEducationSystemFees || 0);
-            setFutureSchoolExpenses(futureSchoolExpenses || 0);
-            setFutureHighSchoolExpenses(futureHighSchoolExpenses || 0);
-            setFuturePersonalLessonsExpenses(futurePersonalLessonsExpenses || 0);
-            setFutureTeenageClassExpenses(futureTeenageClassExpenses || 0);
+            // setFutureKindergartenExpenses(futureKindergartenExpenses);
+            // setFutureSchoolExpenses(futureSchoolExpenses);
+            // setFutureHighSchoolExpenses(futureHighSchoolExpenses);
+            //setFuturePrivateLessonExpenses(futurePrivateLessonExpenses);
+            //setFutureTeenageClassExpenses(futureTeenageClassExpenses);
             setFutureEducationTransportationExpenses(futureEducationTransportationExpenses || 0);
+            //setFutureEducationPersonalCareExpenses(futureEducationPersonalCareExpenses || 0),
+            //setFutureEducationDayCareExpenses(futureEducationDayCareExpenses || 0),
             // setFutureTuitionsExpenses( futureTuitionsExpenses || 0);
-            setFutureSafetyNetExpenses(futureSafetyNetExpenses || 0);
+            //setFutureSafetyNetExpenses(futureSafetyNetExpenses || 0);
             setFutureHealthInsuranceExpenses(futureChildrenHealthInsuranceExpenses + 226 || 0);
             setFutureDentistExpenses(futureDentistExpenses || 0);
-            setFutureWelfareExpenses(familyMemberCount * 71);
+            setFuturePartnerDentistExpenses(futurePartnerDentistExpenses || 0);
+            setFutureChildrenDentistExpenses(futureChildrenDentistExpenses || 0);
+            setFutureWelfareExpenses(futureWelfareExpenses || 0);
             setFutureFoodExpenses(futureFoodExpenses || 0);
-            setFutureLaundryExpenses( futureLaundryExpenses || 0);
+            setFutureDiningRoomExpenses(futureDiningRoomExpenses || 0);
+            setFutureLaundryExpenses(futureLaundryExpenses || 0);
             setFutureFlatTaxExpenses(750);
             setFutureGrossTaxExpenses(state.futureGrossIncome * 0.06);
             setFutureAlimonyExpenses(futureAlimonyExpenses || 0);
@@ -227,18 +310,24 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
             setFutureNetworkingExpenses(100);
             setFutureInternetExpenses(futureInternetExpenses || 0);
             setFutureVehicleExpenses(futureVehicleExpenses || 0);
-            setFutureEducationSystemExpenses(totalEducationSystemFees || 0);
-            setFutureSchoolExpenses(futureSchoolExpenses || 0);
-            setFutureHighSchoolExpenses(futureHighSchoolExpenses || 0);
-            setFuturePersonalLessonsExpenses(futurePersonalLessonsExpenses || 0);
-            setFutureTeenageClassExpenses(futureTeenageClassExpenses || 0);
+            setFutureEducationSystemExpenses(totalEducationSystemFees);
+            //setFutureKindergartenExpenses(futureKindergartenExpenses || 0);
+            // setFutureSchoolExpenses(futureSchoolExpenses || 0);
+            // setFutureHighSchoolExpenses(futureHighSchoolExpenses || 0);
+            //setFuturePrivateLessonExpenses(futurePrivateLessonExpenses);
+            //setFutureTeenageClassExpenses(futureTeenageClassExpenses);
             setFutureEducationTransportationExpenses(futureEducationTransportationExpenses || 0);
+            // setFutureEducationPersonalCareExpenses(futureEducationPersonalCareExpenses || 0);
+            //setFutureEducationDayCareExpenses(futureEducationDayCareExpenses || 0);
             // setFutureTuitionsExpenses(futureTuitionsExpenses || 0);
-            setFutureSafetyNetExpenses(futureSafetyNetExpenses || 0);
+            //setFutureSafetyNetExpenses(futureSafetyNetExpenses || 0);
             setFutureHealthInsuranceExpenses(futureChildrenHealthInsuranceExpenses + 226 || 0);
             setFutureDentistExpenses(futureDentistExpenses || 0);
-            setFutureWelfareExpenses(familyMemberCount * 71);
+            setFuturePartnerDentistExpenses(futurePartnerDentistExpenses || 0);
+            setFutureChildrenDentistExpenses(futureChildrenDentistExpenses || 0);
+            setFutureWelfareExpenses(futureWelfareExpenses || 0);
             setFutureFoodExpenses(futureFoodExpenses || 0);
+            setFutureDiningRoomExpenses(futureDiningRoomExpenses || 0);
             setFutureLaundryExpenses(futureLaundryExpenses || 0);
             setFutureFlatTaxExpenses(750);
             setFutureGrossTaxExpenses(state.futureGrossIncome * 0.06);
@@ -246,6 +335,10 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
             setFutureCleaningExpenses(futureCleaningExpenses || 0);
             // setFutureDecorationsExpenses(0);
             setFutureOtherExpenses(futureOtherExpenses || 0);
+        }
+
+        if (state.memberRetired === 'yes') {
+            setFuturePropertyTaxExpenses(apartmentSquareFootageTax * 0.20);
         }
 
         setExpenses([
@@ -260,15 +353,23 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
             futureNetworkingExpenses,
             futureInternetExpenses,
             futureVehicleExpenses,
-            futurePersonalLessonsExpenses,
-            futureTeenageClassExpenses,
+            //futureKindergartenExpenses,
+            //futureSchoolExpenses,
+            //futureHighSchoolExpenses,
+            //state.futurePrivateLessonExpenses,
+            //state.futureTeenageClassExpenses, // IMPORTANT: Adding this might trigger an error
             futureEducationTransportationExpenses,
+            futureEducationPersonalCareExpenses,
+            futureEducationDayCareExpenses,
             // futureTuitionsExpenses,
-            futureSafetyNetExpenses,
+            // futureSafetyNetExpenses,
             futureHealthInsuranceExpenses,
             futureDentistExpenses,
+            futurePartnerDentistExpenses,
+            futureChildrenDentistExpenses,
             futureWelfareExpenses,
             futureFoodExpenses,
+            futureDiningRoomExpenses,
             futureLaundryExpenses,
             futureFlatTaxExpenses,
             futureGrossTaxExpenses,
@@ -278,6 +379,7 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
             futureOtherExpenses,
         ]);
     }, [
+        state.childrenData,
         futureEducationSystemExpenses,
         futurePropertyTaxExpenses,
         futureWaterAndSewerExpenses,
@@ -289,16 +391,23 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
         futureNetworkingExpenses,
         futureInternetExpenses,
         futureVehicleExpenses,
+        futureKindergartenExpenses,
         futureSchoolExpenses,
-        futurePersonalLessonsExpenses,
+        futureHighSchoolExpenses,
+        futurePrivateLessonExpenses,
         futureTeenageClassExpenses,
         futureEducationTransportationExpenses,
-        // futureTuitionsExpenses,
-        futureSafetyNetExpenses,
+        futureEducationPersonalCareExpenses,
+        futureEducationDayCareExpenses,
+        //futureTuitionsExpenses,
+        // futureSafetyNetExpenses,
         futureHealthInsuranceExpenses,
         futureDentistExpenses,
+        futurePartnerDentistExpenses,
+        futureChildrenDentistExpenses,
         futureWelfareExpenses,
         futureFoodExpenses,
+        futureDiningRoomExpenses,
         futureLaundryExpenses,
         futureFlatTaxExpenses,
         futureGrossTaxExpenses,
@@ -324,9 +433,16 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futurePropertyTaxExpenses}
                         // onChange={(value) => setFuturePropertyTaxExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                         disabled
                     />
+                    <Tooltip title="מידע על חיובי ארנונה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="מים וביוב"
@@ -337,33 +453,16 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureWaterAndSewerExpenses}
                         // onChange={(value) => setFutureWaterAndSewerExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על חיובי מים וביוב">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
-                {/* <Form.Item
-                label="גז"
-                labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
-                wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
-                >
-                    <InputNumber
-                        value={futureGasExpenses}
-                        onChange={(value) => setFutureGasExpenses(value || 0)}
-                        min={0}
-                        style={{ width: '100%' }}
-                    />
-                </Form.Item>
-                <Form.Item
-                label="חשמל"
-                labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
-                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
-                >
-                    <InputNumber
-                        value={futureElectricityExpenses}
-                        onChange={(value) => setFutureElectricityExpenses(value || 0)}
-                        min={0}
-                        style={{ width: '100%' }}
-                    />
-                </Form.Item> */}
                 <Form.Item
                     label="אנרגיה(גז וחשמל)"
                     labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
@@ -373,8 +472,15 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureEnergyExpenses}
                         onChange={(value) => setFutureEnergyExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על חיובי אנרגיה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="תחזוקת בית"
@@ -385,8 +491,15 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureHouseMaintenanceExpenses}
                         onChange={(value) => setFutureHouseMaintenanceExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות תחזוקת בית">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="נוי, שיפוץ ודקורציה"
@@ -397,8 +510,15 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureGardeningExpenses}
                         onChange={(value) => setFutureGardeningExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות נוי, שיפוץ ודקורציה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="תקשורת"
@@ -410,8 +530,15 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         // onChange={(value) => setFutureNetworkingExpenses(value || 0)}
                         min={0}
                         disabled
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על חיובי תקשורת">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="כבלים/אינטרנט"
@@ -422,8 +549,15 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureInternetExpenses}
                         onChange={(value) => setFutureInternetExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות כבלים/אינטרנט">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="תחבורה"
@@ -434,8 +568,15 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureVehicleExpenses}
                         onChange={(value) => setFutureVehicleExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות תחבורה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="מערכת חינוך"
@@ -446,57 +587,130 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureEducationSystemExpenses}
                         onChange={(value) => setFutureEducationSystemExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות חינוך">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
-                <Form.Item
-                    label="שכר לימוד - יסודי"
-                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
-                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
-                >
-                    <InputNumber
-                        value={futureSchoolExpenses}
-                        onChange={(value) => setFutureSchoolExpenses(value || 0)}
-                        min={0}
-                        style={{ width: '100%' }}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label="שכר לימוד - תיכון"
-                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
-                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
-                >
-                    <InputNumber
-                        value={futureHighSchoolExpenses}
-                        onChange={(value) => setFutureHighSchoolExpenses(value || 0)}
-                        min={0}
-                        style={{ width: '100%' }}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label="שיעורים פרטיים"
-                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
-                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
-                >
-                    <InputNumber
-                        value={futurePersonalLessonsExpenses}
-                        onChange={(value) => setFuturePersonalLessonsExpenses(value || 0)}
-                        min={0}
-                        style={{ width: '100%' }}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label="חוגי העשרה"
-                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
-                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
-                >
-                    <InputNumber
-                        value={futureTeenageClassExpenses}
-                        onChange={(value) => setFutureTeenageClassExpenses(value || 0)}
-                        min={0}
-                        style={{ width: '100%' }}
-                    />
-                </Form.Item>
+                {state.childrenData.map((child, childIndex) => (
+                    <div key={child.id}>
+                        {/* Future Kindergarten Expenses */}
+                        {child.educationLevel === 'גיל הרך' && (
+                            <Form.Item
+                                label={`הוצאות גן ילדים לילד ${childIndex + 1}`}
+                                labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                                wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                            >
+                                <InputNumber
+                                    value={state.futureKindergartenExpenses[childIndex] || 0}
+                                    onChange={(value) => handleFutureKindergartenExpensesChange(childIndex, value)}
+                                    min={0}
+                                    style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
+                                />
+                                <Tooltip title="מידע על הוצאות גן ילדים">
+                                    <Button
+                                    type="link"
+                                    icon={<InfoCircleOutlined />}
+                                    onClick={() => showDrawer('personalBudget')}
+                                />
+                                </Tooltip>
+                            </Form.Item>
+                        )}
+                        {/* Future School Expenses */}
+                        {child.educationLevel === 'יסודי' && (
+                            <Form.Item
+                                label={`הוצאות בית ספר לילד ${childIndex + 1}`}
+                                labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                                wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                            >
+                                <InputNumber
+                                    value={state.futureSchoolExpenses[childIndex] || 0}
+                                    onChange={(value) => handleFutureSchoolExpensesChange(childIndex, value)}
+                                    min={0}
+                                    style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
+                                />
+                                <Tooltip title="מידע על הוצאות בית-ספר">
+                                    <Button
+                                        type="link"
+                                        icon={<InfoCircleOutlined />}
+                                        onClick={() => showDrawer('personalBudget')}
+                                    />
+                                </Tooltip>
+                            </Form.Item>
+                        )}
+                        {/* Future High School Expenses */}
+                        {child.educationLevel === 'תיכון' && (
+                            <Form.Item
+                                label={`הוצאות תיכון לילד ${childIndex + 1}`}
+                                labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                                wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                            >
+                                <InputNumber
+                                    value={state.futureHighSchoolExpenses[childIndex] || 0}
+                                    onChange={(value) => handleFutureHighSchoolExpensesChange(childIndex, value)}
+                                    min={0}
+                                    style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
+                                />
+                                <Tooltip title="מידע על הוצאות תיכון">
+                                    <Button
+                                        type="link"
+                                        icon={<InfoCircleOutlined />}
+                                        onClick={() => showDrawer('personalBudget')}
+                                    />
+                                </Tooltip>
+                            </Form.Item>
+                        )}
+                        {child.teenageClassFees.map((fee, classIndex) => (
+                            <Form.Item
+                                key={`child-${childIndex}-future-teenage-class-${classIndex}`}
+                                label={`חוג העשרה ${classIndex + 1}`}
+                                labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                                wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                            >
+                                <InputNumber
+                                    min={0}
+                                    value={fee}
+                                    onChange={(value) => handleFutureTeenageClassExpenseChange(childIndex, classIndex, value || 0)}
+                                    style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
+                                />
+                                <Tooltip title="מידע על הוצאות חוגי העשרה">
+                                    <Button
+                                        type="link"
+                                        icon={<InfoCircleOutlined />}
+                                        onClick={() => showDrawer('personalBudget')}
+                                    />
+                                </Tooltip>
+                            </Form.Item>
+                        ))}
+                        {child.privateLessonFees.map((fee, lessonIndex) => (
+                            <Form.Item
+                                key={`child-${childIndex}-future-private-lesson-${lessonIndex}`}
+                                label={`שיעור פרטי ${lessonIndex + 1}`}
+                                labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                                wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                            >
+                                <InputNumber
+                                    min={0}
+                                    value={fee}
+                                    onChange={(value) => handleFuturePrivateLessonExpenseChange(childIndex, lessonIndex, value || 0)}
+                                    style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
+                                />
+                                <Tooltip title="מידע על הוצאות שיעורים פרטיים">
+                                    <Button
+                                        type="link"
+                                        icon={<InfoCircleOutlined />}
+                                        onClick={() => showDrawer('personalBudget')}
+                                    />
+                                </Tooltip>
+                            </Form.Item>
+                        ))}
+                    </div>
+                ))}
                 <Form.Item
                     label="הסעות"
                     labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
@@ -504,35 +718,83 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                 >
                     <InputNumber
                         value={futureEducationTransportationExpenses}
-                        onChange={(value) => setFutureEducationSystemExpenses(value || 0)}
+                        onChange={(value) => setFutureEducationTransportationExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על חיובי הסעות">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
-                {/* <Form.Item
-                    label="שכר לימוד"
+                                <Form.Item
+                    label="הסעות"
                     labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
                     wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
                 >
                     <InputNumber
-                        value={futureTuitionsExpenses}
-                        onChange={(value) => setFutureTuitionsExpenses(value || 0)}
+                        value={futureEducationTransportationExpenses}
+                        onChange={(value) => setFutureEducationTransportationExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
-                </Form.Item> */}
-                <Form.Item
-                    label="רשת ביטחון"
-                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
-                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
-                >
-                    <InputNumber
-                        value={futureSafetyNetExpenses}
-                        onChange={(value) => setFutureSafetyNetExpenses(value || 0)}
-                        min={0}
-                        style={{ width: '100%' }}
-                    />
+                    <Tooltip title="מידע על חיובי הסעות">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
+                {state.childrenData.map((child, childIndex) => (
+                <div key={child.id}>
+                    {child.educationPersonalCare === 'כן' && (
+                        <Form.Item
+                            label={`טיפול מיוחד לילד ${childIndex + 1}`}
+                            labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                            wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                        >
+                        <InputNumber
+                            value={state.futureEducationPersonalCareExpenses[childIndex] || 0}
+                            onChange={(value) => handleFutureEducationPersonalCareExpenseChange(childIndex, value)}
+                            min={0}
+                            style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
+                        />
+                            <Tooltip title="מידע על הוצאות טיפול מיוחד ילדים">
+                                <Button
+                                    type="link"
+                                    icon={<InfoCircleOutlined />}
+                                    onClick={() => showDrawer('futureEducationPersonalCareExpenses')}
+                                />
+                            </Tooltip>
+                        </Form.Item>
+                    )}
+                    {child.educationDayCare === 'כן' && (
+                        <Form.Item
+                            label={`צהרון לילד ${childIndex + 1}`}
+                            labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                            wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                        >
+                            <InputNumber
+                                value={state.futureEducationDayCareExpenses[childIndex] || 0}
+                                    onChange={(value) => handleFutureEducationDayCareExpenseExpenseChange(childIndex, value)}
+                                min={0}
+                                style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
+                            />
+                            <Tooltip title="מידע על הוצאות צהרון">
+                                <Button
+                                    type="link"
+                                    icon={<InfoCircleOutlined />}
+                                    onClick={() => showDrawer('futureEducationDayCareExpenses')}
+                                />
+                            </Tooltip>
+                        </Form.Item>
+                    )}
+                </div>
+                ))}
                 <Form.Item
                     label="ביטוח בריאות"
                     labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
@@ -542,11 +804,18 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureHealthInsuranceExpenses}
                         onChange={(value) => setFutureHealthInsuranceExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על ביטוח בריאות">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
-                    label="רופא שיניים"
+                    label="חברה/ה טיפולי שיניים"
                     labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
                     wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
                 >
@@ -554,8 +823,55 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureDentistExpenses}
                         onChange={(value) => setFutureDentistExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות טיפולי שיניים">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
+                </Form.Item>
+                {state.communityMemberPartner !== 'no-partner' && (
+                <Form.Item
+                    label="טיפולי שיניים בן/ת זוג"
+                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                >
+                    <InputNumber
+                        value={futurePartnerDentistExpenses}
+                        onChange={(value) => setFuturePartnerDentistExpenses(value || 0)}
+                        min={0}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
+                    />
+                    <Tooltip title="מידע על הוצאות טיפולי שיניים">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
+                </Form.Item>
+                )}
+                <Form.Item
+                    label="טיפולי שיניים ילדים"
+                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                >
+                    <InputNumber
+                        value={futureChildrenDentistExpenses}
+                        onChange={(value) => setFutureChildrenDentistExpenses(value || 0)}
+                        min={0}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
+                    />
+                    <Tooltip title="מידע על הוצאות טיפולי שיניים">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="רווחה"
@@ -566,11 +882,18 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureWelfareExpenses}
                         onChange={(value) => setFutureWelfareExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות רווחה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
-                    label="מזון"
+                    label="כלכלה"
                     labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
                     wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
                 >
@@ -578,8 +901,34 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureFoodExpenses}
                         onChange={(value) => setFutureFoodExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות כלכלה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
+                </Form.Item>
+                <Form.Item
+                    label="חדר אוכל"
+                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
+                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
+                >
+                    <InputNumber
+                        value={futureDiningRoomExpenses}
+                        onChange={(value) => setFutureDiningRoomExpenses(value || 0)}
+                        min={0}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
+                    />
+                    <Tooltip title="מידע על חיובי חד״א">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="כביסה"
@@ -590,8 +939,15 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureLaundryExpenses}
                         onChange={(value) => setFutureLaundryExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות כביסה">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="מס אחיד"
@@ -603,8 +959,15 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         onChange={(value) => setFutureFlatTaxExpenses(value || 0)}
                         min={750}
                         max={1500}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)',  marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על חיובי מס אחיד">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="מס ברוטו"
@@ -616,8 +979,15 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         onChange={(value) => setFutureGrossTaxExpenses(value || 0)}
                         min={0}
                         max={2500}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על חיובי מס ברוטו">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="מזונות"
@@ -628,8 +998,15 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureAlimonyExpenses}
                         onChange={(value) => setFutureAlimonyExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על מזונות">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
                 <Form.Item
                     label="ניקיון"
@@ -640,21 +1017,16 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureCleaningExpenses}
                         onChange={(value) => setFutureCleaningExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות ניקיון">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
-                {/* <Form.Item
-                    label="שיפוץ ודקורציה"
-                    labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
-                    wrapperCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 10 }}
-                >
-                    <InputNumber
-                        value={futureDecorationsExpenses}
-                        onChange={(value) => setFutureDecorationsExpenses(value || 0)}
-                        min={0}
-                        style={{ width: '100%' }}
-                    />
-                </Form.Item> */}
                 <Form.Item
                     label="אחר"
                     labelCol={{ span: 4, sm: 4, md: 6, lg: 8, xl: 12 }}
@@ -664,9 +1036,25 @@ const FutureExpenses: React.FC<FutureExpensesProps> = ({ setExpenses }) => {
                         value={futureOtherExpenses}
                         onChange={(value) => setFutureOtherExpenses(value || 0)}
                         min={0}
-                        style={{ width: '100%' }}
+                        style={{ width: 'calc(100% - 42px)', marginLeft: '8px' }}
                     />
+                    <Tooltip title="מידע על הוצאות אחרןת">
+                        <Button
+                            type="link"
+                            icon={<InfoCircleOutlined />}
+                            onClick={() => showDrawer('personalBudget')}
+                        />
+                    </Tooltip>
                 </Form.Item>
+                {drawerContentKey && (
+                <InfoDrawer
+                    //title="מידע"
+                    //content={drawerContent}
+                    open={drawerOpen}
+                    onClose={closeDrawer}
+                    contentKey={drawerContentKey}
+                />
+                )}
             </Form>
         </Card>
     );

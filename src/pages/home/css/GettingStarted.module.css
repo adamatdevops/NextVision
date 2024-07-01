@@ -1,7 +1,7 @@
 /* GettingStarted.module.css */
 .layout {
     min-height: 100vh; /* Cover the full viewport height */
-    background-image: url('../assets/img/gettingStarted/desktop/desktop-community-1920.jpeg');
+    background-image: url('../assets/img/vibrant/background-01-3840x4000.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -59,6 +59,7 @@
     /* background-color: #ff18522d; */
     background-color: #1edbd8ea;
     /* Example: Ant Design primary color */
+    /* Update with the correct path */
     color: rgb(82, 78, 82);
     border-color: #262625d2;
     border: none;
@@ -80,92 +81,115 @@
 }
 
 .card {
+    max-height: -moz-fit-content;
+    max-height: -webkit-fit-content;
+    max-height: fit-content;
     display: flex;
     flex-direction: row;
     position: relative;
     background-color: #ed3e840f;
     border-color: #8d8d89d2;
     margin: 8px;
-    border-radius: 40px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    padding: 18px;
+    border-radius: 28px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Blur effect for Safari */
+    border: 2px solid rgba(255, 255, 255, 0.3); /* Semi-transparent border */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    padding: 20px;
+    margin: 10px; /* Margin around the card */
     justify-content: space-between;
+    flex-grow: 1; /* Allow cards to grow and take up space */
+    /* overflow-x: auto; */
+    color: #ffffff; /* White text color */
+    box-sizing: border-box;
 }
 
 /* Media Queries for Responsiveness */
 @media (min-width: 375px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/mobile/mobile-tractor-375.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-375.jpeg') !important;
+        /* background-size: contain; */
         /* Small background */
     }
 }
 
 @media (min-width: 390px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/mobile/mobile-tractor-390.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-390.jpeg') !important;
+        /* background-size: contain; */
         /* Small background */
     }
 }
 
 @media (min-width: 414px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/mobile/mobile-tractor-414.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-414.jpeg') !important;
+        /* background-size: contain; */
         /* Small background */
     }
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/tablet/tablet-tractor-800.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-576.jpeg') !important;
+        /* background-size: contain; */
         /* Medium background */
     }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/tablet/tablet-tractor-800.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-768.jpeg') !important;
+        /* background-size: cover; */
         /* Large background */
     }
 }
 
 @media (min-width: 1024px) and (max-width: 1280px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/tablet/tablet-tractor-1024.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-1024.jpeg') !important;
+        /* background-size: cover; */
         /* Extra Large background */
     }
 }
 
 @media (min-width: 1366px) and (max-width: 1420px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-1366.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-1366x900.jpeg') !important;
+        /* background-size: cover; */
         /* Extra Large background */
     }
 }
 
 @media (min-width: 1440px) and (max-width: 1800px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-1440.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-1440x960.jpeg') !important;
+        /* background-size: cover; */
         /* Extra Large background */
     }
 }
 
 @media (min-width: 1920px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-1920.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-1920x1280.jpeg') !important;
+        /* background-size: cover; */
         /* Extra Large background */
     }
 }
 
 @media (min-width: 2560px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-2560.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-2560x1770.jpeg') !important;
+        /* background-size: cover; */
         /* Extra Large background */
     }
 }
 
 @media (min-width: 3840px) {
     .layout {
-        background-image: url('../assets/img/gettingStarted/desktop/desktop-tractor-3840.jpeg') !important;
+        background-image: url('../assets/img/vibrant/background-01-3840x2560.jpeg') !important;
+        /* background-size: cover; */
         /* Extra Large background */
     }
 }
